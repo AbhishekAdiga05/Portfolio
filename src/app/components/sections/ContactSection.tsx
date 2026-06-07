@@ -22,7 +22,7 @@ export function ContactSection() {
     outline: "none",
     width: "100%",
     transition: "border-color 0.2s",
-    fontFamily: "'Inter', sans-serif",
+    fontFamily: "'Geist', 'Inter', sans-serif",
   };
 
   return (
@@ -42,11 +42,11 @@ export function ContactSection() {
           </div>
           <h2
             className="text-white mb-4"
-            style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)", fontWeight: 800, letterSpacing: "-0.025em", fontFamily: "'Space Grotesk', sans-serif", textShadow: "0 0 40px rgba(34,197,94,0.15)" }}
+            style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)", fontWeight: 700, letterSpacing: "-0.04em", fontFamily: "'Space Grotesk', sans-serif", textShadow: "0 0 40px rgba(34,197,94,0.15)" }}
           >
             Get in Touch
           </h2>
-          <p className="mb-10 max-w-lg" style={{ color: "#ccc", lineHeight: 1.8, fontSize: "1rem", fontFamily: "'Space Grotesk', sans-serif" }}>
+          <p className="mb-10 max-w-lg" style={{ color: "#ddd", lineHeight: 1.8, fontSize: "1rem", fontFamily: "'Geist', 'Inter', sans-serif" }}>
             {contactInfo.description}
           </p>
         </motion.div>
@@ -102,19 +102,19 @@ export function ContactSection() {
                     <Icon size={17} style={{ color: G }} />
                   </div>
                   <div>
-                    <p className="text-xs mb-0.5" style={{ color: "#888" }}>{label}</p>
+                    <p className="text-xs mb-0.5" style={{ color: "#aaa", fontFamily: "'Geist', 'Inter', sans-serif" }}>{label}</p>
                     {href ? (
                       <a
                         href={href}
                         className="text-sm transition-colors duration-200"
-                        style={{ color: "#d4d4d4", fontFamily: "'Space Grotesk', sans-serif" }}
+                        style={{ color: "#e4e4e4", fontFamily: "'Geist', 'Inter', sans-serif" }}
                         onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = G)}
-                        onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "#d4d4d4")}
+                        onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "#e4e4e4")}
                       >
                         {value}
                       </a>
                     ) : (
-                      <p className="text-sm" style={{ color: "#d4d4d4", fontFamily: "'Space Grotesk', sans-serif" }}>{value}</p>
+                      <p className="text-sm" style={{ color: "#e4e4e4", fontFamily: "'Geist', 'Inter', sans-serif" }}>{value}</p>
                     )}
                   </div>
                 </div>
@@ -139,7 +139,7 @@ export function ContactSection() {
                   <Send size={28} style={{ color: G }} />
                 </div>
                 <p className="text-white font-semibold">Message sent!</p>
-                <p className="text-sm" style={{ color: "#d8d8d8" }}>{contactInfo.responseTime}</p>
+                <p className="text-sm" style={{ color: "#e8e8e8" }}>{contactInfo.responseTime}</p>
               </div>
             ) : (
               <form
@@ -152,7 +152,7 @@ export function ContactSection() {
               >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs mb-2" style={{ color: "#d0d0d0" }}>Name</label>
+                    <label className="block text-xs font-medium mb-2" style={{ color: "#e0e0e0" }}>Name</label>
                     <input
                       type="text"
                       required
@@ -165,7 +165,7 @@ export function ContactSection() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs mb-2" style={{ color: "#d0d0d0" }}>Email</label>
+                    <label className="block text-xs font-medium mb-2" style={{ color: "#e0e0e0" }}>Email</label>
                     <input
                       type="email"
                       required
@@ -179,7 +179,7 @@ export function ContactSection() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs mb-2" style={{ color: "#d0d0d0" }}>Message</label>
+                  <label className="block text-xs font-medium mb-2" style={{ color: "#e0e0e0" }}>Message</label>
                   <textarea
                     required
                     rows={6}

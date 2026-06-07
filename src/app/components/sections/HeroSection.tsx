@@ -118,7 +118,7 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45 }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-widest mb-6"
-              style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.25)", color: G }}
+              style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.25)", color: G, fontFamily: "'JetBrains Mono', monospace" }}
             >
               <motion.span
                 animate={{ opacity: [1, 0.2, 1] }}
@@ -134,15 +134,23 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.08 }}
-              className="text-white leading-none mb-3"
+              className="text-white leading-none mb-4"
               style={{
                 fontSize: "clamp(2.5rem, 8vw, 5.5rem)",
-                fontWeight: 800,
-                letterSpacing: "-0.03em",
+                fontWeight: 750,
+                letterSpacing: "-0.045em",
                 fontFamily: "'Space Grotesk', sans-serif",
               }}
             >
-              {personalInfo.firstName}{" "}
+              <span
+                style={{
+                  background: "linear-gradient(135deg, #ffffff 0%, #b8b8b8 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                {personalInfo.firstName}
+              </span>{" "}
               <span style={{ color: G, textShadow: "0 0 60px rgba(34,197,94,0.5)" }}>
                 {personalInfo.lastName}
               </span>
@@ -157,7 +165,7 @@ export function HeroSection() {
               style={{
                 color: G,
                 fontFamily: "'JetBrains Mono', monospace",
-                letterSpacing: "0.04em",
+                letterSpacing: "0.06em",
                 fontSize: "clamp(0.8rem, 2.5vw, 1rem)",
                 textShadow: "0 0 30px rgba(34,197,94,0.3)",
               }}
@@ -166,7 +174,7 @@ export function HeroSection() {
               <motion.div
                 animate={{ width: ["0%", "100%", "0%"], opacity: [0.3, 0.8, 0.3] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="h-px mt-1 mx-auto"
+                className="h-px mt-1.5 mx-auto"
                 style={{ background: "linear-gradient(to right, transparent, #22C55E, transparent)" }}
               />
             </motion.p>
@@ -178,16 +186,16 @@ export function HeroSection() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="leading-relaxed mb-8 mx-auto lg:mx-0"
               style={{
-                color: "#e0e0e0",
-                lineHeight: 1.85,
-                fontSize: "clamp(0.875rem, 2.5vw, 0.9375rem)",
-                fontFamily: "'Space Grotesk', sans-serif",
+                color: "#ececec",
+                lineHeight: 1.8,
+                fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
+                fontFamily: "'Geist', 'Inter', sans-serif",
                 maxWidth: "48ch",
               }}
             >
               {personalInfo.heroBio}
               <br /><br />
-              <span style={{ color: "#a0a0a0", fontSize: "0.875rem" }}>{personalInfo.heroContext}</span>
+               <span style={{ color: "#bbb", fontSize: "0.875rem", fontFamily: "'Geist', 'Inter', sans-serif", lineHeight: 1.6 }}>{personalInfo.heroContext}</span>
             </motion.p>
 
             {/* CTAs */}

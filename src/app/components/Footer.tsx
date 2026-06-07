@@ -18,7 +18,7 @@ export function Footer() {
             Abhi<span style={{ color: "#22C55E" }}>.</span>dev
           </span>
         </div>
-        <p className="text-xs" style={{ color: "#666", fontFamily: "'JetBrains Mono', monospace" }}>
+        <p className="text-xs" style={{ color: "#999", fontFamily: "'JetBrains Mono', monospace" }}>
           © 2025 Abhishek Adiga · React · TypeScript · Tailwind
         </p>
         <div className="flex items-center gap-4">

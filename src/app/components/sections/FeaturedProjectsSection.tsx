@@ -26,10 +26,10 @@ export function FeaturedProjectsSection() {
               <div className="w-5 h-[2px]" style={{ background: G }} />
               <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: G, fontFamily: "'JetBrains Mono', monospace" }}>Projects</span>
             </div>
-            <h2 className="text-white" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)", fontWeight: 800, letterSpacing: "-0.025em", fontFamily: "'Space Grotesk', sans-serif", textShadow: "0 0 40px rgba(34,197,94,0.15)" }}>
+            <h2 className="text-white" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)", fontWeight: 700, letterSpacing: "-0.04em", fontFamily: "'Space Grotesk', sans-serif", textShadow: "0 0 40px rgba(34,197,94,0.15)" }}>
               Featured Projects
             </h2>
-            <p style={{ color: "#999", fontSize: "0.875rem", fontFamily: "'Space Grotesk', sans-serif" }}>
+            <p style={{ color: "#bbb", fontSize: "0.875rem", fontFamily: "'Geist', 'Inter', sans-serif", lineHeight: 1.6 }}>
               Things I've designed, built, and shipped.
             </p>
           </div>
@@ -77,14 +77,14 @@ export function FeaturedProjectsSection() {
 
                 {/* Content */}
                 <div className="p-4 flex flex-col flex-1">
-                  <p className="text-xs mb-1" style={{ color: "rgba(34,197,94,0.85)", fontFamily: "'JetBrains Mono', monospace" }}>{p.subtitle}</p>
-                  <h3 className="text-white font-semibold mb-2" style={{ fontSize: "0.9375rem", fontFamily: "'Space Grotesk', sans-serif", letterSpacing: "-0.01em" }}>{p.title}</h3>
-                  <p className="mb-3 flex-1" style={{ color: "#ccc", lineHeight: 1.8, fontSize: "0.875rem", fontFamily: "'Space Grotesk', sans-serif" }}>{p.description}</p>
+                  <p className="text-xs mb-1" style={{ color: "rgba(34,197,94,0.9)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.02em" }}>{p.subtitle}</p>
+                  <h3 className="text-white font-semibold mb-2" style={{ fontSize: "1.0625rem", fontFamily: "'Space Grotesk', sans-serif", letterSpacing: "-0.015em" }}>{p.title}</h3>
+                  <p className="mb-3 flex-1" style={{ color: "#ddd", lineHeight: 1.75, fontSize: "0.875rem", fontFamily: "'Geist', 'Inter', sans-serif" }}>{p.description}</p>
 
                   {/* Tags */}
                   <div className="flex flex-wrap gap-1 mb-3">
                     {p.tags.map((t) => (
-                      <span key={t} className="text-xs px-1.5 py-0.5 rounded" style={{ background: "rgba(34,197,94,0.07)", color: "rgba(34,197,94,0.8)", border: "1px solid rgba(34,197,94,0.15)", fontFamily: "'JetBrains Mono', monospace" }}>{t}</span>
+                      <span key={t} className="text-xs px-1.5 py-0.5 rounded" style={{ background: "rgba(34,197,94,0.07)", color: "rgba(34,197,94,0.85)", border: "1px solid rgba(34,197,94,0.15)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.01em" }}>{t}</span>
                     ))}
                   </div>
 
