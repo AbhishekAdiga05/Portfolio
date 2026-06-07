@@ -37,30 +37,36 @@ export function CertificationsSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="group rounded-xl overflow-hidden transition-all duration-200"
+                className="group rounded-xl overflow-hidden"
                 style={{ background: "#0a0a0a", border: "1px solid rgba(255,255,255,0.06)" }}
-                whileHover={{ borderColor: "rgba(34,197,94,0.2)", boxShadow: "0 0 32px rgba(34,197,94,0.06)", y: -2 }}
-                transition={{ duration: 0.25 }}
+                whileHover={{ y: -3, borderColor: "rgba(34,197,94,0.2)", boxShadow: "0 0 32px rgba(34,197,94,0.06)", transition: { type: "spring", stiffness: 300, damping: 20 } }}
               >
                 {/* Left accent bar on hover */}
-                <div
-                  className="h-1 w-full transition-all duration-300"
+                <motion.div
+                  className="h-1 w-full"
                   style={{ background: `linear-gradient(to right, ${G}66, transparent)`, opacity: 0.4 }}
+                  whileHover={{ opacity: 0.8 }}
+                  transition={{ duration: 0.2 }}
                 />
 
                 <div className="p-5">
                   <div className="flex items-start gap-3 mb-3">
                     {/* Icon with glow */}
-                    <div
+                    <motion.div
+                      whileHover={{ scale: 1.12 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
                       className="w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0 relative"
                       style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.12)" }}
                     >
                       <span className="relative z-10">{cert.icon}</span>
-                      <div
-                        className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                        transition={{ duration: 0.25 }}
+                        className="absolute inset-0 rounded-xl"
                         style={{ background: "radial-gradient(circle, rgba(34,197,94,0.12) 0%, transparent 70%)" }}
                       />
-                    </div>
+                    </motion.div>
                     <div className="min-w-0 flex-1">
                       <p className="font-semibold leading-snug" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "#f5f5f5", fontSize: "0.9375rem", letterSpacing: "-0.01em" }}>
                         {cert.name}

@@ -168,15 +168,15 @@ export function Navbar() {
 
         {/* CTA */}
         <div className="hidden md:flex items-center gap-3">
-          <button
+          <motion.button
             onClick={() => handleSectionClick("contact")}
-            className="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200"
+            className="px-5 py-2 rounded-full text-sm font-semibold"
             style={{ background: G, color: "#050505", boxShadow: "0 0 16px rgba(34,197,94,0.35)" }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 28px rgba(34,197,94,0.55)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 16px rgba(34,197,94,0.35)"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
+            whileHover={{ y: -1, boxShadow: "0 0 28px rgba(34,197,94,0.55)" }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
           >
             Contact
-          </button>
+          </motion.button>
         </div>
 
         <button className="md:hidden p-2 text-white" onClick={() => setMenuOpen(v => !v)}>

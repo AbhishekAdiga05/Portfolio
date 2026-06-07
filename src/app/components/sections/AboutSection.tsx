@@ -61,7 +61,9 @@ export function AboutSection() {
             className="lg:col-span-7 flex flex-col gap-6"
           >
             {/* Terminal intro */}
-            <div
+            <motion.div
+              whileHover={{ y: -2 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className="rounded-xl p-5 overflow-hidden relative"
               style={{ background: "#0a0a0a", border: "1px solid rgba(34,197,94,0.12)" }}
             >
@@ -88,12 +90,15 @@ export function AboutSection() {
                     <p style={{ color: "#ccc", lineHeight: 1.8, fontSize: "1rem", fontFamily: "'Geist', 'Inter', sans-serif", marginTop: "14px" }}>
                       {aboutInfo.secondary}
                     </p>
-                </div>
+                  </div>
               </div>
-            </div>
+            </motion.div>
+
 
             {/* Interests tag cloud */}
-            <div
+            <motion.div
+              whileHover={{ y: -2 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className="rounded-xl p-5"
               style={{ background: "#0a0a0a", border: "1px solid rgba(255,255,255,0.06)" }}
             >
@@ -102,28 +107,32 @@ export function AboutSection() {
                 <span style={{ color: "#666", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.08em", textTransform: "uppercase", fontSize: "0.6875rem" }}>Interests</span>
                 <div className="flex-1 h-px" style={{ background: "rgba(255,255,255,0.05)" }} />
               </div>
-              <div className="flex flex-wrap gap-2">
+              <motion.div
+                initial="hidden"
+                animate={inView ? "visible" : "hidden"}
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: { opacity: 1, transition: { staggerChildren: 0.05, delayChildren: 0.1 } },
+                }}
+                className="flex flex-wrap gap-2"
+              >
                 {aboutInfo.interests.map((t) => (
-                  <span
+                  <motion.span
                     key={t}
-                    className="px-3 py-1 rounded-full text-xs font-medium transition-all duration-200"
+                    variants={{
+                      hidden: { opacity: 0, y: 8 },
+                      visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] } },
+                    }}
+                    className="px-3 py-1 rounded-full text-xs font-medium"
                     style={{ background: "rgba(34,197,94,0.08)", color: G, border: "1px solid rgba(34,197,94,0.15)", fontFamily: "'JetBrains Mono', monospace" }}
-                    onMouseEnter={(e) => {
-                      const el = e.currentTarget as HTMLElement;
-                      el.style.background = "rgba(34,197,94,0.15)";
-                      el.style.boxShadow = "0 0 16px rgba(34,197,94,0.15)";
-                    }}
-                    onMouseLeave={(e) => {
-                      const el = e.currentTarget as HTMLElement;
-                      el.style.background = "rgba(34,197,94,0.08)";
-                      el.style.boxShadow = "none";
-                    }}
+                    whileHover={{ scale: 1.08, background: "rgba(34,197,94,0.15)", boxShadow: "0 0 16px rgba(34,197,94,0.15)" }}
+                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
                   >
                     {t}
-                  </span>
+                  </motion.span>
                 ))}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </motion.div>
 
           {/* RIGHT — Stat cards */}
@@ -139,28 +148,19 @@ export function AboutSection() {
                 initial={{ opacity: 0, x: 12 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.35, delay: 0.15 + i * 0.08 }}
-                className="rounded-xl p-4 transition-all duration-200"
+                className="rounded-xl p-4"
                 style={{ background: "#0a0a0a", border: "1px solid rgba(34,197,94,0.1)" }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget as HTMLElement;
-                  el.style.borderColor = "rgba(34,197,94,0.25)";
-                  el.style.boxShadow = "0 0 24px rgba(34,197,94,0.06)";
-                  el.style.background = "#0d0d0d";
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget as HTMLElement;
-                  el.style.borderColor = "rgba(34,197,94,0.1)";
-                  el.style.boxShadow = "none";
-                  el.style.background = "#0a0a0a";
-                }}
+                whileHover={{ y: -2, borderColor: "rgba(34,197,94,0.25)", boxShadow: "0 0 24px rgba(34,197,94,0.06)", background: "#0d0d0d", transition: { type: "spring", stiffness: 300, damping: 20 } }}
               >
                 <div className="flex items-start gap-3">
-                  <div
+                  <motion.div
+                    whileHover={{ scale: 1.12 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
                     className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
                     style={{ background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.15)" }}
                   >
                     <s.icon size={15} style={{ color: G }} />
-                  </div>
+                  </motion.div>
                   <div className="min-w-0 flex-1">
                     <p className="text-white font-semibold leading-snug" style={{ fontSize: "0.875rem", fontFamily: "'Space Grotesk', sans-serif", letterSpacing: "-0.01em" }}>{s.label}</p>
                     <p style={{ color: "#b4b4b4", fontSize: "0.8125rem", lineHeight: 1.6, fontFamily: "'JetBrains Mono', monospace" }}>{s.sub}</p>

@@ -74,10 +74,10 @@ export function ExperienceSection() {
 
                   {/* Card */}
                   <motion.div
-                    className="rounded-xl overflow-hidden transition-all duration-200"
+                    className="rounded-xl overflow-hidden"
                     style={{ background: "#0a0a0a", border: "1px solid rgba(255,255,255,0.06)" }}
-                    whileHover={{ borderColor: "rgba(34,197,94,0.25)", boxShadow: "0 0 32px rgba(34,197,94,0.06)" }}
-                    transition={{ duration: 0.25 }}
+                    whileHover={{ y: -2, borderColor: "rgba(34,197,94,0.25)", boxShadow: "0 0 32px rgba(34,197,94,0.06)" }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
                     {/* Top gradient accent */}
                     <div
@@ -108,14 +108,30 @@ export function ExperienceSection() {
                       </div>
 
                       {/* Bullets */}
-                      <ul className="flex flex-col gap-2.5">
+                      <motion.ul
+                        initial="hidden"
+                        animate={inView ? "visible" : "hidden"}
+                        variants={{
+                          hidden: { opacity: 0 },
+                          visible: { opacity: 1, transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
+                        }}
+                        className="flex flex-col gap-2.5"
+                      >
                         {exp.bullets.map((b, j) => (
-                          <li key={j} className="flex items-start gap-3" style={{ color: "#ddd", lineHeight: 1.75, fontSize: "0.9375rem", fontFamily: "'Geist', 'Inter', sans-serif" }}>
+                          <motion.li
+                            key={j}
+                            variants={{
+                              hidden: { opacity: 0, x: -8 },
+                              visible: { opacity: 1, x: 0, transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] } },
+                            }}
+                            className="flex items-start gap-3"
+                            style={{ color: "#ddd", lineHeight: 1.75, fontSize: "0.9375rem", fontFamily: "'Geist', 'Inter', sans-serif" }}
+                          >
                             <span className="mt-[7px] flex-shrink-0 w-[5px] h-[5px] rounded-full" style={{ background: "rgba(34,197,94,0.5)", boxShadow: "0 0 6px rgba(34,197,94,0.2)" }} />
                             {b}
-                          </li>
+                          </motion.li>
                         ))}
-                      </ul>
+                      </motion.ul>
                     </div>
                   </motion.div>
                 </motion.div>

@@ -35,22 +35,12 @@ function FloatingIcon({ skill, i }: { skill: { name: string; logo: string; bg: s
           ease: "easeInOut",
           delay: i * 0.25,
         }}
-        whileHover={{ scale: 1.2, rotate: 6 }}
+          whileHover={{ scale: 1.1, y: -2, background: `${skill.bg}30`, borderColor: `${skill.bg}80`, boxShadow: `0 8px 28px ${skill.bg}44`, transition: { type: "spring", stiffness: 400, damping: 15 } }}
         className="relative w-12 h-12 rounded-xl flex items-center justify-center cursor-default"
         style={{
           background: `${skill.bg}18`,
           border: `1.5px solid ${skill.bg}40`,
           boxShadow: `0 4px 16px ${skill.bg}22`,
-        }}
-        onMouseEnter={(e) => {
-          (e.currentTarget as HTMLElement).style.background = `${skill.bg}30`;
-          (e.currentTarget as HTMLElement).style.borderColor = `${skill.bg}80`;
-          (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 28px ${skill.bg}44`;
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLElement).style.background = `${skill.bg}18`;
-          (e.currentTarget as HTMLElement).style.borderColor = `${skill.bg}40`;
-          (e.currentTarget as HTMLElement).style.boxShadow = `0 4px 16px ${skill.bg}22`;
         }}
       >
         <img src={skill.logo} alt={skill.name} className="w-6 h-6 object-contain" />
@@ -72,6 +62,7 @@ function CategoryBox({ category, delay }: { category: typeof skillCategories[0];
       initial={{ opacity: 0, y: 28 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay }}
+      whileHover={{ y: -2, transition: { type: "spring", stiffness: 300, damping: 20 } }}
       className="rounded-2xl p-6 flex flex-col gap-5"
       style={{
         background: "#0c0c0c",

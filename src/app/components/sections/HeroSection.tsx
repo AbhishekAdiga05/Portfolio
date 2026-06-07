@@ -2,6 +2,8 @@ import { motion } from "motion/react";
 import { Github, Linkedin, Download, ArrowRight } from "lucide-react";
 import { Link } from "react-router";
 import { personalInfo, resumeLink, contactInfo } from "../../../data/portfolio-data";
+import profileImg from "@/assets/profile.png";
+
 
 const G = "#22C55E";
 
@@ -61,27 +63,19 @@ export function HeroSection() {
           >
             <div className="relative">
               <motion.div
-                animate={{ scale: [1, 1.04, 1], opacity: [0.4, 0.7, 0.4] }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-0 rounded-full pointer-events-none"
-                style={{ boxShadow: "0 0 32px rgba(34,197,94,0.3), 0 0 64px rgba(34,197,94,0.1)" }}
-              />
-              <div
-                className="rounded-full p-[3px]"
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 style={{
                   width: "clamp(160px, 42vw, 320px)",
                   height: "clamp(160px, 42vw, 320px)",
-                  background: "conic-gradient(from 90deg, #22C55E 0%, #16a34a 30%, #052e16 55%, #22C55E 100%)",
                 }}
               >
-                <div className="w-full h-full rounded-full overflow-hidden" style={{ background: "#060606" }}>
-                  <img
-                    src={personalInfo.profilePhoto}
-                    alt={`${personalInfo.firstName} ${personalInfo.lastName} — ${personalInfo.role}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
+                <img
+                  src={profileImg}
+                  alt={`${personalInfo.firstName} ${personalInfo.lastName} — ${personalInfo.role}`}
+                  className="w-full h-full rounded-full object-cover"
+                />
+              </motion.div>
 
               {/* Floating status badge */}
               {personalInfo.openToWork && (
@@ -205,24 +199,30 @@ export function HeroSection() {
               transition={{ duration: 0.5, delay: 0.26 }}
               className="flex flex-wrap items-center justify-center lg:justify-start gap-3"
             >
-              <a
+              <motion.a
                 href={resumeLink}
-                className="flex items-center gap-2 px-5 py-3 rounded-full text-sm font-semibold transition-all duration-200"
+                className="flex items-center gap-2 px-5 py-3 rounded-full text-sm font-semibold"
                 style={{ background: G, color: "#050505", boxShadow: "0 0 24px rgba(34,197,94,0.4)" }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 42px rgba(34,197,94,0.65)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 24px rgba(34,197,94,0.4)"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
+                whileHover={{ y: -1, boxShadow: "0 0 42px rgba(34,197,94,0.65)" }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
               >
                 <Download size={15} strokeWidth={2.5} /> Download Resume
-              </a>
-              <Link
-                to="/projects"
-                className="flex items-center gap-2 px-5 py-3 rounded-full text-sm font-semibold transition-all duration-200"
-                style={{ background: "transparent", color: G, border: "1px solid rgba(34,197,94,0.35)" }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(34,197,94,0.08)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(34,197,94,0.6)"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(34,197,94,0.35)"; }}
+              </motion.a>
+              <motion.span
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                style={{ display: "inline-block" }}
               >
-                View Projects <ArrowRight size={14} />
-              </Link>
+                <Link
+                  to="/projects"
+                  className="flex items-center gap-2 px-5 py-3 rounded-full text-sm font-semibold transition-all duration-200"
+                  style={{ background: "transparent", color: G, border: "1px solid rgba(34,197,94,0.35)" }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(34,197,94,0.08)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(34,197,94,0.6)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(34,197,94,0.35)"; }}
+                >
+                  View Projects <ArrowRight size={14} />
+                </Link>
+              </motion.span>
 
               {/* Social icons — 44×44 touch targets */}
               <div className="flex items-center gap-2">
@@ -230,18 +230,18 @@ export function HeroSection() {
                   { icon: Github, href: contactInfo.github },
                   { icon: Linkedin, href: contactInfo.linkedin },
                 ].map(({ icon: Icon, href }, i) => (
-                  <a
+                  <motion.a
                     key={i}
                     href={href}
                     target="_blank"
                     rel="noreferrer"
-                    className="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200"
+                    className="w-11 h-11 rounded-full flex items-center justify-center"
                     style={{ background: "rgba(255,255,255,0.05)", color: "#d8d8d8", border: "1px solid rgba(255,255,255,0.1)" }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = G; (e.currentTarget as HTMLElement).style.borderColor = "rgba(34,197,94,0.35)"; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#d8d8d8"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.1)"; }}
+                    whileHover={{ scale: 1.12, color: G, borderColor: "rgba(34,197,94,0.35)" }}
+                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
                   >
                     <Icon size={17} />
-                  </a>
+                  </motion.a>
                 ))}
               </div>
             </motion.div>

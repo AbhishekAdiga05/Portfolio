@@ -33,15 +33,21 @@ export function FeaturedProjectsSection() {
               Things I've designed, built, and shipped.
             </p>
           </div>
-          <Link
-            to="/projects"
-            className="flex items-center gap-1.5 text-xs font-medium transition-all duration-200 px-3 py-1.5 rounded-lg"
-            style={{ color: G, border: "1px solid rgba(34,197,94,0.2)", background: "rgba(34,197,94,0.05)" }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(34,197,94,0.1)"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(34,197,94,0.05)"; }}
+          <motion.span
+            whileHover={{ y: -1 }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+            style={{ display: "inline-block" }}
           >
-            All projects <ArrowRight size={12} />
-          </Link>
+            <Link
+              to="/projects"
+              className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg"
+              style={{ color: G, border: "1px solid rgba(34,197,94,0.2)", background: "rgba(34,197,94,0.05)" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(34,197,94,0.1)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(34,197,94,0.05)"; }}
+            >
+              All projects <ArrowRight size={12} />
+            </Link>
+          </motion.span>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -57,7 +63,7 @@ export function FeaturedProjectsSection() {
                 transition={{ duration: 0.4, delay: i * 0.08 }}
                   className="group rounded-xl overflow-hidden flex flex-col"
                 style={{ background: "#0c0c0c", border: "1px solid rgba(255,255,255,0.07)" }}
-                whileHover={{ borderColor: "rgba(34,197,94,0.3)", boxShadow: "0 0 0 1px rgba(34,197,94,0.1), 0 20px 48px rgba(0,0,0,0.6)", transition: { duration: 0.25 } }}
+                whileHover={{ y: -3, borderColor: "rgba(34,197,94,0.3)", boxShadow: "0 0 0 1px rgba(34,197,94,0.1), 0 20px 48px rgba(0,0,0,0.6)", transition: { type: "spring", stiffness: 300, damping: 20 } }}
               >
                 {/* Top green accent line on hover */}
                 <div className="h-[2px] w-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -82,32 +88,48 @@ export function FeaturedProjectsSection() {
                   <p className="mb-3 flex-1" style={{ color: "#ddd", lineHeight: 1.75, fontSize: "0.875rem", fontFamily: "'Geist', 'Inter', sans-serif" }}>{p.description}</p>
 
                   {/* Tags */}
-                  <div className="flex flex-wrap gap-1 mb-3">
+                  <motion.div
+                    initial="hidden"
+                    animate={inView ? "visible" : "hidden"}
+                    variants={{
+                      hidden: { opacity: 0 },
+                      visible: { opacity: 1, transition: { staggerChildren: 0.03, delayChildren: 0.05 } },
+                    }}
+                    className="flex flex-wrap gap-1 mb-3"
+                  >
                     {p.tags.map((t) => (
-                      <span key={t} className="text-xs px-1.5 py-0.5 rounded" style={{ background: "rgba(34,197,94,0.07)", color: "rgba(34,197,94,0.85)", border: "1px solid rgba(34,197,94,0.15)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.01em" }}>{t}</span>
+                      <motion.span
+                        key={t}
+                        variants={{
+                          hidden: { opacity: 0, y: 4 },
+                          visible: { opacity: 1, y: 0, transition: { duration: 0.25, ease: [0.25, 0.1, 0.25, 1] } },
+                        }}
+                        className="text-xs px-1.5 py-0.5 rounded"
+                        style={{ background: "rgba(34,197,94,0.07)", color: "rgba(34,197,94,0.85)", border: "1px solid rgba(34,197,94,0.15)", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.01em" }}
+                      >{t}</motion.span>
                     ))}
-                  </div>
+                  </motion.div>
 
                   {/* Actions */}
                   <div className="flex items-center gap-2 pt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-                    <a
+                    <motion.a
                       href={p.github} target="_blank" rel="noreferrer"
-                      className="flex items-center gap-1.5 text-xs font-semibold rounded-lg px-3 py-2 transition-all duration-200 flex-1 justify-center"
+                      className="flex items-center gap-1.5 text-xs font-semibold rounded-lg px-3 py-2 flex-1 justify-center"
                       style={{ color: "#d4d4d4", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}
-                      onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.color = "#fff"; el.style.background = "rgba(255,255,255,0.12)"; }}
-                      onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.color = "#d4d4d4"; el.style.background = "rgba(255,255,255,0.06)"; }}
+                      whileHover={{ color: "#ffffff", background: "rgba(255,255,255,0.12)", y: -1 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 20 }}
                     >
                       <Github size={12} /> Code
-                    </a>
-                    <a
+                    </motion.a>
+                    <motion.a
                       href={p.live} target="_blank" rel="noreferrer"
-                      className="flex items-center gap-1.5 text-xs font-bold rounded-lg px-3 py-2 transition-all duration-200 flex-1 justify-center"
+                      className="flex items-center gap-1.5 text-xs font-bold rounded-lg px-3 py-2 flex-1 justify-center"
                       style={{ color: "#050505", background: G, boxShadow: `0 0 14px rgba(34,197,94,0.4)` }}
-                      onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 0 24px rgba(34,197,94,0.65)"; el.style.filter = "brightness(1.08)"; }}
-                      onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 0 14px rgba(34,197,94,0.4)"; el.style.filter = "brightness(1)"; }}
+                      whileHover={{ y: -1, boxShadow: "0 0 24px rgba(34,197,94,0.65)" }}
+                      transition={{ type: "spring", stiffness: 400, damping: 20 }}
                     >
                       <ExternalLink size={12} /> Demo
-                    </a>
+                    </motion.a>
                   </div>
                 </div>
               </motion.div>

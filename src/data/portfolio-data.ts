@@ -8,7 +8,7 @@ export const personalInfo = {
 
   role: "Full-Stack Developer & AI Enthusiast",
 
-  profilePhoto: "/images/profile.jpg",
+  profilePhoto: "/images/profile.png",
 
   heroBio:
     "Building web apps to understand how things work. Focused on full-stack, AI, and DSA.",
