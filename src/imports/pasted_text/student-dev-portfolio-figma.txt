@@ -1,0 +1,280 @@
+Design a premium student developer portfolio in Figma that looks very similar to a modern SaaS
+dashboard aesthetic with a dark black background, vibrant green accents, glowing highlights,
+clean cards, and a highly professional layout. The final design should feel like something a
+recruiter would remember immediately while still maintaining simplicity and excellent readability.
+Overall Design Direction
+Create a portfolio that feels:
+● Modern
+● Professional
+● Premium
+● Technical
+● Clean
+● Minimal but visually rich
+Avoid:
+● Excessive glassmorphism
+● Overly bright neon effects
+● Cartoonish illustrations
+● Complex decorative elements
+● Unnecessary animations
+The design should look like a high-quality developer product website rather than a personal
+blog.
+Color System
+Background:
+● #050505
+● #0A0A0A
+● #111111
+Primary Accent:
+● #22C55E
+Accent Glow:
+● Soft green shadows and subtle gradients
+Text:
+● White (#FFFFFF)
+● Gray (#A3A3A3)
+● Muted Gray (#737373)
+Cards:
+● Dark elevated surfaces
+● Thin green border highlights
+● Soft hover glow
+Typography
+Use:
+● Inter
+● Geist
+● Plus Jakarta Sans
+Hierarchy:
+Hero Name:
+● Very large
+● Bold
+● Modern
+Section Titles:
+● Clean and strong
+Body Text:
+● Readable
+● Spacious line-height
+Navigation
+Sticky navbar:
+Left:
+● Logo / Personal Brand
+Center:
+● Home
+● Projects
+● Resume
+Right:
+● Contact Me button
+Active nav item should have:
+● Green underline
+● Smooth animated indicator
+Home Page Layout
+Hero Section
+Split-screen layout.
+Left Side
+Display:
+Greeting Badge
+Example:
+"HELLO, I'M"
+Large Name
+Professional Title
+Short Introduction
+Example:
+"I build modern, scalable web applications and AI-powered solutions that solve real-world
+problems."
+CTA Buttons:
+● Download Resume
+● GitHub
+● LinkedIn
+Right Side
+Professional profile image inside:
+● Circular frame
+● Green glowing ring
+● Floating green particles
+● Subtle animated grid background
+Animations:
+● Fade up entrance
+● Floating particles
+● Slow glowing pulse
+● Button hover animations
+About Section
+Modern card layout.
+Left:
+● About text
+Right:
+● Education summary card
+Include:
+● Degree
+● College
+● Graduation year
+● Key interests
+Card style:
+● Dark background
+● Rounded corners
+● Thin green border
+● Soft glow on hover
+Experience Section
+Professional vertical timeline.
+Each experience card:
+● Position
+● Organization
+● Duration
+● Key contributions
+Timeline:
+● Green line
+● Animated scroll progress
+Cards:
+● Alternate alignment
+● Smooth slide-in animation
+This section should resemble modern startup career pages.
+Featured Projects Section
+MOST IMPORTANT SECTION.
+Display 3 featured projects.
+Layout:
+Large horizontal cards.
+Each card contains:
+● Project image
+● Project title
+● Project description
+● Tech stack badges
+● GitHub icon
+● Live demo icon
+Card design:
+● Premium SaaS style
+● Dark surface
+● Green hover border
+● Image zoom on hover
+Include:
+"View All Projects →"
+Projects should visually dominate the page.
+Skills Section
+Display skills as categorized grids.
+Categories:
+● Languages
+● Frontend
+● Backend
+● Databases
+● Tools
+Use:
+● Technology icons
+● Small labels
+Examples:
+JavaScript
+TypeScript
+Java
+React
+Next.js
+Tailwind
+Node.js
+Express
+MongoDB
+MySQL
+Git
+GitHub
+VS Code
+Figma
+Animation:
+● Stagger reveal
+● Hover glow
+Do NOT use:
+● Progress bars
+● Percentage indicators
+Certifications & Achievements Section
+Grid of compact cards.
+Each card:
+● Certification icon
+● Title
+● Issuer
+● Date
+Visual style:
+● Dark card
+● Green accent line
+● Hover elevation
+Keep it compact and professional.
+Education Section
+Single elegant card.
+Include:
+● Degree
+● Institution
+● Duration
+● CGPA (optional)
+Design:
+● Minimal
+● Clean
+● Consistent with other cards
+Contact Section
+Two-column layout.
+Left
+Contact Information:
+● Email
+● LinkedIn
+● GitHub
+● Location
+With matching icons.
+Right
+Modern contact form:
+● Name
+● Email
+● Subject
+● Message
+Submit button:
+Green accent
+Rounded corners
+Strong hover interaction
+Projects Page
+Dedicated page.
+Display all projects in a premium portfolio gallery.
+Top:
+Large page title
+Grid of project cards.
+When opening a project:
+Include:
+Hero Banner
+● Project Name
+● Description
+● Tech Stack
+Project Screenshot
+Large showcase image
+About Project
+Problem Statement
+Solution
+Features
+Feature cards
+Architecture Overview
+Simple visual diagram placeholder
+Challenges Faced
+Learnings
+GitHub + Live Demo Buttons
+The page should feel like a professional case-study showcase.
+Resume Page
+Extremely simple.
+Centered layout.
+Include:
+● Embedded Resume Preview
+● Download Resume Button
+No extra content.
+Framer Motion Animation Guidelines
+Use:
+● Fade up
+● Fade in
+● Scale 0.95 → 1
+● Staggered cards
+● Hover elevation
+● Smooth page transitions
+Avoid:
+● Bounce effects
+● Crazy rotations
+● Heavy parallax
+● Distracting motion
+Every animation should feel subtle, premium, and professional.
+Responsiveness
+Create:
+● Desktop version
+● Tablet version
+● Mobile version
+Ensure:
+● Perfect spacing
+● Consistent alignment
+● Mobile-first usability
+● Fast implementation in Next.js + Tailwind CSS
+Final Goal
+The portfolio should look like a premium modern developer portfolio inspired by high-quality
+SaaS products and top developer portfolios. It should immediately communicate
+professionalism, technical capability, and attention to detail while keeping the experience simple,
+clean, and recruiter-friendly. The Projects and Experience sections must be the visual focal
+points of the entire design.
