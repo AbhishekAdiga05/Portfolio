@@ -4,22 +4,22 @@ export function Footer() {
   return (
     <footer
       className="py-10 px-6 mt-0"
-      style={{ borderTop: "1px solid rgba(255,255,255,0.06)", background: "#050505" }}
+      style={{ borderTop: "1px solid rgba(255,255,255,0.06)", background: "var(--background)" }}
     >
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           <div
             className="w-7 h-7 rounded-lg flex items-center justify-center"
-            style={{ background: "#22C55E", boxShadow: "0 0 10px rgba(34,197,94,0.4)" }}
+            style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.08)" }}
           >
-            <span style={{ color: "#050505", fontWeight: 800, fontSize: "11px", fontFamily: "'Space Grotesk', sans-serif" }}>AA</span>
+            <span style={{ color: "var(--foreground)", fontWeight: 700, fontSize: "11px", fontFamily: "Inter, sans-serif", letterSpacing: "-0.03em" }}>AA</span>
           </div>
-          <span className="text-white font-semibold text-sm" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-            Abhi<span style={{ color: "#22C55E" }}>.</span>dev
+          <span className="text-white font-semibold text-sm" style={{ fontFamily: "Inter, sans-serif", letterSpacing: "-0.02em" }}>
+            Abhi.dev
           </span>
         </div>
-        <p className="text-xs" style={{ color: "#999", fontFamily: "'JetBrains Mono', monospace" }}>
-          © 2025 Abhishek Adiga · React · TypeScript · Tailwind
+        <p className="text-xs" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>
+          © {new Date().getFullYear()} Abhishek Adiga · React · TypeScript · Tailwind
         </p>
         <div className="flex items-center gap-4">
           {[
@@ -32,12 +32,12 @@ export function Footer() {
               href={href}
               target="_blank"
               rel="noreferrer"
-              className="transition-colors duration-200"
-              style={{ color: "#cccccc" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#22C55E")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "#cccccc")}
+              className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-200"
+              style={{ color: "var(--foreground-secondary)", background: "rgba(255,255,255,0.035)", border: "1px solid rgba(255,255,255,0.08)" }}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--foreground)")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--foreground-secondary)")}
             >
-              <Icon size={18} />
+              <Icon size={16} />
             </a>
           ))}
         </div>

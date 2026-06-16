@@ -3,8 +3,6 @@ import { NavLink, useLocation, useNavigate } from "react-router";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
-const G = "#22C55E";
-
 const navLinks = [
   { label: "Home", to: "/" },
   { label: "Projects", to: "/projects" },
@@ -38,7 +36,10 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => { setMenuOpen(false); setDropdownOpen(false); }, [location]);
+  useEffect(() => {
+    setMenuOpen(false);
+    setDropdownOpen(false);
+  }, [location]);
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -61,49 +62,51 @@ export function Navbar() {
     }
   }
 
+  const navShell = "h-16 px-4 sm:px-6 flex items-center justify-between";
+  const navText = "text-sm font-medium transition-colors duration-200";
+  const navInactive = "var(--foreground-secondary)";
+  const navActive = "var(--foreground)";
+
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      className="fixed top-0 left-0 right-0 z-50"
       style={{
-        background: scrolled ? "rgba(5,5,5,0.95)" : "transparent",
-        backdropFilter: scrolled ? "blur(20px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.05)" : "none",
+        background: "rgba(5, 6, 8, 0.6)",
+        backdropFilter: "blur(12px)",
+        borderBottom: "1px solid rgba(255, 255, 255, 0.06)",
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-
-        {/* Logo */}
-        <NavLink to="/" className="flex items-center gap-2.5">
+      <div className={`max-w-7xl mx-auto ${navShell}`}>
+        <NavLink to="/" className="flex items-center gap-2.5 min-h-[44px]">
           <div
             className="w-8 h-8 rounded-lg flex items-center justify-center"
-            style={{ background: G, boxShadow: "0 0 12px rgba(34,197,94,0.5)" }}
+            style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.08)" }}
           >
-            <span style={{ color: "#050505", fontWeight: 800, fontSize: "13px", fontFamily: "'Space Grotesk', sans-serif" }}>AA</span>
+            <span style={{ color: "var(--foreground)", fontWeight: 700, fontSize: "13px", fontFamily: "Inter, sans-serif", letterSpacing: "-0.03em" }}>AA</span>
           </div>
-          <span className="text-white font-semibold text-sm hidden sm:block" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-            Abhi<span style={{ color: G }}>.</span>dev
+          <span className="text-white font-semibold text-sm hidden sm:block" style={{ fontFamily: "Inter, sans-serif", letterSpacing: "-0.02em" }}>
+            Abhi.dev
           </span>
         </NavLink>
 
-        {/* Center pill nav */}
         <nav className="hidden md:flex items-center">
           <div
             className="flex items-center gap-0.5 px-1.5 py-1.5 rounded-full"
-            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+            style={{ background: "rgba(255,255,255,0.035)", border: "1px solid rgba(255,255,255,0.06)", backdropFilter: "blur(12px)" }}
           >
             {navLinks.map((link) => (
               <NavLink key={link.to} to={link.to} end={link.to === "/"}>
                 {({ isActive }) => (
-                  <div className="relative px-4 py-1.5 rounded-full transition-all duration-200">
+                  <div className="relative px-4 h-10 min-w-[78px] flex items-center justify-center rounded-full transition-colors duration-200">
                     {isActive && (
                       <motion.div
                         layoutId="nav-pill"
                         className="absolute inset-0 rounded-full"
-                        style={{ background: "rgba(34,197,94,0.12)", border: "1px solid rgba(34,197,94,0.2)" }}
-                        transition={{ type: "spring", stiffness: 400, damping: 35 }}
+                        style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)" }}
+                        transition={{ duration: 0.2 }}
                       />
                     )}
-                    <span className="relative text-sm font-medium" style={{ color: isActive ? G : "#cccccc" }}>
+                    <span className={`relative ${navText}`} style={{ color: isActive ? navActive : navInactive }}>
                       {link.label}
                     </span>
                   </div>
@@ -111,14 +114,15 @@ export function Navbar() {
               </NavLink>
             ))}
 
-            {/* Sections dropdown */}
             <div className="relative" ref={dropdownRef}>
               <button
+                type="button"
                 onClick={() => setDropdownOpen(v => !v)}
-                className="flex items-center gap-1.5 px-4 py-1.5 rounded-full transition-all duration-200"
-                style={{ color: dropdownOpen ? G : "#cccccc" }}
+                className="flex items-center gap-1.5 px-4 h-10 rounded-full transition-colors duration-200"
+                style={{ color: dropdownOpen ? "var(--foreground)" : navInactive }}
+                aria-expanded={dropdownOpen}
               >
-                <span className="text-sm font-medium">Sections</span>
+                <span className={`text-sm font-medium`}>Sections</span>
                 <motion.span animate={{ rotate: dropdownOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
                   <ChevronDown size={13} />
                 </motion.span>
@@ -127,35 +131,36 @@ export function Navbar() {
               <AnimatePresence>
                 {dropdownOpen && (
                   <motion.div
-                    initial={{ opacity: 0, y: 6, scale: 0.97 }}
+                    initial={{ opacity: 0, y: 6, scale: 0.98 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 4, scale: 0.97 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute top-full right-0 mt-2 py-1.5 rounded-xl overflow-hidden"
+                    exit={{ opacity: 0, y: 4, scale: 0.98 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full right-0 mt-2 py-1.5 rounded-2xl overflow-hidden"
                     style={{
-                      background: "rgba(10,10,10,0.98)",
-                      border: "1px solid rgba(255,255,255,0.09)",
-                      boxShadow: "0 16px 48px rgba(0,0,0,0.7), 0 0 0 1px rgba(34,197,94,0.06)",
-                      backdropFilter: "blur(20px)",
-                      minWidth: "160px",
+                      background: "rgba(5,6,8,0.92)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      boxShadow: "0 24px 80px rgba(0,0,0,0.45)",
+                      backdropFilter: "blur(16px)",
+                      minWidth: "180px",
                     }}
                   >
                     {sectionLinks.map((s) => (
                       <button
                         key={s.id}
+                        type="button"
                         onClick={() => handleSectionClick(s.id)}
-                        className="w-full text-left px-4 py-2 text-sm transition-all duration-150 flex items-center gap-2.5 group"
-                        style={{ color: "#c8c8c8", fontFamily: "'Space Grotesk', sans-serif" }}
+                        className="w-full text-left px-4 py-2.5 text-sm transition-colors duration-200 flex items-center gap-3"
+                        style={{ color: "var(--foreground-secondary)" }}
                         onMouseEnter={(e) => {
-                          (e.currentTarget as HTMLElement).style.background = "rgba(34,197,94,0.07)";
-                          (e.currentTarget as HTMLElement).style.color = "#fff";
+                          (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)";
+                          (e.currentTarget as HTMLElement).style.color = "var(--foreground)";
                         }}
                         onMouseLeave={(e) => {
                           (e.currentTarget as HTMLElement).style.background = "transparent";
-                          (e.currentTarget as HTMLElement).style.color = "#c8c8c8";
+                          (e.currentTarget as HTMLElement).style.color = "var(--foreground-secondary)";
                         }}
                       >
-                        <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "rgba(34,197,94,0.5)" }} />
+                        <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "rgba(124,108,244,0.65)" }} />
                         {s.label}
                       </button>
                     ))}
@@ -166,56 +171,61 @@ export function Navbar() {
           </div>
         </nav>
 
-        {/* CTA */}
         <div className="hidden md:flex items-center gap-3">
-          <motion.button
+          <button
+            type="button"
             onClick={() => handleSectionClick("contact")}
-            className="px-5 py-2 rounded-full text-sm font-semibold"
-            style={{ background: G, color: "#050505", boxShadow: "0 0 16px rgba(34,197,94,0.35)" }}
-            whileHover={{ y: -1, boxShadow: "0 0 28px rgba(34,197,94,0.55)" }}
-            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+            className="h-10 px-4 rounded-full text-sm font-semibold transition-colors duration-200"
+            style={{ background: "var(--button-primary)", color: "var(--button-primary-text)" }}
+            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--button-primary-hover)")}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--button-primary)")}
           >
             Contact
-          </motion.button>
+          </button>
         </div>
 
-        <button className="md:hidden p-2 text-white" onClick={() => setMenuOpen(v => !v)}>
-          {menuOpen ? <X size={20} /> : <Menu size={20} />}
+        <button
+          type="button"
+          className="md:hidden w-11 h-11 rounded-lg flex items-center justify-center transition-colors duration-200"
+          style={{ color: "var(--foreground)", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+          onClick={() => setMenuOpen(v => !v)}
+          aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+        >
+          {menuOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.18 }}
-            className="md:hidden px-6 pb-5 pt-2 flex flex-col gap-1"
-            style={{ background: "rgba(5,5,5,0.98)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden px-4 pb-5 pt-2 flex flex-col gap-1"
+            style={{ background: "rgba(5,6,8,0.96)", borderBottom: "1px solid rgba(255,255,255,0.06)", backdropFilter: "blur(16px)" }}
           >
             {navLinks.map((link) => (
               <NavLink key={link.to} to={link.to} end={link.to === "/"}>
                 {({ isActive }) => (
-                  <span className="block py-3 text-sm font-medium border-b" style={{ color: isActive ? G : "#d0d0d0", borderColor: "rgba(255,255,255,0.05)" }}>
+                  <span className="block py-3 text-sm font-medium border-b" style={{ color: isActive ? "var(--foreground)" : "var(--foreground-secondary)", borderColor: "rgba(255,255,255,0.06)" }}>
                     {link.label}
                   </span>
                 )}
               </NavLink>
             ))}
 
-            <div className="pt-1 pb-1" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-              <p className="text-xs mb-2 pt-2" style={{ color: "#555", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.08em", textTransform: "uppercase" }}>Sections</p>
+            <div className="pt-2 pb-1" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+              <p className="text-xs mb-2 pt-2" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif", letterSpacing: "0.08em", textTransform: "uppercase" }}>Sections</p>
               <div className="grid grid-cols-2 gap-1">
                 {sectionLinks.map((s) => (
                   <button
                     key={s.id}
+                    type="button"
                     onClick={() => handleSectionClick(s.id)}
-                    className="text-left py-2 text-sm flex items-center gap-2"
-                    style={{ color: "#c0c0c0" }}
+                    className="text-left py-3 px-3 text-sm rounded-lg transition-colors duration-200"
+                    style={{ color: "var(--foreground-secondary)" }}
                   >
-                    <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "rgba(34,197,94,0.5)" }} />
                     {s.label}
                   </button>
                 ))}
@@ -223,9 +233,10 @@ export function Navbar() {
             </div>
 
             <button
+              type="button"
               onClick={() => handleSectionClick("contact")}
-              className="mt-3 block text-center py-3 rounded-full text-sm font-semibold"
-              style={{ background: G, color: "#050505" }}
+              className="mt-3 block text-center h-11 rounded-full text-sm font-semibold transition-colors duration-200"
+              style={{ background: "var(--button-primary)", color: "var(--button-primary-text)" }}
             >
               Contact
             </button>

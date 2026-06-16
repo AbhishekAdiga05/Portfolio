@@ -1,47 +1,29 @@
-// ============================================================================
-// PERSONAL INFORMATION
-// ============================================================================
-
 export const personalInfo = {
   firstName: "Abhishek",
   lastName: "Adiga",
-
   role: "Full-Stack Developer & AI Enthusiast",
-
   profilePhoto: "/images/profile.png",
-
   heroBio:
     "Building web apps to understand how things work. Focused on full-stack, AI, and DSA.",
-
   heroContext:
     "B.Tech ISE @ Sahyadri CEM · Full-Stack Dev · AI Enthusiast",
-
   openToWork: true,
   availabilityDate: "2027",
 };
 
-// ============================================================================
-// ABOUT SECTION
-// ============================================================================
-
 export const aboutInfo = {
   intro:
     "B.Tech student in Information Science at Sahyadri CEM. I build web apps, design APIs, work with databases, and pick up frameworks along the way.",
-
   secondary:
     "I learn by building — whether it's APIs, databases, AI models, or real-time systems. Projects and DSA keep me growing.",
-
   degree: "B.Tech in Information Science & Engineering",
   university: "Sahyadri College of Engineering and Management",
   graduationYear: "2023 - 2027",
   CGPA: "8.0 / 10.0",
-
   location: "Udupi, Karnataka, India",
   locationDetail: "Open to internships & entry-level roles",
-
   yearsExperience: "3+ Years Building",
   experienceDetail: "Projects · DSA · Full-Stack",
-
   interests: [
     "Full-Stack Development",
     "Backend Engineering",
@@ -50,10 +32,6 @@ export const aboutInfo = {
     "Open Source",
   ],
 };
-
-// ============================================================================
-// EXPERIENCE SECTION
-// ============================================================================
 
 export const experiences = [
   {
@@ -66,7 +44,6 @@ export const experiences = [
       "Shipped features through code reviews and team collaboration.",
     ],
   },
-
   {
     role: "Open Source Contributor",
     org: "FitMart",
@@ -79,88 +56,38 @@ export const experiences = [
   },
 ];
 
-// ============================================================================
-// SKILLS SECTION
-// ============================================================================
-
 export const skillCategories = [
   {
-    label: "Languages & Frameworks",
-    color: "#61DAFB",
-    skills: [
-      {
-        name: "Java",
-        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
-        bg: "#007396",
-      },
-      {
-        name: "JavaScript",
-        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
-        bg: "#F7DF1E",
-      },
-      {
-        name: "TypeScript",
-        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
-        bg: "#3178C6",
-      },
-      {
-        name: "React",
-        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-        bg: "#61DAFB",
-      },
-      {
-        name: "Next.js",
-        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
-        bg: "#000000",
-      },
-      {
-        name: "Node.js",
-        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
-        bg: "#339933",
-      },
-    ],
+    label: "Frontend",
+    capability: "Build responsive, accessible interfaces and product-grade web apps.",
+    skills: ["JavaScript", "TypeScript", "React", "Next.js", "Tailwind CSS"],
   },
   {
-    label: "Tools & Technologies",
-    color: "#FF9900",
-    skills: [
-      {
-        name: "MongoDB",
-        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-        bg: "#47A248",
-      },
-      {
-        name: "PostgreSQL",
-        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
-        bg: "#336791",
-      },
-      {
-        name: "Prisma",
-        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg",
-        bg: "#2D3748",
-      },
-      {
-        name: "Docker",
-        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
-        bg: "#2496ED",
-      },
-      {
-        name: "Git",
-        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
-        bg: "#F05032",
-      },
-      {
-        name: "Tailwind CSS",
-        logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
-        bg: "#06B6D4",
-      },
-    ],
+    label: "Backend",
+    capability: "Design reliable APIs, application logic, and integration layers.",
+    skills: ["Java", "Node.js"],
+  },
+  {
+    label: "Database",
+    capability: "Model data, query efficiently, and connect apps to persistent storage.",
+    skills: ["MongoDB", "PostgreSQL", "Prisma"],
+  },
+  {
+    label: "AI / ML",
+    capability: "Integrate LLM workflows and evaluation tooling into practical features.",
+    skills: ["OpenRouter", "Judge0 API"],
+  },
+  {
+    label: "DevOps",
+    capability: "Package, deploy, and maintain services with repeatable workflows.",
+    skills: ["Docker", "Git"],
+  },
+  {
+    label: "Tools",
+    capability: "Use focused product tools to move from idea to shipped software.",
+    skills: ["GitHub", "Postman"],
   },
 ];
-
-// ============================================================================
-// FEATURED PROJECTS
-// ============================================================================
 
 export const featuredProjects = [
   {
@@ -181,7 +108,6 @@ export const featuredProjects = [
     live: "https://neon-pulse-chat.netlify.app/",
     number: "01",
   },
-
   {
     title: "CodeForge",
     subtitle: "Full-Stack DSA Practice Platform",
@@ -200,7 +126,27 @@ export const featuredProjects = [
     live: "https://codeforge-neon.vercel.app/",
     number: "02",
   },
+  {
+  title: "NexPrice",
+  subtitle: "Product Price Tracking & Market Intelligence Platform",
+  description:
+  "Smart price tracking platform with multi-store comparison, deal insights, and historical price analytics.",
+  image: "/images/nexprice.png",
+  tags: [
+    "Next.js",
+    "Supabase",
+    "PostgreSQL",
+    "Firecrawl",
+    "Recharts",
+    "Tailwind CSS",
+  ],
+  github: "https://github.com/AbhishekAdiga05/NexPrice",
+  live: "https://getnexprice.vercel.app/",
+  number: "03",
+},
+];
 
+export const otherProjects = [
   {
     title: "SafeCast",
     subtitle: "Cybersecure E-Voting System",
@@ -216,13 +162,9 @@ export const featuredProjects = [
     ],
     github: "https://github.com/AbhishekAdiga05/SafeCast",
     live: "https://safecasts.netlify.app",
-    number: "03",
+    number: "",
   },
 ];
-
-// ============================================================================
-// CERTIFICATIONS
-// ============================================================================
 
 export const certifications = [
   {
@@ -251,16 +193,11 @@ export const certifications = [
   },
 ];
 
-// ============================================================================
-// EDUCATION
-// ============================================================================
-
 export const education = {
   degree: "B.Tech in Information Science & Engineering",
   university: "Sahyadri College of Engineering and Management",
   duration: "2023 - 2027",
   gpa: "8.0 / 10.0",
-
   coursework: [
     "Data Structures & Algorithms",
     "Operating Systems",
@@ -271,29 +208,15 @@ export const education = {
   ],
 };
 
-// ============================================================================
-// CONTACT INFORMATION
-// ============================================================================
-
 export const contactInfo = {
   email: "abhishekadiga2345@gmail.com",
-
   github: "https://github.com/AbhishekAdiga05",
-
   linkedin: "https://www.linkedin.com/in/abhishek-adiga-1a37b232a/",
-
   linkedinHandle: "/in/abhishek-adiga-1a37b232a",
-
   location: "Udupi, Karnataka, India",
-
   description:
     "Open to collabs, internships, and tech chats. Say hi.",
-
   responseTime: "Usually within 24 hours.",
 };
-
-// ============================================================================
-// RESUME
-// ============================================================================
 
 export const resumeLink = "";

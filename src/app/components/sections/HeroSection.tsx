@@ -2,251 +2,164 @@ import { motion } from "motion/react";
 import { Github, Linkedin, Download, ArrowRight } from "lucide-react";
 import { Link } from "react-router";
 import { personalInfo, resumeLink, contactInfo } from "../../../data/portfolio-data";
-import profileImg from "@/assets/profile.png";
 
-
-const G = "#22C55E";
-
-const PARTICLES = [
-  { x: 72, y: 18, size: 2.5, dur: 4.2, delay: 0 },
-  { x: 85, y: 45, size: 2, dur: 5.1, delay: 0.8 },
-  { x: 92, y: 72, size: 2, dur: 3.8, delay: 1.4 },
-  { x: 60, y: 88, size: 1.5, dur: 6.0, delay: 0.3 },
-  { x: 78, y: 60, size: 3, dur: 4.7, delay: 1.0 },
-  { x: 95, y: 30, size: 2, dur: 5.5, delay: 0.5 },
-  { x: 65, y: 25, size: 2.5, dur: 4.0, delay: 1.8 },
-  { x: 55, y: 78, size: 1.5, dur: 5.8, delay: 0.2 },
-];
+const transition = { duration: 0.2 };
 
 export function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center pt-16 overflow-hidden"
+      className="relative min-h-screen flex items-center overflow-hidden"
       style={{ background: "transparent" }}
     >
-      {/* Green spotlight — clamped so it doesn't overflow on mobile */}
       <div
-        className="absolute right-0 top-1/2 pointer-events-none"
+        className="absolute inset-x-0 top-0 h-[520px] pointer-events-none"
+        aria-hidden="true"
         style={{
-          width: "clamp(300px, 50vw, 700px)",
-          height: "clamp(300px, 50vw, 700px)",
-          background: "radial-gradient(circle, rgba(34,197,94,0.06) 0%, transparent 60%)",
-          transform: "translate(15%, -50%)",
-          filter: "blur(20px)",
+          background:
+            "radial-gradient(ellipse 900px 500px at 50% 0%, rgba(124,108,244,0.18), transparent 60%)",
         }}
       />
 
-      {/* Floating particles — hidden on mobile for perf */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none hidden sm:block">
-        {PARTICLES.map((p, i) => (
+      <div className="relative max-w-7xl mx-auto px-5 sm:px-6 py-24 sm:py-32 w-full">
+        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-20 items-center">
           <motion.div
-            key={i}
-            className="absolute rounded-full"
-            style={{ width: p.size, height: p.size, background: G, left: `${p.x}%`, top: `${p.y}%` }}
-            animate={{ y: [0, -20, 0], opacity: [0.1, 0.4, 0.1] }}
-            transition={{ duration: p.dur, repeat: Infinity, delay: p.delay, ease: "easeInOut" }}
-          />
-        ))}
-      </div>
-
-      <div className="relative max-w-7xl mx-auto px-5 sm:px-6 py-12 sm:py-20 w-full">
-        {/* Mobile: photo on top, text below. Desktop: side by side */}
-        <div className="flex flex-col items-center lg:grid lg:grid-cols-2 lg:gap-20 lg:items-center gap-10">
-
-          {/* Profile photo — shown first on mobile */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.88 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.18 }}
-            className="flex justify-center lg:order-2"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={transition}
+            className="max-w-3xl"
           >
-            <div className="relative">
-              <motion.div
-                whileHover={{ scale: 1.03 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                style={{
-                  width: "clamp(160px, 42vw, 320px)",
-                  height: "clamp(160px, 42vw, 320px)",
-                }}
-              >
-                <img
-                  src={profileImg}
-                  alt={`${personalInfo.firstName} ${personalInfo.lastName} — ${personalInfo.role}`}
-                  className="w-full h-full rounded-full object-cover"
-                />
-              </motion.div>
+            {personalInfo.openToWork && (
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium mb-7" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "var(--foreground-secondary)" }}>
+                <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--success)" }} />
+                Available for opportunities
+              </div>
+            )}
 
-              {/* Floating status badge */}
-              {personalInfo.openToWork && (
-              <motion.div
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1.5 rounded-full whitespace-nowrap"
-                style={{
-                  background: "#0f0f0f",
-                  border: "1px solid rgba(34,197,94,0.3)",
-                  color: G,
-                  boxShadow: "0 4px 24px rgba(0,0,0,0.6), 0 0 20px rgba(34,197,94,0.15)",
-                  fontSize: "0.7rem",
-                  fontWeight: 600,
-                }}
-              >
-                <motion.span
-                  animate={{ opacity: [1, 0.3, 1] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                  className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                  style={{ background: G }}
-                />
-                Open to work
-              </motion.div>
-              )}
-            </div>
-          </motion.div>
-
-          {/* Text — below photo on mobile, left on desktop */}
-          <div className="lg:order-1 text-center lg:text-left w-full">
-            {/* HELLO badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-widest mb-6"
-              style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.25)", color: G, fontFamily: "'JetBrains Mono', monospace" }}
-            >
-              <motion.span
-                animate={{ opacity: [1, 0.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="w-1.5 h-1.5 rounded-full"
-                style={{ background: G }}
-              />
-              HELLO 👋
-            </motion.div>
-
-            {/* Name */}
-            <motion.h1
-              initial={{ opacity: 0, y: 22 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.08 }}
-              className="text-white leading-none mb-4"
+            <h1
+              className="mb-6"
               style={{
-                fontSize: "clamp(2.5rem, 8vw, 5.5rem)",
-                fontWeight: 750,
-                letterSpacing: "-0.045em",
-                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: "clamp(3.25rem, 9vw, 4.5rem)",
+                lineHeight: 0.92,
+                fontWeight: 760,
+                letterSpacing: "-0.075em",
+                fontFamily: "Inter, sans-serif",
               }}
             >
               <span
                 style={{
-                  background: "linear-gradient(135deg, #ffffff 0%, #b8b8b8 100%)",
+                  background: "linear-gradient(180deg, #F8F9FC 0%, #B2B8CD 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
                 }}
               >
                 {personalInfo.firstName}
               </span>{" "}
-              <span style={{ color: G, textShadow: "0 0 60px rgba(34,197,94,0.5)" }}>
+              <span
+                style={{
+                  background: "linear-gradient(180deg, #E5E7EB 0%, #94A3B8 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
                 {personalInfo.lastName}
               </span>
-            </motion.h1>
+            </h1>
 
-            {/* Role */}
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.14 }}
-              className="font-medium mb-5 inline-block relative"
-              style={{
-                color: G,
-                fontFamily: "'JetBrains Mono', monospace",
-                letterSpacing: "0.06em",
-                fontSize: "clamp(0.8rem, 2.5vw, 1rem)",
-                textShadow: "0 0 30px rgba(34,197,94,0.3)",
-              }}
-            >
+            <p className="mb-5" style={{ color: "var(--accent-secondary)", fontFamily: "Inter, sans-serif", fontWeight: 600, letterSpacing: "-0.01em", fontSize: "clamp(1rem, 2vw, 1.25rem)" }}>
               {personalInfo.role}
-              <motion.div
-                animate={{ width: ["0%", "100%", "0%"], opacity: [0.3, 0.8, 0.3] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="h-px mt-1.5 mx-auto"
-                style={{ background: "linear-gradient(to right, transparent, #22C55E, transparent)" }}
-              />
-            </motion.p>
+            </p>
 
-            {/* Bio */}
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="leading-relaxed mb-8 mx-auto lg:mx-0"
-              style={{
-                color: "#ececec",
-                lineHeight: 1.8,
-                fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
-                fontFamily: "'Geist', 'Inter', sans-serif",
-                maxWidth: "48ch",
-              }}
-            >
+            <p className="mb-8 max-w-2xl" style={{ color: "var(--foreground-secondary)", lineHeight: 1.85, fontSize: "1rem", fontFamily: "Inter, sans-serif" }}>
               {personalInfo.heroBio}
-              <br /><br />
-               <span style={{ color: "#bbb", fontSize: "0.875rem", fontFamily: "'Geist', 'Inter', sans-serif", lineHeight: 1.6 }}>{personalInfo.heroContext}</span>
-            </motion.p>
+              <br />
+              <span style={{ color: "var(--foreground-muted)", fontSize: "0.875rem", lineHeight: 1.7 }}>{personalInfo.heroContext}</span>
+            </p>
 
-            {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.26 }}
-              className="flex flex-wrap items-center justify-center lg:justify-start gap-3"
-            >
+            <div className="flex flex-wrap items-center gap-3">
               <motion.a
                 href={resumeLink}
-                className="flex items-center gap-2 px-5 py-3 rounded-full text-sm font-semibold"
-                style={{ background: G, color: "#050505", boxShadow: "0 0 24px rgba(34,197,94,0.4)" }}
-                whileHover={{ y: -1, boxShadow: "0 0 42px rgba(34,197,94,0.65)" }}
-                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                className="h-11 px-5 rounded-full flex items-center justify-center gap-2 text-sm font-semibold transition-colors duration-200"
+                style={{ background: "var(--button-primary)", color: "var(--button-primary-text)" }}
+                whileHover={{ y: -1 }}
+                transition={transition}
               >
                 <Download size={15} strokeWidth={2.5} /> Download Resume
               </motion.a>
-              <motion.span
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                style={{ display: "inline-block" }}
-              >
+
+              <motion.span style={{ display: "inline-block" }}>
                 <Link
                   to="/projects"
-                  className="flex items-center gap-2 px-5 py-3 rounded-full text-sm font-semibold transition-all duration-200"
-                  style={{ background: "transparent", color: G, border: "1px solid rgba(34,197,94,0.35)" }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(34,197,94,0.08)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(34,197,94,0.6)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(34,197,94,0.35)"; }}
+                  className="h-11 px-5 rounded-full flex items-center justify-center gap-2 text-sm font-semibold transition-colors duration-200"
+                  style={{ background: "transparent", color: "var(--foreground)", border: "1px solid rgba(255,255,255,0.12)" }}
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)")}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "transparent")}
                 >
                   View Projects <ArrowRight size={14} />
                 </Link>
               </motion.span>
 
-              {/* Social icons — 44×44 touch targets */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2" aria-label="Social links">
                 {[
-                  { icon: Github, href: contactInfo.github },
-                  { icon: Linkedin, href: contactInfo.linkedin },
-                ].map(({ icon: Icon, href }, i) => (
+                  { icon: Github, href: contactInfo.github, label: "GitHub" },
+                  { icon: Linkedin, href: contactInfo.linkedin, label: "LinkedIn" },
+                ].map(({ icon: Icon, href, label }) => (
                   <motion.a
-                    key={i}
+                    key={label}
                     href={href}
                     target="_blank"
                     rel="noreferrer"
-                    className="w-11 h-11 rounded-full flex items-center justify-center"
-                    style={{ background: "rgba(255,255,255,0.05)", color: "#d8d8d8", border: "1px solid rgba(255,255,255,0.1)" }}
-                    whileHover={{ scale: 1.12, color: G, borderColor: "rgba(34,197,94,0.35)" }}
-                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                    aria-label={label}
+                    className="w-11 h-11 rounded-full flex items-center justify-center transition-colors duration-200"
+                    style={{ background: "rgba(255,255,255,0.035)", color: "var(--foreground-secondary)", border: "1px solid rgba(255,255,255,0.08)" }}
+                    whileHover={{ y: -1 }}
+                    transition={transition}
+                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--foreground)")}
+                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--foreground-secondary)")}
                   >
                     <Icon size={17} />
                   </motion.a>
                 ))}
               </div>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
 
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ...transition, delay: 0.08 }}
+            className="flex justify-center lg:justify-end"
+          >
+            <motion.div
+              className="relative"
+              style={{ width: "min(100%, 360px)" }}
+              whileHover={{ y: -2 }}
+              transition={transition}
+            >
+              <div
+                className="overflow-hidden rounded-[24px]"
+                style={{
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  boxShadow: "0 24px 80px rgba(0,0,0,0.45)",
+                }}
+              >
+                <img
+                  src={personalInfo.profilePhoto}
+                  alt={`${personalInfo.firstName} ${personalInfo.lastName} — ${personalInfo.role}`}
+                  className="w-full aspect-square object-cover"
+                />
+              </div>
+              <div
+                className="absolute -bottom-4 left-6 right-6 rounded-2xl px-4 py-3"
+                style={{ background: "rgba(10,12,20,0.88)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(14px)", boxShadow: "0 18px 60px rgba(0,0,0,0.35)" }}
+              >
+                <p className="text-xs font-medium" style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}>Full-Stack Developer</p>
+                <p className="text-xs mt-1" style={{ color: "var(--foreground-muted)" }}>B.Tech ISE · AI · DSA</p>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>

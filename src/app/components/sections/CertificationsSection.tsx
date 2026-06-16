@@ -4,90 +4,58 @@ import { useRef } from "react";
 import { Award } from "lucide-react";
 import { certifications } from "../../../data/portfolio-data";
 
-const G = "#22C55E";
+function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+
+  return (
+    <motion.div ref={ref} initial={{ opacity: 0, y: 18 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.2, delay }}>
+      {children}
+    </motion.div>
+  );
+}
 
 export function CertificationsSection() {
   const headerRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-40px" });
 
   return (
-    <section className="py-20 px-6">
+    <section className="py-24 px-5 sm:px-6">
       <div className="max-w-7xl mx-auto">
-        <motion.div ref={headerRef} initial={{ opacity: 0, y: 16 }} animate={headerInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.4 }} className="mb-12">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-5 h-[2px]" style={{ background: G }} />
-            <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: G, fontFamily: "'JetBrains Mono', monospace" }}>Certifications</span>
+        <FadeUp>
+          <div className="mb-14 max-w-3xl">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-5 h-[2px]" style={{ background: "rgba(124,108,244,0.45)" }} />
+              <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>Certifications</span>
+            </div>
+            <h2 className="mb-4" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)", fontFamily: "Inter, sans-serif" }}>Certifications</h2>
+            <p className="max-w-2xl" style={{ color: "var(--foreground-secondary)", fontSize: "1rem", lineHeight: 1.85, fontFamily: "Inter, sans-serif" }}>
+              Courses and credentials that support the way I build.
+            </p>
           </div>
-          <h2 className="text-white" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)", fontWeight: 700, letterSpacing: "-0.04em", fontFamily: "'Space Grotesk', sans-serif", textShadow: "0 0 40px rgba(34,197,94,0.15)" }}>
-            Certifications
-          </h2>
-          <p style={{ color: "#bbb", fontSize: "0.875rem", fontFamily: "'Geist', 'Inter', sans-serif", lineHeight: 1.6 }}>
-            Courses and credentials.
-          </p>
-        </motion.div>
+        </FadeUp>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {certifications.map((cert, i) => {
-            const ref = useRef(null);
-            const inView = useInView(ref, { once: true, margin: "-20px" });
-            return (
+          {certifications.map((cert, i) => (
+            <FadeUp key={`${cert.name}-${cert.issuer}`} delay={i * 0.05}>
               <motion.div
-                ref={ref}
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="group rounded-xl overflow-hidden"
-                style={{ background: "#0a0a0a", border: "1px solid rgba(255,255,255,0.06)" }}
-                whileHover={{ y: -3, borderColor: "rgba(34,197,94,0.2)", boxShadow: "0 0 32px rgba(34,197,94,0.06)", transition: { type: "spring", stiffness: 300, damping: 20 } }}
+                className="h-full rounded-2xl p-5 transition-colors duration-200"
+                style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
+                whileHover={{ y: -4, borderColor: "rgba(255,255,255,0.1)" }}
+                transition={{ duration: 0.2 }}
               >
-                {/* Left accent bar on hover */}
-                <motion.div
-                  className="h-1 w-full"
-                  style={{ background: `linear-gradient(to right, ${G}66, transparent)`, opacity: 0.4 }}
-                  whileHover={{ opacity: 0.8 }}
-                  transition={{ duration: 0.2 }}
-                />
-
-                <div className="p-5">
-                  <div className="flex items-start gap-3 mb-3">
-                    {/* Icon with glow */}
-                    <motion.div
-                      whileHover={{ scale: 1.12 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                      className="w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0 relative"
-                      style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.12)" }}
-                    >
-                      <span className="relative z-10">{cert.icon}</span>
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        whileHover={{ opacity: 1 }}
-                        transition={{ duration: 0.25 }}
-                        className="absolute inset-0 rounded-xl"
-                        style={{ background: "radial-gradient(circle, rgba(34,197,94,0.12) 0%, transparent 70%)" }}
-                      />
-                    </motion.div>
-                    <div className="min-w-0 flex-1">
-                      <p className="font-semibold leading-snug" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "#f5f5f5", fontSize: "0.9375rem", letterSpacing: "-0.01em" }}>
-                        {cert.name}
-                      </p>
-                      <p style={{ color: "#bbb", fontSize: "0.8125rem", fontFamily: "'Geist', 'Inter', sans-serif", marginTop: "3px" }}>
-                        {cert.issuer}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Date badge */}
-                  <div className="flex items-center gap-1.5">
-                    <Award size={12} style={{ color: G }} />
-                    <span style={{ color: G, fontSize: "0.75rem", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.02em" }}>
-                      {cert.date}
-                    </span>
-                  </div>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                  <Award size={16} style={{ color: "var(--foreground-muted)" }} />
+                </div>
+                <p className="font-semibold leading-snug mb-3" style={{ color: "var(--foreground)", fontFamily: "Inter, sans-serif", fontSize: "0.9375rem", letterSpacing: "-0.01em" }}>{cert.name}</p>
+                <p className="text-sm mb-4" style={{ color: "var(--foreground-secondary)", fontFamily: "Inter, sans-serif" }}>{cert.issuer}</p>
+                <div className="flex items-center gap-2 text-xs" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>
+                  <span className="w-1.5 h-1.5 rounded-full" style={{ background: "rgba(124,108,244,0.45)" }} />
+                  {cert.date}
                 </div>
               </motion.div>
-            );
-          })}
+            </FadeUp>
+          ))}
         </div>
       </div>
     </section>

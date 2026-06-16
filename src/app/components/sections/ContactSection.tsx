@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { Mail, Linkedin, Github, MapPin, Send } from "lucide-react";
 import { contactInfo } from "../../../data/portfolio-data";
 
-const G = "#22C55E";
+const focusStyle = "0 0 0 2px rgba(124,108,244,0.4)";
 
 export function ContactSection() {
   const ref = useRef(null);
@@ -13,61 +13,52 @@ export function ContactSection() {
   const [sent, setSent] = useState(false);
 
   const inputStyle: React.CSSProperties = {
-    background: "#0c0c0c",
+    background: "rgba(255,255,255,0.02)",
     border: "1px solid rgba(255,255,255,0.08)",
-    color: "#ffffff",
-    borderRadius: "12px",
-    padding: "12px 16px",
-    fontSize: "13px",
+    color: "var(--foreground)",
+    borderRadius: "16px",
+    padding: "13px 14px",
+    fontSize: "14px",
     outline: "none",
     width: "100%",
-    transition: "border-color 0.2s",
-    fontFamily: "'Geist', 'Inter', sans-serif",
+    transition: "border-color 0.2s, box-shadow 0.2s",
+    fontFamily: "Inter, sans-serif",
   };
 
+  const contactMethods = [
+    { icon: Mail, href: `mailto:${contactInfo.email}`, label: "Email", value: contactInfo.email },
+    { icon: Linkedin, label: "LinkedIn", value: contactInfo.linkedinHandle, href: contactInfo.linkedin },
+    { icon: Github, label: "GitHub", value: contactInfo.github.replace("https://", ""), href: contactInfo.github },
+    { icon: MapPin, label: "Location", value: contactInfo.location, href: null },
+  ];
+
   return (
-    <section id="contact" className="py-20 px-6" style={{ background: "transparent" }}>
+    <section id="contact" className="py-24 px-5 sm:px-6">
       <div className="max-w-7xl mx-auto">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.55 }}
+          transition={{ duration: 0.2 }}
+          className="mb-14 max-w-3xl"
         >
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-5 h-[2px]" style={{ background: G }} />
-            <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: G, fontFamily: "'JetBrains Mono', monospace" }}>
-              Contact
-            </span>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-5 h-[2px]" style={{ background: "rgba(124,108,244,0.45)" }} />
+            <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>Contact</span>
           </div>
-          <h2
-            className="text-white mb-4"
-            style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)", fontWeight: 700, letterSpacing: "-0.04em", fontFamily: "'Space Grotesk', sans-serif", textShadow: "0 0 40px rgba(34,197,94,0.15)" }}
-          >
-            Get in Touch
-          </h2>
-          <p className="mb-10 max-w-lg" style={{ color: "#ddd", lineHeight: 1.8, fontSize: "1rem", fontFamily: "'Geist', 'Inter', sans-serif" }}>
+          <h2 className="mb-4" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)", fontFamily: "Inter, sans-serif" }}>Get in Touch</h2>
+          <p className="max-w-2xl" style={{ color: "var(--foreground-secondary)", lineHeight: 1.85, fontSize: "1rem", fontFamily: "Inter, sans-serif" }}>
             {contactInfo.description}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Left — contact info */}
+        <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.2, delay: 0.08 }}
           >
-            {/* Social quick-links */}
-            <motion.div
-              initial="hidden"
-              animate={inView ? "visible" : "hidden"}
-              variants={{
-                hidden: { opacity: 0 },
-                visible: { opacity: 1, transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
-              }}
-              className="flex items-center gap-3 mb-8"
-            >
+            <div className="flex flex-wrap gap-3 mb-10">
               {[
                 { icon: Mail, href: `mailto:${contactInfo.email}`, label: "Email" },
                 { icon: Github, href: contactInfo.github, label: "GitHub" },
@@ -75,95 +66,56 @@ export function ContactSection() {
               ].map(({ icon: Icon, href, label }) => (
                 <motion.a
                   key={label}
-                  variants={{
-                    hidden: { opacity: 0, y: 8 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] } },
-                  }}
                   href={href}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold"
-                  style={{ background: "rgba(34,197,94,0.07)", color: G, border: "1px solid rgba(34,197,94,0.15)" }}
-                  whileHover={{ y: -2, background: "rgba(34,197,94,0.14)", boxShadow: "0 0 18px rgba(34,197,94,0.18)" }}
-                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                  className="h-11 px-4 rounded-full flex items-center gap-2 text-xs font-semibold transition-colors duration-200"
+                  style={{ background: "transparent", color: "var(--foreground)", border: "1px solid rgba(255,255,255,0.12)" }}
+                  whileHover={{ y: -1 }}
+                  transition={{ duration: 0.2 }}
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)")}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "transparent")}
                 >
                   <Icon size={14} /> {label}
                 </motion.a>
               ))}
-            </motion.div>
+            </div>
 
-            {/* Detail rows */}
-            <motion.div
-              initial="hidden"
-              animate={inView ? "visible" : "hidden"}
-              variants={{
-                hidden: { opacity: 0 },
-                visible: { opacity: 1, transition: { staggerChildren: 0.06, delayChildren: 0.04 } },
-              }}
-              className="flex flex-col gap-5"
-            >
-              {[
-                { icon: Mail, label: "Email", value: contactInfo.email, href: `mailto:${contactInfo.email}` },
-                { icon: Linkedin, label: "LinkedIn", value: contactInfo.linkedinHandle, href: contactInfo.linkedin },
-                { icon: Github, label: "GitHub", value: contactInfo.github.replace("https://", ""), href: contactInfo.github },
-                { icon: MapPin, label: "Location", value: contactInfo.location, href: null },
-              ].map(({ icon: Icon, label, value, href }) => (
-                <motion.div
-                  key={label}
-                  variants={{
-                    hidden: { opacity: 0, y: 8 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] } },
-                  }}
-                  className="flex items-center gap-4"
-                >
-                  <motion.div
-                    whileHover={{ scale: 1.12 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.14)" }}
-                  >
-                    <Icon size={17} style={{ color: G }} />
-                  </motion.div>
+            <div className="flex flex-col gap-5">
+              {contactMethods.map(({ icon: Icon, label, value, href }) => (
+                <div key={label} className="flex items-start gap-4">
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(255,255,255,0.035)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                    <Icon size={17} style={{ color: "var(--foreground-secondary)" }} />
+                  </div>
                   <div>
-                    <p className="text-xs mb-0.5" style={{ color: "#aaa", fontFamily: "'Geist', 'Inter', sans-serif" }}>{label}</p>
+                    <p className="text-xs mb-1" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>{label}</p>
                     {href ? (
-                      <motion.a
-                        href={href}
-                        className="text-sm"
-                        style={{ color: "#e4e4e4", fontFamily: "'Geist', 'Inter', sans-serif" }}
-                        whileHover={{ color: G, x: 2 }}
-                        transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                      >
+                      <a href={href} className="text-sm transition-colors duration-200" style={{ color: "var(--foreground)", fontFamily: "Inter, sans-serif" }} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noreferrer" : undefined}>
                         {value}
-                      </motion.a>
+                      </a>
                     ) : (
-                      <p className="text-sm" style={{ color: "#e4e4e4", fontFamily: "'Geist', 'Inter', sans-serif" }}>{value}</p>
+                      <p className="text-sm" style={{ color: "var(--foreground)", fontFamily: "Inter, sans-serif" }}>{value}</p>
                     )}
                   </div>
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
           </motion.div>
 
-          {/* Right — form */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.18 }}
-            className="rounded-2xl p-7"
-            style={{ background: "#0c0c0c", border: "1px solid rgba(255,255,255,0.07)" }}
-            whileHover={{ y: -2, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+            transition={{ duration: 0.2, delay: 0.14 }}
+            className="rounded-[24px] p-6 sm:p-7"
+            style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.08)" }}
           >
             {sent ? (
-              <div className="flex flex-col items-center justify-center h-full gap-4 py-16">
-                <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center"
-                  style={{ background: "rgba(34,197,94,0.12)", boxShadow: "0 0 32px rgba(34,197,94,0.2)" }}
-                >
-                  <Send size={28} style={{ color: G }} />
+              <div className="flex flex-col items-center justify-center min-h-[420px] gap-4 text-center py-16">
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                  <Send size={24} style={{ color: "var(--foreground-secondary)" }} />
                 </div>
-                <p className="text-white font-semibold">Message sent!</p>
-                <p className="text-sm" style={{ color: "#e8e8e8" }}>{contactInfo.responseTime}</p>
+                <p className="font-semibold" style={{ color: "var(--foreground)", fontFamily: "Inter, sans-serif" }}>Message sent!</p>
+                <p className="text-sm max-w-sm" style={{ color: "var(--foreground-secondary)", fontFamily: "Inter, sans-serif" }}>{contactInfo.responseTime}</p>
               </div>
             ) : (
               <motion.form
@@ -176,19 +128,13 @@ export function ContactSection() {
                 animate={inView ? "visible" : "hidden"}
                 variants={{
                   hidden: { opacity: 0 },
-                  visible: { opacity: 1, transition: { staggerChildren: 0.05, delayChildren: 0.08 } },
+                  visible: { opacity: 1, transition: { staggerChildren: 0.04, delayChildren: 0.04 } },
                 }}
                 className="flex flex-col gap-4"
               >
-                <motion.div
-                  variants={{
-                    hidden: { opacity: 0, y: 10 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] } },
-                  }}
-                  className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-                >
+                <motion.div variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0, transition: { duration: 0.2 } } }} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-medium mb-2" style={{ color: "#e0e0e0" }}>Name</label>
+                    <label className="block mb-2" style={{ color: "var(--foreground)", fontFamily: "Inter, sans-serif" }}>Name</label>
                     <input
                       type="text"
                       required
@@ -196,12 +142,18 @@ export function ContactSection() {
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       style={inputStyle}
-                      onFocus={(e) => ((e.target as HTMLElement).style.borderColor = "rgba(34,197,94,0.45)")}
-                      onBlur={(e) => ((e.target as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)")}
+                      onFocus={(e) => {
+                        (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,108,244,0.5)";
+                        (e.currentTarget as HTMLElement).style.boxShadow = focusStyle;
+                      }}
+                      onBlur={(e) => {
+                        (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
+                        (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                      }}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium mb-2" style={{ color: "#e0e0e0" }}>Email</label>
+                    <label className="block mb-2" style={{ color: "var(--foreground)", fontFamily: "Inter, sans-serif" }}>Email</label>
                     <input
                       type="email"
                       required
@@ -209,18 +161,20 @@ export function ContactSection() {
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       style={inputStyle}
-                      onFocus={(e) => ((e.target as HTMLElement).style.borderColor = "rgba(34,197,94,0.45)")}
-                      onBlur={(e) => ((e.target as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)")}
+                      onFocus={(e) => {
+                        (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,108,244,0.5)";
+                        (e.currentTarget as HTMLElement).style.boxShadow = focusStyle;
+                      }}
+                      onBlur={(e) => {
+                        (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
+                        (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                      }}
                     />
                   </div>
                 </motion.div>
-                <motion.div
-                  variants={{
-                    hidden: { opacity: 0, y: 10 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] } },
-                  }}
-                >
-                  <label className="block text-xs font-medium mb-2" style={{ color: "#e0e0e0" }}>Message</label>
+
+                <motion.div variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0, transition: { duration: 0.2 } } }}>
+                  <label className="block mb-2" style={{ color: "var(--foreground)", fontFamily: "Inter, sans-serif" }}>Message</label>
                   <textarea
                     required
                     rows={6}
@@ -228,20 +182,26 @@ export function ContactSection() {
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     style={{ ...inputStyle, resize: "none" }}
-                    onFocus={(e) => ((e.target as HTMLElement).style.borderColor = "rgba(34,197,94,0.45)")}
-                    onBlur={(e) => ((e.target as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)")}
+                    onFocus={(e) => {
+                      (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,108,244,0.5)";
+                      (e.currentTarget as HTMLElement).style.boxShadow = focusStyle;
+                    }}
+                    onBlur={(e) => {
+                      (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
+                      (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                    }}
                   />
                 </motion.div>
+
                 <motion.button
                   type="submit"
-                  variants={{
-                    hidden: { opacity: 0, y: 10 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] } },
-                  }}
-                  className="flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold"
-                  style={{ background: G, color: "#050505", boxShadow: "0 0 22px rgba(34,197,94,0.28)" }}
-                  whileHover={{ y: -1, boxShadow: "0 0 48px rgba(34,197,94,0.6)" }}
-                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                  variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0, transition: { duration: 0.2 } } }}
+                  className="h-11 rounded-xl flex items-center justify-center gap-2 text-sm font-semibold transition-colors duration-200"
+                  style={{ background: "var(--button-primary)", color: "var(--button-primary-text)" }}
+                  whileHover={{ y: -1 }}
+                  transition={{ duration: 0.2 }}
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--button-primary-hover)")}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--button-primary)")}
                 >
                   <Send size={15} /> Send Message
                 </motion.button>

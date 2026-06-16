@@ -1,22 +1,10 @@
 import { motion } from "motion/react";
 import { useInView } from "motion/react";
 import { useRef } from "react";
-import { Github, ExternalLink, ArrowRight } from "lucide-react";
-import { Link } from "react-router";
-import { featuredProjects } from "../../../data/portfolio-data";
+import { Github, ExternalLink } from "lucide-react";
+import { otherProjects } from "../../../data/portfolio-data";
 
-function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-
-  return (
-    <motion.div ref={ref} initial={{ opacity: 0, y: 18 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.2, delay }}>
-      {children}
-    </motion.div>
-  );
-}
-
-function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
+function ProjectCard({ p, i }: { p: typeof otherProjects[0]; i: number }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-30px" });
 
@@ -36,9 +24,6 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
         <div className="relative overflow-hidden" style={{ height: 240 }}>
           <img src={p.image} alt={p.title} className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-[1.015]" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(5,6,8,0.72), transparent 55%)" }} />
-          <span className="absolute top-4 left-4 text-xs font-semibold px-2.5 py-1 rounded-full" style={{ background: "rgba(5,6,8,0.62)", color: "var(--foreground-secondary)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}>
-            {p.number}
-          </span>
         </div>
 
         <div className="p-6 flex flex-col flex-1">
@@ -88,44 +73,18 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
   );
 }
 
-export function FeaturedProjectsSection() {
-  const headerRef = useRef(null);
-  const headerInView = useInView(headerRef, { once: true, margin: "-40px" });
+export function MoreProjectsSection() {
+  if (otherProjects.length === 0) return null;
 
   return (
-    <section id="projects" className="py-24 px-5 sm:px-6">
+    <section className="pb-24 px-5 sm:px-6">
       <div className="max-w-7xl mx-auto">
-        <FadeUp>
-          <div className="flex items-end justify-between gap-6 mb-12">
-            <div className="max-w-3xl">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-5 h-[2px]" style={{ background: "rgba(124,108,244,0.45)" }} />
-                <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>Projects</span>
-              </div>
-              <h2 className="mb-4" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)", fontFamily: "Inter, sans-serif" }}>Featured Projects</h2>
-              <p className="max-w-2xl" style={{ color: "var(--foreground-secondary)", fontSize: "1rem", lineHeight: 1.85, fontFamily: "Inter, sans-serif" }}>
-                Product-style case studies for the work I've designed, built, and shipped.
-              </p>
-            </div>
-
-            <motion.span style={{ display: "inline-block" }}>
-              <Link
-                to="/projects"
-                className="h-11 px-4 rounded-full flex items-center gap-2 text-xs font-semibold transition-colors duration-200"
-                style={{ background: "transparent", color: "var(--foreground)", border: "1px solid rgba(255,255,255,0.12)" }}
-                whileHover={{ y: -1 }}
-                transition={{ duration: 0.2 }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "transparent")}
-              >
-                All projects <ArrowRight size={12} />
-              </Link>
-            </motion.span>
-          </div>
-        </FadeUp>
-
+        <div
+          className="w-full h-px mb-12"
+          style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)" }}
+        />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          {featuredProjects.map((p, i) => (
+          {otherProjects.map((p, i) => (
             <ProjectCard key={p.title} p={p} i={i} />
           ))}
         </div>
