@@ -118,10 +118,11 @@ export function ContactSection() {
               </div>
             ) : (
               <motion.form
+                action={`https://formspree.io/f/manqbrkp`}
+                method="POST"
                 onSubmit={(e) => {
-                  e.preventDefault();
+                  if (!form.name || !form.email || !form.message) return;
                   setSent(true);
-                  setTimeout(() => setSent(false), 4000);
                 }}
                 initial="hidden"
                 animate={inView ? "visible" : "hidden"}

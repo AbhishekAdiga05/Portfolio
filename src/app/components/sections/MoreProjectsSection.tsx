@@ -27,13 +27,13 @@ function ProjectCard({ p, i }: { p: typeof otherProjects[0]; i: number }) {
         </div>
 
         <div className="p-6 flex flex-col flex-1">
-          <p className="text-xs font-medium mb-3" style={{ color: "var(--accent-secondary)", fontFamily: "Inter, sans-serif", letterSpacing: "-0.01em" }}>{p.subtitle}</p>
-          <h3 className="mb-3" style={{ fontSize: "1.5rem", fontFamily: "Inter, sans-serif" }}>{p.title}</h3>
-          <p className="mb-5 flex-1" style={{ color: "var(--foreground-secondary)", lineHeight: 1.75, fontSize: "0.9375rem", fontFamily: "Inter, sans-serif" }}>{p.description}</p>
+          <p className="text-xs font-medium mb-3" style={{ color: "var(--accent-secondary)", letterSpacing: "-0.01em" }}>{p.subtitle}</p>
+          <h3 className="mb-3" style={{ fontSize: "1.5rem" }}>{p.title}</h3>
+          <p className="mb-5 flex-1" style={{ color: "var(--foreground-secondary)", lineHeight: 1.75, fontSize: "0.9375rem" }}>{p.description}</p>
 
           <div className="flex flex-wrap gap-2 mb-6">
             {p.tags.map((t) => (
-              <span key={t} className="text-xs px-2.5 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.035)", color: "var(--foreground-muted)", border: "1px solid rgba(255,255,255,0.07)", fontFamily: "Inter, sans-serif" }}>
+              <span key={t} className="text-xs px-2.5 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.035)", color: "var(--foreground-muted)", border: "1px solid rgba(255,255,255,0.07)" }}>
                 {t}
               </span>
             ))}

@@ -2,7 +2,7 @@ export const personalInfo = {
   firstName: "Abhishek",
   lastName: "Adiga",
   role: "Full-Stack Developer & AI Enthusiast",
-  profilePhoto: "/images/profile.png",
+  profilePhoto: "/images/profile.webp",
   heroBio:
     "Building real products for the real web.",
   heroContext:
@@ -94,7 +94,7 @@ export const featuredProjects = [
     subtitle: "AI-Powered Multi-Model Chat Platform",
     description:
       "AI chat platform with 100+ LLMs, real-time streaming, GitHub auth, and persistent history.",
-    image: "/images/neonchat.png",
+    image: "/images/neonchat.webp",
     tags: [
       "Next.js",
       "TypeScript",
@@ -112,7 +112,7 @@ export const featuredProjects = [
     subtitle: "Full-Stack DSA Practice Platform",
     description:
       "LeetCode-style platform with online code execution, progress tracking, and analytics.",
-    image: "/images/codeforge.png",
+    image: "/images/codeforge.webp",
     tags: [
       "Next.js",
       "React",
@@ -130,7 +130,7 @@ export const featuredProjects = [
   subtitle: "Product Price Tracking & Market Intelligence Platform",
   description:
   "Smart price tracking platform with multi-store comparison, deal insights, and historical price analytics.",
-  image: "/images/nexprice.png",
+  image: "/images/nexprice.webp",
   tags: [
     "Next.js",
     "Supabase",
@@ -151,7 +151,7 @@ export const otherProjects = [
     subtitle: "Cybersecure E-Voting System",
     description:
       "Secure e-voting with threat detection, anti-DDoS, and encrypted voting.",
-    image: "/images/safecast.png",
+    image: "/images/safecast.webp",
     tags: [
       "MERN",
       "Cybersecurity",
@@ -218,4 +218,4 @@ export const contactInfo = {
   responseTime: "Usually within 24 hours.",
 };
 
-export const resumeLink = "";
+export const resumeLink = "/resume.pdf";

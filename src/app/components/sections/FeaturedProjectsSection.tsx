@@ -34,7 +34,7 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
         style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
       >
         <div className="relative overflow-hidden" style={{ height: 240 }}>
-          <img src={p.image} alt={p.title} className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-[1.015]" />
+          <img src={p.image} alt={p.title} loading="lazy" width="400" height="240" className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-[1.015]" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(5,6,8,0.72), transparent 55%)" }} />
           <span className="absolute top-4 left-4 text-xs font-semibold px-2.5 py-1 rounded-full" style={{ background: "rgba(5,6,8,0.62)", color: "var(--foreground-secondary)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}>
             {p.number}

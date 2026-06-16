@@ -1,46 +1,58 @@
 import { motion } from "motion/react";
 import { useInView } from "motion/react";
 import { useRef } from "react";
+import { Code2, Server, Database, Cpu, Container, Wrench } from "lucide-react";
 import { skillCategories } from "../../../data/portfolio-data";
 
-function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+const iconMap: Record<string, typeof Code2> = {
+  Frontend: Code2, Backend: Server, Database, "AI / ML": Cpu, DevOps: Container, Tools: Wrench,
+};
+
+function SlideUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
-
   return (
-    <motion.div ref={ref} initial={{ opacity: 0, y: 18 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.2, delay }}>
+    <motion.div ref={ref} initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.3, delay, ease: [0.25, 0.1, 0.25, 1] }}>
       {children}
     </motion.div>
   );
 }
 
 function SkillGroup({ category, delay }: { category: typeof skillCategories[0]; delay: number }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const Icon = iconMap[category.label] || Code2;
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 18 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.2, delay }}
-      className="rounded-2xl p-6"
-      style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
-    >
-      <div className="flex items-start justify-between gap-4 mb-5">
-        <div>
-          <h3 className="mb-2" style={{ fontSize: "1.25rem" }}>{category.label}</h3>
-          <p className="text-sm leading-relaxed" style={{ color: "var(--foreground-secondary)" }}>{category.capability}</p>
+    <SlideUp delay={delay}>
+      <motion.div
+        className="rounded-2xl p-6 group cursor-default"
+        style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
+        whileHover={{ y: -4, borderColor: "rgba(124,108,244,0.25)" }}
+        transition={{ duration: 0.2 }}
+      >
+        <div className="flex items-center gap-3 mb-5">
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "rgba(124,108,244,0.08)" }}>
+            <Icon size={17} style={{ color: "var(--primary)" }} />
+          </div>
+          <div>
+            <h3 className="font-semibold" style={{ fontSize: "1.05rem" }}>{category.label}</h3>
+          </div>
         </div>
-      </div>
-      <div className="flex flex-wrap gap-2">
-        {category.skills.map((skill) => (
-          <span key={skill} className="text-xs px-2.5 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.035)", color: "var(--foreground-secondary)", border: "1px solid rgba(255,255,255,0.07)" }}>
-            {skill}
-          </span>
-        ))}
-      </div>
-    </motion.div>
+        <p className="text-sm leading-relaxed mb-5" style={{ color: "var(--foreground-secondary)" }}>{category.capability}</p>
+        <div className="flex flex-wrap gap-1.5">
+          {category.skills.map((skill) => (
+            <motion.span
+              key={skill}
+              className="text-xs px-2.5 py-1 rounded-full"
+              style={{ background: "rgba(255,255,255,0.03)", color: "var(--foreground-muted)", border: "1px solid rgba(255,255,255,0.06)" }}
+              whileHover={{ scale: 1.05, background: "rgba(124,108,244,0.1)", color: "var(--primary)", borderColor: "rgba(124,108,244,0.2)" }}
+              transition={{ duration: 0.15 }}
+            >
+              {skill}
+            </motion.span>
+          ))}
+        </div>
+      </motion.div>
+    </SlideUp>
   );
 }
 
@@ -48,7 +60,7 @@ export function SkillsSection() {
   return (
     <section id="skills" className="py-24 px-5 sm:px-6">
       <div className="max-w-7xl mx-auto">
-        <FadeUp>
+        <SlideUp>
           <div className="max-w-3xl mb-14">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-5 h-[2px]" style={{ background: "rgba(124,108,244,0.45)" }} />
@@ -59,7 +71,7 @@ export function SkillsSection() {
               A focused view of the technologies I use to move from product thinking to shipped software.
             </p>
           </div>
-        </FadeUp>
+        </SlideUp>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {skillCategories.map((cat, i) => (

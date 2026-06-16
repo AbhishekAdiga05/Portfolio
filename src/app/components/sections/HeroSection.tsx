@@ -148,6 +148,9 @@ export function HeroSection() {
                 <img
                   src={personalInfo.profilePhoto}
                   alt={`${personalInfo.firstName} ${personalInfo.lastName} — ${personalInfo.role}`}
+                  loading="lazy"
+                  width="360"
+                  height="360"
                   className="w-full aspect-square object-cover"
                 />
               </div>

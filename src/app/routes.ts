@@ -1,8 +1,10 @@
 import { createBrowserRouter } from "react-router";
+import { lazy } from "react";
 import { Root } from "./Root";
-import { HomePage } from "./pages/HomePage";
-import { ProjectsPage } from "./pages/ProjectsPage";
-import { ResumePage } from "./pages/ResumePage";
+
+const HomePage = lazy(() => import("./pages/HomePage").then(m => ({ default: m.HomePage })));
+const ProjectsPage = lazy(() => import("./pages/ProjectsPage").then(m => ({ default: m.ProjectsPage })));
+const ResumePage = lazy(() => import("./pages/ResumePage").then(m => ({ default: m.ResumePage })));
 
 export const router = createBrowserRouter([
   {

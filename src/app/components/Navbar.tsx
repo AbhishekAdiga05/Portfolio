@@ -82,7 +82,7 @@ export function Navbar() {
             className="w-8 h-8 rounded-lg flex items-center justify-center"
             style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.08)" }}
           >
-            <span style={{ color: "var(--foreground)", fontWeight: 700, fontSize: "13px", fontFamily: "Inter, sans-serif", letterSpacing: "-0.03em" }}>AA</span>
+            <span style={{ color: "var(--foreground)", fontWeight: 700, fontSize: "13px", letterSpacing: "-0.03em" }}>AA</span>
           </div>
           <span className="text-white font-semibold text-sm hidden sm:block" style={{ fontFamily: "Inter, sans-serif", letterSpacing: "-0.02em" }}>
             Abhi.dev
@@ -216,7 +216,7 @@ export function Navbar() {
             ))}
 
             <div className="pt-2 pb-1" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-              <p className="text-xs mb-2 pt-2" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif", letterSpacing: "0.08em", textTransform: "uppercase" }}>Sections</p>
+              <p className="text-xs mb-2 pt-2" style={{ color: "var(--foreground-muted)", letterSpacing: "0.08em", textTransform: "uppercase" }}>Sections</p>
               <div className="grid grid-cols-2 gap-1">
                 {sectionLinks.map((s) => (
                   <button

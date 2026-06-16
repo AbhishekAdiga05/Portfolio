@@ -12,13 +12,13 @@ export function Footer() {
             className="w-7 h-7 rounded-lg flex items-center justify-center"
             style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.08)" }}
           >
-            <span style={{ color: "var(--foreground)", fontWeight: 700, fontSize: "11px", fontFamily: "Inter, sans-serif", letterSpacing: "-0.03em" }}>AA</span>
+            <span style={{ color: "var(--foreground)", fontWeight: 700, fontSize: "11px", letterSpacing: "-0.03em" }}>AA</span>
           </div>
           <span className="text-white font-semibold text-sm" style={{ fontFamily: "Inter, sans-serif", letterSpacing: "-0.02em" }}>
             Abhi.dev
           </span>
         </div>
-        <p className="text-xs" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>
+        <p className="text-xs" style={{ color: "var(--foreground-muted)" }}>
           © {new Date().getFullYear()} Abhishek Adiga · React · TypeScript · Tailwind
         </p>
         <div className="flex items-center gap-4">

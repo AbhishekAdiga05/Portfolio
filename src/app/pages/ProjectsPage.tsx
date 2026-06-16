@@ -24,7 +24,7 @@ function ProjectModal({ project, onClose }: { project: typeof featuredProjects[0
         onClick={(e) => e.stopPropagation()}
       >
         <div className="relative h-56 overflow-hidden">
-          <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+          <img src={project.image} alt={project.title} loading="lazy" width="800" height="224" className="w-full h-full object-cover" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(5,6,8,0.85), transparent 65%)" }} />
           <button
             onClick={onClose}
@@ -40,13 +40,13 @@ function ProjectModal({ project, onClose }: { project: typeof featuredProjects[0
         </div>
 
         <div className="p-6">
-          <p className="text-xs font-medium mb-2" style={{ color: "var(--accent-secondary)", fontFamily: "Inter, sans-serif" }}>{project.subtitle}</p>
-          <h2 className="mb-4" style={{ fontSize: "2rem", fontFamily: "Inter, sans-serif" }}>{project.title}</h2>
-          <p className="text-sm mb-6" style={{ color: "var(--foreground-secondary)", lineHeight: 1.8, fontFamily: "Inter, sans-serif" }}>{project.description}</p>
+          <p className="text-xs font-medium mb-2" style={{ color: "var(--accent-secondary)" }}>{project.subtitle}</p>
+          <h2 className="mb-4" style={{ fontSize: "2rem" }}>{project.title}</h2>
+          <p className="text-sm mb-6" style={{ color: "var(--foreground-secondary)", lineHeight: 1.8 }}>{project.description}</p>
 
           <div className="flex flex-wrap gap-2 mb-6">
             {project.tags.map((t) => (
-              <span key={t} className="px-2.5 py-1 rounded-full text-xs" style={{ background: "rgba(255,255,255,0.035)", color: "var(--foreground-secondary)", border: "1px solid rgba(255,255,255,0.07)", fontFamily: "Inter, sans-serif" }}>{t}</span>
+              <span key={t} className="px-2.5 py-1 rounded-full text-xs" style={{ background: "rgba(255,255,255,0.035)", color: "var(--foreground-secondary)", border: "1px solid rgba(255,255,255,0.07)" }}>{t}</span>
             ))}
           </div>
 
@@ -96,7 +96,7 @@ function ProjectCard({ p, i, onClick }: { p: typeof featuredProjects[0]; i: numb
       whileHover={{ y: -4 }}
     >
       <div className="relative overflow-hidden" style={{ height: 210 }}>
-        <img src={p.image} alt={p.title} className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-[1.015]" />
+        <img src={p.image} alt={p.title} loading="lazy" width="400" height="210" className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-[1.015]" />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(5,6,8,0.78), transparent 60%)" }} />
         {p.number && (
           <span className="absolute top-4 left-4 text-xs font-semibold px-2.5 py-1 rounded-full" style={{ background: "rgba(5,6,8,0.62)", color: "var(--foreground-secondary)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}>
@@ -106,17 +106,17 @@ function ProjectCard({ p, i, onClick }: { p: typeof featuredProjects[0]; i: numb
       </div>
 
       <div className="p-5 flex flex-col flex-1">
-        <p className="text-xs font-medium mb-2" style={{ color: "var(--accent-secondary)", fontFamily: "Inter, sans-serif" }}>{p.subtitle}</p>
-        <h3 className="mb-3" style={{ fontSize: "1.375rem", fontFamily: "Inter, sans-serif" }}>{p.title}</h3>
-        <p className="text-sm mb-4 flex-1" style={{ color: "var(--foreground-secondary)", lineHeight: 1.7, fontFamily: "Inter, sans-serif" }}>{p.description}</p>
+        <p className="text-xs font-medium mb-2" style={{ color: "var(--accent-secondary)" }}>{p.subtitle}</p>
+        <h3 className="mb-3" style={{ fontSize: "1.375rem" }}>{p.title}</h3>
+        <p className="text-sm mb-4 flex-1" style={{ color: "var(--foreground-secondary)", lineHeight: 1.7 }}>{p.description}</p>
 
         <div className="flex flex-wrap gap-2 mb-5">
           {p.tags.slice(0, 4).map((t) => (
-            <span key={t} className="text-xs px-2.5 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.035)", color: "var(--foreground-muted)", border: "1px solid rgba(255,255,255,0.07)", fontFamily: "Inter, sans-serif" }}>
+            <span key={t} className="text-xs px-2.5 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.035)", color: "var(--foreground-muted)", border: "1px solid rgba(255,255,255,0.07)" }}>
               {t}
             </span>
           ))}
-          {p.tags.length > 4 && <span className="text-xs px-2.5 py-1 rounded-full" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>+{p.tags.length - 4}</span>}
+          {p.tags.length > 4 && <span className="text-xs px-2.5 py-1 rounded-full" style={{ color: "var(--foreground-muted)" }}>+{p.tags.length - 4}</span>}
         </div>
 
         <div className="grid grid-cols-2 gap-2 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
@@ -159,10 +159,10 @@ export function ProjectsPage() {
         <motion.div ref={headerRef} initial={{ opacity: 0, y: 18 }} animate={headerInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.2 }}>
           <div className="flex items-center gap-3 mb-4">
             <div className="w-5 h-[2px]" style={{ background: "rgba(124,108,244,0.45)" }} />
-            <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>Portfolio</span>
+            <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)" }}>Portfolio</span>
           </div>
-          <h1 className="mb-4" style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", fontFamily: "Inter, sans-serif" }}>Projects</h1>
-          <p className="text-sm mb-10 max-w-2xl" style={{ color: "var(--foreground-secondary)", lineHeight: 1.8, fontFamily: "Inter, sans-serif" }}>
+          <h1 className="mb-4" style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)" }}>Projects</h1>
+          <p className="text-sm mb-10 max-w-2xl" style={{ color: "var(--foreground-secondary)", lineHeight: 1.8 }}>
             A closer look at the projects I've built. Click any card to see details.
           </p>
         </motion.div>

@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from "react-router";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 
@@ -25,7 +25,9 @@ export function Root() {
       <div className="relative z-10">
         <Navbar />
         <main>
-          <Outlet />
+          <Suspense fallback={<div className="flex items-center justify-center min-h-[60vh]"><div className="w-5 h-5 rounded-full" style={{ background: "var(--primary)" }} /></div>}>
+            <Outlet />
+          </Suspense>
         </main>
         <Footer />
       </div>
