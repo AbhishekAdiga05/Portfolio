@@ -42,13 +42,13 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
         </div>
 
         <div className="p-6 flex flex-col flex-1">
-          <p className="text-xs font-medium mb-3" style={{ color: "var(--accent-secondary)", fontFamily: "Inter, sans-serif", letterSpacing: "-0.01em" }}>{p.subtitle}</p>
-          <h3 className="mb-3" style={{ fontSize: "1.5rem", fontFamily: "Inter, sans-serif" }}>{p.title}</h3>
-          <p className="mb-5 flex-1" style={{ color: "var(--foreground-secondary)", lineHeight: 1.75, fontSize: "0.9375rem", fontFamily: "Inter, sans-serif" }}>{p.description}</p>
+          <p className="text-xs font-medium mb-3" style={{ color: "var(--accent-secondary)", letterSpacing: "-0.01em" }}>{p.subtitle}</p>
+          <h3 className="mb-3" style={{ fontSize: "1.5rem" }}>{p.title}</h3>
+          <p className="mb-5 flex-1" style={{ color: "var(--foreground-secondary)", lineHeight: 1.75, fontSize: "0.9375rem" }}>{p.description}</p>
 
           <div className="flex flex-wrap gap-2 mb-6">
             {p.tags.map((t) => (
-              <span key={t} className="text-xs px-2.5 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.035)", color: "var(--foreground-muted)", border: "1px solid rgba(255,255,255,0.07)", fontFamily: "Inter, sans-serif" }}>
+              <span key={t} className="text-xs px-2.5 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.035)", color: "var(--foreground-muted)", border: "1px solid rgba(255,255,255,0.07)" }}>
                 {t}
               </span>
             ))}
@@ -100,10 +100,10 @@ export function FeaturedProjectsSection() {
             <div className="max-w-3xl">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-5 h-[2px]" style={{ background: "rgba(124,108,244,0.45)" }} />
-                <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>Projects</span>
+                <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)" }}>Projects</span>
               </div>
-              <h2 className="mb-4" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)", fontFamily: "Inter, sans-serif" }}>Featured Projects</h2>
-              <p className="max-w-2xl" style={{ color: "var(--foreground-secondary)", fontSize: "1rem", lineHeight: 1.85, fontFamily: "Inter, sans-serif" }}>
+              <h2 className="mb-4" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)", fontFamily: "'Bricolage Grotesque', sans-serif" }}>Featured Projects</h2>
+              <p className="max-w-2xl" style={{ color: "var(--foreground-secondary)", fontSize: "1rem", lineHeight: 1.85 }}>
                 Product-style case studies for the work I've designed, built, and shipped.
               </p>
             </div>

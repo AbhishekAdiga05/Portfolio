@@ -22,7 +22,6 @@ export function ContactSection() {
     outline: "none",
     width: "100%",
     transition: "border-color 0.2s, box-shadow 0.2s",
-    fontFamily: "Inter, sans-serif",
   };
 
   const contactMethods = [
@@ -44,10 +43,10 @@ export function ContactSection() {
         >
           <div className="flex items-center gap-3 mb-4">
             <div className="w-5 h-[2px]" style={{ background: "rgba(124,108,244,0.45)" }} />
-            <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>Contact</span>
+            <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)" }}>Contact</span>
           </div>
-          <h2 className="mb-4" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)", fontFamily: "Inter, sans-serif" }}>Get in Touch</h2>
-          <p className="max-w-2xl" style={{ color: "var(--foreground-secondary)", lineHeight: 1.85, fontSize: "1rem", fontFamily: "Inter, sans-serif" }}>
+          <h2 className="mb-4" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)", fontFamily: "Syne, sans-serif" }}>Get in Touch</h2>
+          <p className="max-w-2xl" style={{ color: "var(--foreground-secondary)", lineHeight: 1.85, fontSize: "1rem" }}>
             {contactInfo.description}
           </p>
         </motion.div>
@@ -88,13 +87,13 @@ export function ContactSection() {
                     <Icon size={17} style={{ color: "var(--foreground-secondary)" }} />
                   </div>
                   <div>
-                    <p className="text-xs mb-1" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>{label}</p>
+                    <p className="text-xs mb-1" style={{ color: "var(--foreground-muted)" }}>{label}</p>
                     {href ? (
-                      <a href={href} className="text-sm transition-colors duration-200" style={{ color: "var(--foreground)", fontFamily: "Inter, sans-serif" }} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noreferrer" : undefined}>
+                      <a href={href} className="text-sm transition-colors duration-200" style={{ color: "var(--foreground)" }} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noreferrer" : undefined}>
                         {value}
                       </a>
                     ) : (
-                      <p className="text-sm" style={{ color: "var(--foreground)", fontFamily: "Inter, sans-serif" }}>{value}</p>
+                      <p className="text-sm" style={{ color: "var(--foreground)" }}>{value}</p>
                     )}
                   </div>
                 </div>
@@ -114,8 +113,8 @@ export function ContactSection() {
                 <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                   <Send size={24} style={{ color: "var(--foreground-secondary)" }} />
                 </div>
-                <p className="font-semibold" style={{ color: "var(--foreground)", fontFamily: "Inter, sans-serif" }}>Message sent!</p>
-                <p className="text-sm max-w-sm" style={{ color: "var(--foreground-secondary)", fontFamily: "Inter, sans-serif" }}>{contactInfo.responseTime}</p>
+                <p className="font-semibold" style={{ color: "var(--foreground)" }}>Message sent!</p>
+                <p className="text-sm max-w-sm" style={{ color: "var(--foreground-secondary)" }}>{contactInfo.responseTime}</p>
               </div>
             ) : (
               <motion.form
@@ -134,7 +133,7 @@ export function ContactSection() {
               >
                 <motion.div variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0, transition: { duration: 0.2 } } }} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block mb-2" style={{ color: "var(--foreground)", fontFamily: "Inter, sans-serif" }}>Name</label>
+                    <label className="block mb-2" style={{ color: "var(--foreground)" }}>Name</label>
                     <input
                       type="text"
                       required
@@ -153,7 +152,7 @@ export function ContactSection() {
                     />
                   </div>
                   <div>
-                    <label className="block mb-2" style={{ color: "var(--foreground)", fontFamily: "Inter, sans-serif" }}>Email</label>
+                    <label className="block mb-2" style={{ color: "var(--foreground)" }}>Email</label>
                     <input
                       type="email"
                       required
@@ -174,7 +173,7 @@ export function ContactSection() {
                 </motion.div>
 
                 <motion.div variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0, transition: { duration: 0.2 } } }}>
-                  <label className="block mb-2" style={{ color: "var(--foreground)", fontFamily: "Inter, sans-serif" }}>Message</label>
+                  <label className="block mb-2" style={{ color: "var(--foreground)" }}>Message</label>
                   <textarea
                     required
                     rows={6}

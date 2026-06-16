@@ -4,18 +4,17 @@ export const personalInfo = {
   role: "Full-Stack Developer & AI Enthusiast",
   profilePhoto: "/images/profile.png",
   heroBio:
-    "Building web apps to understand how things work. Focused on full-stack, AI, and DSA.",
+    "Building real products for the real web.",
   heroContext:
-    "B.Tech ISE @ Sahyadri CEM · Full-Stack Dev · AI Enthusiast",
+    "B.Tech ISE · Open Source · Always Shipping",
   openToWork: true,
   availabilityDate: "2027",
 };
 
 export const aboutInfo = {
   intro:
-    "B.Tech student in Information Science at Sahyadri CEM. I build web apps, design APIs, work with databases, and pick up frameworks along the way.",
-  secondary:
-    "I learn by building — whether it's APIs, databases, AI models, or real-time systems. Projects and DSA keep me growing.",
+    "B.Tech student who builds for the web. Full-stack apps, AI tools, open source — I learn by shipping real code.",
+  secondary: "",
   degree: "B.Tech in Information Science & Engineering",
   university: "Sahyadri College of Engineering and Management",
   graduationYear: "2023 - 2027",

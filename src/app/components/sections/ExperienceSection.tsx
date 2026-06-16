@@ -26,10 +26,10 @@ export function ExperienceSection() {
           <div className="mb-14 max-w-3xl">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-5 h-[2px]" style={{ background: "rgba(124,108,244,0.45)" }} />
-              <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>Experience</span>
+              <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)" }}>Experience</span>
             </div>
-            <h2 className="mb-5" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)", fontFamily: "Inter, sans-serif" }}>Experience</h2>
-            <p className="max-w-2xl" style={{ color: "var(--foreground-secondary)", fontSize: "1rem", lineHeight: 1.85, fontFamily: "Inter, sans-serif" }}>
+            <h2 className="mb-5" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)", fontFamily: "'DM Sans', sans-serif" }}>Experience</h2>
+            <p className="max-w-2xl" style={{ color: "var(--foreground-secondary)", fontSize: "1rem", lineHeight: 1.85 }}>
               Places where I've contributed, learned, and shipped with other developers.
             </p>
           </div>
@@ -58,10 +58,10 @@ export function ExperienceSection() {
                   >
                     <div className="flex flex-wrap items-start justify-between gap-4 mb-5">
                       <div>
-                        <h3 className="mb-1.5" style={{ fontSize: "1.5rem", fontFamily: "Inter, sans-serif" }}>{exp.role}</h3>
-                        <p className="text-sm" style={{ color: "var(--foreground-secondary)", fontFamily: "Inter, sans-serif" }}>{exp.org}</p>
+                        <h3 className="mb-1.5" style={{ fontSize: "1.5rem" }}>{exp.role}</h3>
+                        <p className="text-sm" style={{ color: "var(--foreground-secondary)" }}>{exp.org}</p>
                       </div>
-                      <div className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium" style={{ background: "rgba(255,255,255,0.035)", border: "1px solid rgba(255,255,255,0.08)", color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>
+                      <div className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium" style={{ background: "rgba(255,255,255,0.035)", border: "1px solid rgba(255,255,255,0.08)", color: "var(--foreground-muted)" }}>
                         <Calendar size={12} />
                         {exp.duration}
                       </div>
@@ -69,7 +69,7 @@ export function ExperienceSection() {
 
                     <ul className="flex flex-col gap-3">
                       {exp.bullets.map((b, j) => (
-                        <li key={j} className="flex items-start gap-3 text-sm leading-relaxed" style={{ color: "var(--foreground-secondary)", fontFamily: "Inter, sans-serif" }}>
+                        <li key={j} className="flex items-start gap-3 text-sm leading-relaxed" style={{ color: "var(--foreground-secondary)" }}>
                           <span className="mt-2 w-1 h-1 rounded-full flex-shrink-0" style={{ background: "rgba(124,108,244,0.45)" }} />
                           {b}
                         </li>

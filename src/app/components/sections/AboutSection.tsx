@@ -1,34 +1,25 @@
 import { motion } from "motion/react";
 import { useInView } from "motion/react";
 import { useRef } from "react";
-import { GraduationCap, MapPin, Code2 } from "lucide-react";
+import { GraduationCap, MapPin, Code2, ArrowUpRight } from "lucide-react";
 import { aboutInfo } from "../../../data/portfolio-data";
 
-const statCards = [
-  {
-    icon: GraduationCap,
-    label: aboutInfo.degree,
-    sub: `${aboutInfo.university}`,
-    meta: `${aboutInfo.graduationYear} · ${aboutInfo.CGPA}`,
-  },
-  {
-    icon: MapPin,
-    label: aboutInfo.location,
-    sub: aboutInfo.locationDetail,
-  },
-  {
-    icon: Code2,
-    label: aboutInfo.yearsExperience,
-    sub: aboutInfo.experienceDetail,
-  },
+const highlights = [
+  { icon: GraduationCap, value: aboutInfo.degree, label: aboutInfo.university },
+  { icon: MapPin, value: aboutInfo.location, label: aboutInfo.locationDetail },
+  { icon: Code2, value: aboutInfo.yearsExperience, label: aboutInfo.experienceDetail },
 ];
 
-function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+function SlideUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-
+  const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
-    <motion.div ref={ref} initial={{ opacity: 0, y: 18 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.2, delay }}>
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.35, delay, ease: [0.25, 0.1, 0.25, 1] }}
+    >
       {children}
     </motion.div>
   );
@@ -36,62 +27,146 @@ function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 
 export function AboutSection() {
   return (
-    <section id="about" className="py-24 px-5 sm:px-6">
-      <div className="max-w-7xl mx-auto">
-        <FadeUp>
-          <div className="mb-14 max-w-3xl">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-5 h-[2px]" style={{ background: "rgba(124,108,244,0.45)" }} />
-              <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>About</span>
-            </div>
-            <h2 className="mb-5" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)", fontFamily: "Inter, sans-serif" }}>About Me</h2>
-            <p className="max-w-2xl" style={{ color: "var(--foreground-secondary)", fontSize: "1rem", lineHeight: 1.85, fontFamily: "Inter, sans-serif" }}>
-              A concise view of my background, focus areas, and the way I learn.
-            </p>
-          </div>
-        </FadeUp>
+    <section id="about" className="py-28 px-5 sm:px-6 relative overflow-hidden">
+      <div
+        className="absolute top-0 right-0 w-[600px] h-[600px] pointer-events-none"
+        style={{
+          background: "radial-gradient(circle at 100% 0%, rgba(124,108,244,0.06), transparent 60%)",
+        }}
+        aria-hidden="true"
+      />
 
-        <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_0.75fr] gap-12 lg:gap-24">
-          <FadeUp delay={0.06}>
-            <div className="max-w-3xl">
-              <p className="text-xl leading-relaxed mb-8" style={{ color: "var(--foreground)", fontFamily: "Inter, sans-serif", letterSpacing: "-0.02em" }}>
+      <div className="max-w-7xl mx-auto relative">
+        <SlideUp>
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-6 h-[2px]" style={{ background: "var(--primary)" }} />
+            <span className="text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ color: "var(--foreground-muted)" }}>
+              About
+            </span>
+          </div>
+        </SlideUp>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.85fr] gap-14 lg:gap-20">
+          <div>
+            <SlideUp delay={0.04}>
+              <h2
+                className="mb-7"
+                style={{
+                  fontSize: "clamp(2.75rem, 5.5vw, 4rem)",
+                  fontWeight: 700,
+                  letterSpacing: "-0.05em",
+                  lineHeight: 1.0,
+                }}
+              >
+                About <span style={{ color: "var(--primary)" }}>Me</span>
+              </h2>
+            </SlideUp>
+
+            <SlideUp delay={0.08}>
+              <p className="text-xl lg:text-2xl leading-relaxed mb-10" style={{ color: "var(--foreground-secondary)", letterSpacing: "-0.02em", fontWeight: 450 }}>
                 {aboutInfo.intro}
               </p>
-              <p className="text-base leading-relaxed mb-10" style={{ color: "var(--foreground-secondary)", fontFamily: "Inter, sans-serif" }}>
-                {aboutInfo.secondary}
-              </p>
+            </SlideUp>
 
-              <div className="border-t" style={{ borderColor: "var(--border)" }}>
-                <p className="text-xs font-semibold tracking-widest uppercase mb-5" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>Interests</p>
-                <div className="flex flex-wrap gap-x-5 gap-y-2">
-                  {aboutInfo.interests.map((interest) => (
-                    <span key={interest} className="text-sm" style={{ color: "var(--foreground-secondary)", fontFamily: "Inter, sans-serif" }}>
+            <SlideUp delay={0.12}>
+              <div className="grid grid-cols-3 gap-3">
+                {highlights.map((h, i) => (
+                  <motion.div
+                    key={i}
+                    className="rounded-2xl p-5 group cursor-default"
+                    style={{
+                      background: "rgba(255,255,255,0.02)",
+                      border: "1px solid rgba(255,255,255,0.06)",
+                      transition: "border-color 0.2s, background 0.2s",
+                    }}
+                    whileHover={{ y: -3 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div
+                      className="w-9 h-9 rounded-xl flex items-center justify-center mb-3"
+                      style={{ background: "rgba(124,108,244,0.1)" }}
+                    >
+                      <h.icon size={15} style={{ color: "var(--primary)" }} />
+                    </div>
+                    <p className="text-sm font-semibold mb-0.5" style={{ color: "var(--foreground)" }}>
+                      {h.value}
+                    </p>
+                    <p className="text-xs leading-relaxed" style={{ color: "var(--foreground-muted)" }}>
+                      {h.label}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </SlideUp>
+          </div>
+
+          <div className="flex flex-col justify-center">
+            <SlideUp delay={0.1}>
+              <div
+                className="rounded-2xl p-7 mb-5 relative overflow-hidden group"
+                style={{
+                  background: "linear-gradient(145deg, rgba(124,108,244,0.06), rgba(10,12,20,0.6))",
+                  border: "1px solid rgba(124,108,244,0.12)",
+                }}
+              >
+                <div
+                  className="absolute top-0 right-0 w-32 h-32 pointer-events-none"
+                  style={{
+                    background: "radial-gradient(circle at 100% 0%, rgba(124,108,244,0.12), transparent 60%)",
+                  }}
+                  aria-hidden="true"
+                />
+
+                <p className="text-[11px] font-semibold tracking-[0.2em] uppercase mb-5" style={{ color: "var(--primary)" }}>
+                  Interests
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  {aboutInfo.interests.map((interest, i) => (
+                    <motion.span
+                      key={interest}
+                      className="px-3.5 py-1.5 rounded-full text-xs font-medium inline-flex items-center gap-1.5"
+                      style={{
+                        background: "rgba(124,108,244,0.08)",
+                        border: "1px solid rgba(124,108,244,0.15)",
+                        color: "var(--primary)",
+                      }}
+                      whileHover={{ scale: 1.04, background: "rgba(124,108,244,0.14)" }}
+                      transition={{ duration: 0.15 }}
+                    >
                       {interest}
-                    </span>
+                      <ArrowUpRight size={10} strokeWidth={2.5} style={{ opacity: 0.5 }} />
+                    </motion.span>
                   ))}
                 </div>
               </div>
-            </div>
-          </FadeUp>
+            </SlideUp>
 
-          <FadeUp delay={0.12}>
-            <div className="flex flex-col gap-0 divide-y" style={{ borderColor: "var(--border)" }}>
-              {statCards.map((s, i) => (
-                <div key={i} className="py-6 pr-6 flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(255,255,255,0.035)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                    <s.icon size={17} style={{ color: "var(--foreground-secondary)" }} />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="font-semibold mb-1" style={{ color: "var(--foreground)", fontFamily: "Inter, sans-serif", fontSize: "0.9375rem", letterSpacing: "-0.01em" }}>{s.label}</p>
-                    <p className="text-sm leading-relaxed" style={{ color: "var(--foreground-secondary)", fontFamily: "Inter, sans-serif" }}>{s.sub}</p>
-                    {"meta" in s && s.meta ? (
-                      <p className="text-xs mt-2" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>{s.meta}</p>
-                    ) : null}
-                  </div>
+            <SlideUp delay={0.14}>
+              <div
+                className="rounded-2xl p-5 flex items-center justify-between"
+                style={{ background: "rgba(255,255,255,0.015)", border: "1px solid rgba(255,255,255,0.06)" }}
+              >
+                <div>
+                  <p className="text-[11px] font-semibold tracking-[0.2em] uppercase mb-1" style={{ color: "var(--foreground-muted)" }}>
+                    CGPA
+                  </p>
+                  <p className="text-lg font-bold" style={{ color: "var(--foreground)" }}>
+                    {aboutInfo.CGPA}
+                  </p>
                 </div>
-              ))}
-            </div>
-          </FadeUp>
+                <div className="w-px h-10" style={{ background: "rgba(255,255,255,0.08)" }} />
+                <div className="text-right">
+                  <p className="text-[11px] font-semibold tracking-[0.2em] uppercase mb-1" style={{ color: "var(--foreground-muted)" }}>
+                    Duration
+                  </p>
+                  <p className="text-sm font-medium" style={{ color: "var(--foreground)" }}>
+                    {aboutInfo.graduationYear}
+                  </p>
+                </div>
+              </div>
+            </SlideUp>
+          </div>
         </div>
       </div>
     </section>

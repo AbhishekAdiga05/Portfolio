@@ -15,10 +15,10 @@ export function EducationSection() {
           <div className="max-w-3xl mb-14">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-5 h-[2px]" style={{ background: "rgba(124,108,244,0.45)" }} />
-              <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>Education</span>
+              <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)" }}>Education</span>
             </div>
-            <h2 className="mb-4" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)", fontFamily: "Inter, sans-serif" }}>Education</h2>
-            <p className="max-w-2xl" style={{ color: "var(--foreground-secondary)", fontSize: "1rem", lineHeight: 1.85, fontFamily: "Inter, sans-serif" }}>
+            <h2 className="mb-4" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)", fontFamily: "'Instrument Sans', sans-serif" }}>Education</h2>
+            <p className="max-w-2xl" style={{ color: "var(--foreground-secondary)", fontSize: "1rem", lineHeight: 1.85 }}>
               Academic background and relevant coursework.
             </p>
           </div>
@@ -35,33 +35,33 @@ export function EducationSection() {
                 <GraduationCap size={22} style={{ color: "var(--accent-secondary)" }} />
               </div>
               <div className="min-w-0 flex-1">
-                <h3 className="mb-2" style={{ fontSize: "1.5rem", fontFamily: "Inter, sans-serif" }}>{education.degree}</h3>
-                <p className="mb-5 text-sm" style={{ color: "var(--foreground-secondary)", fontFamily: "Inter, sans-serif" }}>{education.university}</p>
+                <h3 className="mb-2" style={{ fontSize: "1.5rem" }}>{education.degree}</h3>
+                <p className="mb-5 text-sm" style={{ color: "var(--foreground-secondary)" }}>{education.university}</p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-7">
                   <div className="rounded-xl p-4" style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                    <p className="text-xs mb-1" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>Duration</p>
-                    <div className="flex items-center gap-2 text-sm" style={{ color: "var(--foreground)", fontFamily: "Inter, sans-serif" }}>
+                    <p className="text-xs mb-1" style={{ color: "var(--foreground-muted)" }}>Duration</p>
+                    <div className="flex items-center gap-2 text-sm" style={{ color: "var(--foreground)" }}>
                       <BookOpen size={14} /> {education.duration}
                     </div>
                   </div>
                   <div className="rounded-xl p-4" style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                    <p className="text-xs mb-1" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>GPA</p>
-                    <div className="flex items-center gap-2 text-sm" style={{ color: "var(--foreground)", fontFamily: "Inter, sans-serif" }}>
+                    <p className="text-xs mb-1" style={{ color: "var(--foreground-muted)" }}>GPA</p>
+                    <div className="flex items-center gap-2 text-sm" style={{ color: "var(--foreground)" }}>
                       <Award size={14} /> {education.gpa}
                     </div>
                   </div>
                   <div className="rounded-xl p-4" style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                    <p className="text-xs mb-1" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>Focus</p>
-                    <p className="text-sm" style={{ color: "var(--foreground)", fontFamily: "Inter, sans-serif" }}>Information Science</p>
+                    <p className="text-xs mb-1" style={{ color: "var(--foreground-muted)" }}>Focus</p>
+                    <p className="text-sm" style={{ color: "var(--foreground)" }}>Information Science</p>
                   </div>
                 </div>
 
                 <div>
-                  <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--foreground-muted)", fontFamily: "Inter, sans-serif" }}>Relevant Coursework</p>
+                  <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--foreground-muted)" }}>Relevant Coursework</p>
                   <div className="flex flex-wrap gap-2">
                     {education.coursework.map((course) => (
-                      <span key={course} className="text-xs px-2.5 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.035)", color: "var(--foreground-secondary)", border: "1px solid rgba(255,255,255,0.07)", fontFamily: "Inter, sans-serif" }}>
+                      <span key={course} className="text-xs px-2.5 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.035)", color: "var(--foreground-secondary)", border: "1px solid rgba(255,255,255,0.07)" }}>
                         {course}
                       </span>
                     ))}

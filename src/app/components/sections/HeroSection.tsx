@@ -37,18 +37,17 @@ export function HeroSection() {
             )}
 
             <h1
-              className="mb-6"
+              className="mb-5"
               style={{
-                fontSize: "clamp(3.25rem, 9vw, 4.5rem)",
-                lineHeight: 0.92,
-                fontWeight: 760,
-                letterSpacing: "-0.075em",
-                fontFamily: "Inter, sans-serif",
+                fontSize: "clamp(3.75rem, 10vw, 5.5rem)",
+                lineHeight: 0.9,
+                fontWeight: 700,
+                letterSpacing: "-0.06em",
               }}
             >
               <span
                 style={{
-                  background: "linear-gradient(180deg, #F8F9FC 0%, #B2B8CD 100%)",
+                  background: "linear-gradient(180deg, #FFFFFF 0%, #A5B4FC 50%, #7C6CF4 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -68,14 +67,15 @@ export function HeroSection() {
               </span>
             </h1>
 
-            <p className="mb-5" style={{ color: "var(--accent-secondary)", fontFamily: "Inter, sans-serif", fontWeight: 600, letterSpacing: "-0.01em", fontSize: "clamp(1rem, 2vw, 1.25rem)" }}>
+            <p className="mb-5" style={{ color: "var(--accent-secondary)", fontWeight: 500, letterSpacing: "0.02em", fontSize: "clamp(0.95rem, 1.5vw, 1.1rem)" }}>
               {personalInfo.role}
             </p>
 
-            <p className="mb-8 max-w-2xl" style={{ color: "var(--foreground-secondary)", lineHeight: 1.85, fontSize: "1rem", fontFamily: "Inter, sans-serif" }}>
+            <p className="mb-8 max-w-xl" style={{ color: "var(--foreground-secondary)", lineHeight: 1.7, fontSize: "1.05rem" }}>
               {personalInfo.heroBio}
-              <br />
-              <span style={{ color: "var(--foreground-muted)", fontSize: "0.875rem", lineHeight: 1.7 }}>{personalInfo.heroContext}</span>
+              {personalInfo.heroContext && (
+                <><br /><span style={{ color: "var(--foreground-muted)", fontSize: "0.85rem" }}>{personalInfo.heroContext}</span></>
+              )}
             </p>
 
             <div className="flex flex-wrap items-center gap-3">
