@@ -84,7 +84,7 @@ export function Navbar() {
           >
             <span style={{ color: "var(--foreground)", fontWeight: 700, fontSize: "13px", letterSpacing: "-0.03em" }}>AA</span>
           </div>
-          <span className="text-white font-semibold text-sm hidden sm:block" style={{ fontFamily: "Inter, sans-serif", letterSpacing: "-0.02em" }}>
+          <span className="text-white font-semibold text-sm hidden sm:block" style={{ letterSpacing: "-0.02em" }}>
             Abhi.dev
           </span>
         </NavLink>

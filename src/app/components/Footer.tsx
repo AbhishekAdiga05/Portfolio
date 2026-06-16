@@ -1,4 +1,5 @@
 import { Github, Linkedin, Mail } from "lucide-react";
+import { motion } from "motion/react";
 
 export function Footer() {
   return (
@@ -14,7 +15,7 @@ export function Footer() {
           >
             <span style={{ color: "var(--foreground)", fontWeight: 700, fontSize: "11px", letterSpacing: "-0.03em" }}>AA</span>
           </div>
-          <span className="text-white font-semibold text-sm" style={{ fontFamily: "Inter, sans-serif", letterSpacing: "-0.02em" }}>
+          <span className="text-white font-semibold text-sm" style={{ letterSpacing: "-0.02em" }}>
             Abhi.dev
           </span>
         </div>
@@ -27,18 +28,20 @@ export function Footer() {
             { icon: Linkedin, href: "https://www.linkedin.com/in/abhishek-adiga-1a37b232a/" },
             { icon: Mail, href: "mailto:abhishekadiga2345@gmail.com" },
           ].map(({ icon: Icon, href }, i) => (
-            <a
+            <motion.a
               key={i}
               href={href}
               target="_blank"
               rel="noreferrer"
               className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-200"
               style={{ color: "var(--foreground-secondary)", background: "rgba(255,255,255,0.035)", border: "1px solid rgba(255,255,255,0.08)" }}
+              whileHover={{ y: -1 }}
+              transition={{ duration: 0.15 }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--foreground)")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--foreground-secondary)")}
             >
               <Icon size={16} />
-            </a>
+            </motion.a>
           ))}
         </div>
       </div>

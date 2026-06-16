@@ -27,7 +27,7 @@ function SlideUp({ children, delay = 0 }: { children: React.ReactNode; delay?: n
 
 export function AboutSection() {
   return (
-    <section id="about" className="py-28 px-5 sm:px-6 relative overflow-hidden">
+    <section id="about" className="py-24 px-5 sm:px-6 relative overflow-hidden">
       <div
         className="absolute top-0 right-0 w-[600px] h-[600px] pointer-events-none"
         style={{
@@ -38,9 +38,9 @@ export function AboutSection() {
 
       <div className="max-w-7xl mx-auto relative">
         <SlideUp>
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-6 h-[2px]" style={{ background: "var(--primary)" }} />
-            <span className="text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ color: "var(--foreground-muted)" }}>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-5 h-[2px]" style={{ background: "rgba(124,108,244,0.45)" }} />
+            <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)" }}>
               About
             </span>
           </div>
@@ -50,7 +50,7 @@ export function AboutSection() {
           <div>
             <SlideUp delay={0.04}>
               <h2
-                className="mb-7"
+                className="mb-4"
                 style={{
                   fontSize: "clamp(2.75rem, 5.5vw, 4rem)",
                   fontWeight: 700,
@@ -79,7 +79,7 @@ export function AboutSection() {
                       border: "1px solid rgba(255,255,255,0.06)",
                       transition: "border-color 0.2s, background 0.2s",
                     }}
-                    whileHover={{ y: -3 }}
+                    whileHover={{ y: -3, borderColor: "rgba(124,108,244,0.25)" }}
                     transition={{ duration: 0.2 }}
                   >
                     <div

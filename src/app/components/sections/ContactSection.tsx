@@ -45,7 +45,7 @@ export function ContactSection() {
             <div className="w-5 h-[2px]" style={{ background: "rgba(124,108,244,0.45)" }} />
             <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)" }}>Contact</span>
           </div>
-          <h2 className="mb-4" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)", fontFamily: "Syne, sans-serif" }}>Get in Touch</h2>
+          <h2 className="mb-4" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)" }}>Get in Touch</h2>
           <p className="max-w-2xl" style={{ color: "var(--foreground-secondary)", lineHeight: 1.85, fontSize: "1rem" }}>
             {contactInfo.description}
           </p>
@@ -150,6 +150,12 @@ export function ContactSection() {
                         (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
                         (e.currentTarget as HTMLElement).style.boxShadow = "none";
                       }}
+                      onMouseEnter={(e) => {
+                        if (document.activeElement !== e.currentTarget) (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.16)";
+                      }}
+                      onMouseLeave={(e) => {
+                        if (document.activeElement !== e.currentTarget) (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
+                      }}
                     />
                   </div>
                   <div>
@@ -168,6 +174,12 @@ export function ContactSection() {
                       onBlur={(e) => {
                         (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
                         (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                      }}
+                      onMouseEnter={(e) => {
+                        if (document.activeElement !== e.currentTarget) (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.16)";
+                      }}
+                      onMouseLeave={(e) => {
+                        if (document.activeElement !== e.currentTarget) (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
                       }}
                     />
                   </div>
@@ -189,6 +201,12 @@ export function ContactSection() {
                     onBlur={(e) => {
                       (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
                       (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                    }}
+                    onMouseEnter={(e) => {
+                      if (document.activeElement !== e.currentTarget) (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.16)";
+                    }}
+                    onMouseLeave={(e) => {
+                      if (document.activeElement !== e.currentTarget) (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
                     }}
                   />
                 </motion.div>

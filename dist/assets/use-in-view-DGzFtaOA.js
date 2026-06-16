@@ -1,4 +1,4 @@
-import{c as p}from"./index-B_5j5qgL.js";import{b as o}from"./vendor-react-BVzsuO4w.js";import{_ as d}from"./vendor-motion-BAJ_Bh9Y.js";/**
+import{c as p}from"./index-DPY_n_6Y.js";import{b as o}from"./vendor-react-BVzsuO4w.js";import{_ as d}from"./vendor-motion-BAJ_Bh9Y.js";/**
  * @license lucide-react v0.487.0 - ISC
  *
  * This source code is licensed under the ISC license.

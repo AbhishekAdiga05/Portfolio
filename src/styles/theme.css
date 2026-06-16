@@ -1,13 +1,13 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --font-size: 16px;
+  --font-size: 17px;
   --background: #050608;
   --surface: #0A0C14;
   --surface-elevated: rgba(255, 255, 255, 0.02);
   --foreground: #F8F9FC;
-  --foreground-secondary: #C8CFE6;
-  --foreground-muted: #94A3B8;
+  --foreground-secondary: #DDE2F0;
+  --foreground-muted: #ADB8D0;
   --card: #0A0C14;
   --card-foreground: #F8F9FC;
   --popover: #0A0C14;
@@ -52,8 +52,8 @@
   --surface: #0A0C14;
   --surface-elevated: rgba(255, 255, 255, 0.02);
   --foreground: #F8F9FC;
-  --foreground-secondary: #C8CFE6;
-  --foreground-muted: #94A3B8;
+  --foreground-secondary: #DDE2F0;
+  --foreground-muted: #ADB8D0;
   --card: #0A0C14;
   --card-foreground: #F8F9FC;
   --popover: #0A0C14;
@@ -80,8 +80,8 @@
   --button-primary: #F8F9FC;
   --button-primary-hover: #E2E8F0;
   --button-primary-text: #101219;
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
+  --font-weight-medium: 550;
+  --font-weight-normal: 450;
   --radius: 24px;
   --sidebar: #0A0C14;
   --sidebar-foreground: #F8F9FC;
@@ -163,6 +163,8 @@
     font-optical-sizing: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-weight: 450;
   }
 
   :focus-visible {
@@ -198,8 +200,9 @@
 
   p {
     font-family: Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    line-height: 1.85;
-    letter-spacing: 0.01em;
+    font-weight: 450;
+    line-height: 1.75;
+    letter-spacing: 0.005em;
   }
 
   label {

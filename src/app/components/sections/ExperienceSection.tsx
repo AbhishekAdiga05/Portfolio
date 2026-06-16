@@ -28,7 +28,7 @@ export function ExperienceSection() {
               <div className="w-5 h-[2px]" style={{ background: "rgba(124,108,244,0.45)" }} />
               <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)" }}>Experience</span>
             </div>
-            <h2 className="mb-5" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)", fontFamily: "'DM Sans', sans-serif" }}>Experience</h2>
+            <h2 className="mb-4" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)" }}>Experience</h2>
             <p className="max-w-2xl" style={{ color: "var(--foreground-secondary)", fontSize: "1rem", lineHeight: 1.85 }}>
               Places where I've contributed, learned, and shipped with other developers.
             </p>

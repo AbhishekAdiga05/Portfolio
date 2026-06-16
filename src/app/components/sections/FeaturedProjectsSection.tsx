@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 import { useInView } from "motion/react";
 import { useRef } from "react";
 import { Github, ExternalLink, ArrowRight } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { featuredProjects } from "../../../data/portfolio-data";
 
 function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -19,6 +19,7 @@ function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-30px" });
+  const navigate = useNavigate();
 
   return (
     <motion.div
@@ -26,8 +27,9 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
       initial={{ opacity: 0, y: 18 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.2, delay: i * 0.06 }}
-      className="group flex flex-col"
+      className="group flex flex-col cursor-pointer"
       whileHover={{ y: -4 }}
+      onClick={() => navigate("/projects")}
     >
       <div
         className="flex flex-col h-full rounded-[24px] overflow-hidden transition-colors duration-200"
@@ -65,6 +67,7 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
               transition={{ duration: 0.2 }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--foreground)")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--foreground-secondary)")}
+              onClick={(e) => e.stopPropagation()}
             >
               <Github size={13} /> Code
             </motion.a>
@@ -78,6 +81,7 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
               transition={{ duration: 0.2 }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--button-primary-hover)")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--button-primary)")}
+              onClick={(e) => e.stopPropagation()}
             >
               <ExternalLink size={13} /> Demo
             </motion.a>
@@ -102,7 +106,7 @@ export function FeaturedProjectsSection() {
                 <div className="w-5 h-[2px]" style={{ background: "rgba(124,108,244,0.45)" }} />
                 <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)" }}>Projects</span>
               </div>
-              <h2 className="mb-4" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)", fontFamily: "'Bricolage Grotesque', sans-serif" }}>Featured Projects</h2>
+              <h2 className="mb-4" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)" }}>Featured Projects</h2>
               <p className="max-w-2xl" style={{ color: "var(--foreground-secondary)", fontSize: "1rem", lineHeight: 1.85 }}>
                 Product-style case studies for the work I've designed, built, and shipped.
               </p>

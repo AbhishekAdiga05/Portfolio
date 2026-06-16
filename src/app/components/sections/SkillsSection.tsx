@@ -66,7 +66,7 @@ export function SkillsSection() {
               <div className="w-5 h-[2px]" style={{ background: "rgba(124,108,244,0.45)" }} />
               <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)" }}>Skills</span>
             </div>
-            <h2 className="mb-4" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)", fontFamily: "Archivo, sans-serif" }}>Skills &amp; Tools</h2>
+            <h2 className="mb-4" style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)" }}>Skills &amp; Tools</h2>
             <p className="max-w-2xl" style={{ color: "var(--foreground-secondary)", fontSize: "1rem", lineHeight: 1.85 }}>
               A focused view of the technologies I use to move from product thinking to shipped software.
             </p>
