@@ -10,12 +10,11 @@ export function Footer() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-2.5">
           <div
-            className="w-7 h-7 rounded-lg flex items-center justify-center"
-            style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.08)" }}
+            className="w-7 h-7 rounded-lg flex items-center justify-center transition-colors duration-300 bg-surface border border-white/10"
           >
-            <span style={{ color: "var(--foreground)", fontWeight: 700, fontSize: "11px", letterSpacing: "-0.03em" }}>AA</span>
+            <span style={{ color: "var(--foreground)", fontWeight: 600, fontSize: "11px", letterSpacing: "-0.03em" }}>AA</span>
           </div>
-          <span className="text-white font-semibold text-sm" style={{ letterSpacing: "-0.02em" }}>
+          <span className="text-foreground font-semibold text-sm transition-colors duration-300 hover:text-white" style={{ letterSpacing: "-0.02em" }}>
             Abhi.dev
           </span>
         </div>

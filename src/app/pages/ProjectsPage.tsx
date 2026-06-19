@@ -1,8 +1,8 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { useInView } from "motion/react";
 import { Github, ExternalLink, X } from "lucide-react";
 import { featuredProjects, otherProjects } from "../../data/portfolio-data";
+import { ScrollReveal } from "../components/ui/ScrollReveal";
 
 function ProjectModal({ project, onClose }: { project: typeof featuredProjects[0]; onClose: () => void }) {
   return (
@@ -81,82 +81,74 @@ function ProjectModal({ project, onClose }: { project: typeof featuredProjects[0
 }
 
 function ProjectCard({ p, i, onClick }: { p: typeof featuredProjects[0]; i: number; onClick: () => void }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-30px" });
-
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 18 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.2, delay: i * 0.05 }}
-      className="group relative rounded-[24px] overflow-hidden cursor-pointer flex flex-col"
-      style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
-      onClick={onClick}
-      whileHover={{ y: -4 }}
-    >
-      <div className="relative overflow-hidden" style={{ height: 210 }}>
-        <img src={p.image} alt={p.title} loading="lazy" width="400" height="210" className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-[1.015]" />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(5,6,8,0.78), transparent 60%)" }} />
-        {p.number && (
-          <span className="absolute top-4 left-4 text-xs font-semibold px-2.5 py-1 rounded-full" style={{ background: "rgba(5,6,8,0.62)", color: "var(--foreground-secondary)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}>
-            {p.number}
-          </span>
-        )}
-      </div>
-
-      <div className="p-5 flex flex-col flex-1">
-        <p className="text-xs font-medium mb-2" style={{ color: "var(--accent-secondary)" }}>{p.subtitle}</p>
-        <h3 className="mb-3" style={{ fontSize: "1.375rem" }}>{p.title}</h3>
-        <p className="text-sm mb-4 flex-1" style={{ color: "var(--foreground-secondary)", lineHeight: 1.7 }}>{p.description}</p>
-
-        <div className="flex flex-wrap gap-2 mb-5">
-          {p.tags.slice(0, 4).map((t) => (
-            <span key={t} className="text-xs px-2.5 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.035)", color: "var(--foreground-muted)", border: "1px solid rgba(255,255,255,0.07)" }}>
-              {t}
+    <ScrollReveal delay={i * 0.05}>
+      <div
+        className="group relative rounded-[24px] overflow-hidden cursor-pointer flex flex-col"
+        style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
+        onClick={onClick}
+      >
+        <div className="relative overflow-hidden" style={{ height: 210 }}>
+          <img src={p.image} alt={p.title} loading="lazy" width="400" height="210" className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-[1.015]" />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(5,6,8,0.78), transparent 60%)" }} />
+          {p.number && (
+            <span className="absolute top-4 left-4 text-xs font-semibold px-2.5 py-1 rounded-full" style={{ background: "rgba(5,6,8,0.62)", color: "var(--foreground-secondary)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}>
+              {p.number}
             </span>
-          ))}
-          {p.tags.length > 4 && <span className="text-xs px-2.5 py-1 rounded-full" style={{ color: "var(--foreground-muted)" }}>+{p.tags.length - 4}</span>}
+          )}
         </div>
 
-        <div className="grid grid-cols-2 gap-2 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-          <a href={p.github} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}
-            className="h-11 rounded-xl flex items-center justify-center gap-2 text-xs font-semibold transition-colors duration-200"
-            style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.12)", color: "var(--foreground-secondary)" }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.color = "var(--foreground)";
-              (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.color = "var(--foreground-secondary)";
-              (e.currentTarget as HTMLElement).style.background = "transparent";
-            }}
-          >
-            <Github size={13} /> Code
-          </a>
-          <a href={p.live} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}
-            className="h-11 rounded-xl flex items-center justify-center gap-2 text-xs font-semibold transition-colors duration-200"
-            style={{ background: "var(--button-primary)", color: "var(--button-primary-text)" }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--button-primary-hover)")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--button-primary)")}
-          >
-            <ExternalLink size={13} /> Demo
-          </a>
+        <div className="p-5 flex flex-col flex-1">
+          <p className="text-xs font-medium mb-2" style={{ color: "var(--accent-secondary)" }}>{p.subtitle}</p>
+          <h3 className="mb-3" style={{ fontSize: "1.375rem" }}>{p.title}</h3>
+          <p className="text-sm mb-4 flex-1" style={{ color: "var(--foreground-secondary)", lineHeight: 1.7 }}>{p.description}</p>
+
+          <div className="flex flex-wrap gap-2 mb-5">
+            {p.tags.slice(0, 4).map((t) => (
+              <span key={t} className="text-xs px-2.5 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.035)", color: "var(--foreground-muted)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                {t}
+              </span>
+            ))}
+            {p.tags.length > 4 && <span className="text-xs px-2.5 py-1 rounded-full" style={{ color: "var(--foreground-muted)" }}>+{p.tags.length - 4}</span>}
+          </div>
+
+          <div className="grid grid-cols-2 gap-2 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+            <a href={p.github} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}
+              className="h-11 rounded-xl flex items-center justify-center gap-2 text-xs font-semibold transition-colors duration-200"
+              style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.12)", color: "var(--foreground-secondary)" }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.color = "var(--foreground)";
+                (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.color = "var(--foreground-secondary)";
+                (e.currentTarget as HTMLElement).style.background = "transparent";
+              }}
+            >
+              <Github size={13} /> Code
+            </a>
+            <a href={p.live} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}
+              className="h-11 rounded-xl flex items-center justify-center gap-2 text-xs font-semibold transition-colors duration-200"
+              style={{ background: "var(--button-primary)", color: "var(--button-primary-text)" }}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--button-primary-hover)")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--button-primary)")}
+            >
+              <ExternalLink size={13} /> Demo
+            </a>
+          </div>
         </div>
       </div>
-    </motion.div>
+    </ScrollReveal>
   );
 }
 
 export function ProjectsPage() {
   const [selectedProject, setSelectedProject] = useState<typeof featuredProjects[0] | null>(null);
-  const headerRef = useRef(null);
-  const headerInView = useInView(headerRef, { once: true });
 
   return (
     <div className="min-h-screen pt-20 pb-24 px-5 sm:px-6">
       <div className="relative max-w-7xl mx-auto">
-        <motion.div ref={headerRef} initial={{ opacity: 0, y: 18 }} animate={headerInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.2 }}>
+        <ScrollReveal>
           <div className="flex items-center gap-3 mb-4">
             <div className="w-5 h-[2px]" style={{ background: "rgba(124,108,244,0.45)" }} />
             <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)" }}>Portfolio</span>
@@ -165,7 +157,7 @@ export function ProjectsPage() {
           <p className="text-sm mb-10 max-w-2xl" style={{ color: "var(--foreground-secondary)", lineHeight: 1.8 }}>
             A closer look at the projects I've built. Click any card to see details.
           </p>
-        </motion.div>
+        </ScrollReveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {featuredProjects.map((p, i) => (

@@ -69,22 +69,24 @@ export function Navbar() {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50"
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        background: "rgba(5, 6, 8, 0.6)",
-        backdropFilter: "blur(12px)",
-        borderBottom: "1px solid rgba(255, 255, 255, 0.06)",
+        background: scrolled ? "rgba(3, 4, 7, 0.75)" : "transparent",
+        backdropFilter: scrolled ? "blur(16px)" : "blur(0px)",
+        borderBottom: scrolled ? "1px solid rgba(255, 255, 255, 0.04)" : "1px solid transparent",
       }}
     >
       <div className={`max-w-7xl mx-auto ${navShell}`}>
-        <NavLink to="/" className="flex items-center gap-2.5 min-h-[44px]">
-          <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center"
-            style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.08)" }}
+        <NavLink to="/" className="flex items-center gap-2.5 min-h-[44px] group">
+          <motion.div
+            whileHover={{ scale: 1.05, rotate: -2 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-300"
+            style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03))", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}
           >
             <span style={{ color: "var(--foreground)", fontWeight: 700, fontSize: "13px", letterSpacing: "-0.03em" }}>AA</span>
-          </div>
-          <span className="text-white font-semibold text-sm hidden sm:block" style={{ letterSpacing: "-0.02em" }}>
+          </motion.div>
+          <span className="text-white font-semibold text-sm hidden sm:block group-hover:text-primary transition-colors duration-300" style={{ letterSpacing: "-0.02em" }}>
             Abhi.dev
           </span>
         </NavLink>
@@ -172,7 +174,9 @@ export function Navbar() {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
             type="button"
             onClick={() => handleSectionClick("contact")}
             className="h-10 px-4 rounded-full text-sm font-semibold transition-colors duration-200"
@@ -181,7 +185,7 @@ export function Navbar() {
             onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--button-primary)")}
           >
             Contact
-          </button>
+          </motion.button>
         </div>
 
         <button

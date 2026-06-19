@@ -1,11 +1,14 @@
 import { motion } from "motion/react";
-import { Github, Linkedin, Download, ArrowRight } from "lucide-react";
+import { Github, Linkedin, ArrowRight, MapPin, Download } from "lucide-react";
 import { Link } from "react-router";
+import { AnimatedText } from "../ui/AnimatedText";
+import { usePrefersReducedMotion } from "../ui/ScrollReveal";
 import { personalInfo, resumeLink, contactInfo } from "../../../data/portfolio-data";
 
-const transition = { duration: 0.2 };
-
 export function HeroSection() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const transition = { duration: prefersReducedMotion ? 0 : 0.2 };
+
   return (
     <section
       id="hero"
@@ -13,19 +16,20 @@ export function HeroSection() {
       style={{ background: "transparent" }}
     >
       <div
-        className="absolute inset-x-0 top-0 h-[520px] pointer-events-none"
-        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
-          background:
-            "radial-gradient(ellipse 900px 500px at 50% 0%, rgba(124,108,244,0.18), transparent 60%)",
+          backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.4) 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
         }}
+        aria-hidden="true"
       />
 
       <div className="relative max-w-7xl mx-auto px-5 sm:px-6 py-24 sm:py-32 w-full">
         <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-20 items-center">
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={transition}
             className="max-w-3xl"
           >
@@ -36,39 +40,15 @@ export function HeroSection() {
               </div>
             )}
 
-            <h1
-              className="mb-5"
-              style={{
-                fontSize: "clamp(3.75rem, 10vw, 5.5rem)",
-                lineHeight: 0.9,
-                fontWeight: 700,
-                letterSpacing: "-0.06em",
-              }}
-            >
-              <span
-                style={{
-                  background: "linear-gradient(180deg, #FFFFFF 0%, #A5B4FC 50%, #7C6CF4 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                {personalInfo.firstName}
-              </span>{" "}
-              <span
-                style={{
-                  background: "linear-gradient(180deg, #E5E7EB 0%, #94A3B8 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                {personalInfo.lastName}
-              </span>
-            </h1>
+            <AnimatedText
+              text={`${personalInfo.firstName} ${personalInfo.lastName}`}
+              el="h1"
+              className="mb-6 leading-[0.9] font-bold tracking-tight"
+              style={{ fontSize: "clamp(3.75rem, 10vw, 5.5rem)", color: "var(--foreground)" }}
+            />
 
-            <p className="mb-5" style={{ color: "var(--accent-secondary)", fontWeight: 500, letterSpacing: "0.02em", fontSize: "clamp(0.95rem, 1.5vw, 1.1rem)" }}>
-              {personalInfo.role}
+            <p className="mb-5 flex items-center gap-2" style={{ color: "var(--accent-secondary)", fontWeight: 500, letterSpacing: "0.02em", fontSize: "clamp(0.95rem, 1.5vw, 1.1rem)" }}>
+              <MapPin size={18} /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-secondary font-bold">{personalInfo.role}</span>
             </p>
 
             <p className="mb-8 max-w-xl" style={{ color: "var(--foreground-secondary)", lineHeight: 1.7, fontSize: "1.05rem" }}>
@@ -127,24 +107,17 @@ export function HeroSection() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...transition, delay: 0.08 }}
+            initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ ...transition, delay: prefersReducedMotion ? 0 : 0.08 }}
             className="flex justify-center lg:justify-end"
           >
             <motion.div
-              className="relative"
-              style={{ width: "min(100%, 360px)" }}
-              whileHover={{ y: -2 }}
-              transition={transition}
+              className="relative rounded-2xl overflow-hidden"
+              style={{ width: "min(100%, 360px)", border: "1px solid rgba(255,255,255,0.1)" }}
             >
-              <div
-                className="overflow-hidden rounded-[24px]"
-                style={{
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  boxShadow: "0 24px 80px rgba(0,0,0,0.45)",
-                }}
-              >
+              <div className="overflow-hidden bg-surface">
                 <img
                   src={personalInfo.profilePhoto}
                   alt={`${personalInfo.firstName} ${personalInfo.lastName} — ${personalInfo.role}`}
@@ -155,11 +128,10 @@ export function HeroSection() {
                 />
               </div>
               <div
-                className="absolute -bottom-4 left-6 right-6 rounded-2xl px-4 py-3"
-                style={{ background: "rgba(10,12,20,0.88)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(14px)", boxShadow: "0 18px 60px rgba(0,0,0,0.35)" }}
+                className="absolute bottom-0 inset-x-0 px-5 py-4 bg-black/60 backdrop-blur-md border-t border-white/10"
               >
-                <p className="text-xs font-medium" style={{ color: "var(--foreground)", letterSpacing: "-0.01em" }}>Full-Stack Developer</p>
-                <p className="text-xs mt-1" style={{ color: "var(--foreground-muted)" }}>B.Tech ISE · AI · DSA</p>
+                <p className="text-sm font-semibold text-foreground">Full-Stack Developer</p>
+                <p className="text-xs text-foreground-muted mt-0.5">B.Tech ISE · AI · DSA</p>
               </div>
             </motion.div>
           </motion.div>

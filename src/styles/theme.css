@@ -2,38 +2,38 @@
 
 :root {
   --font-size: 17px;
-  --background: #050608;
+  --background: #030407;
   --surface: #0A0C14;
-  --surface-elevated: rgba(255, 255, 255, 0.02);
+  --surface-elevated: rgba(255, 255, 255, 0.03);
   --foreground: #F8F9FC;
-  --foreground-secondary: #DDE2F0;
-  --foreground-muted: #ADB8D0;
+  --foreground-secondary: #D1D8E8;
+  --foreground-muted: #A1AEC8;
   --card: #0A0C14;
   --card-foreground: #F8F9FC;
   --popover: #0A0C14;
   --popover-foreground: #F8F9FC;
   --primary: #7C6CF4;
-  --primary-foreground: #F8F9FC;
+  --primary-foreground: #FFFFFF;
   --secondary: transparent;
   --secondary-foreground: #F8F9FC;
-  --muted: #10131C;
-  --muted-foreground: #94A3B8;
-  --accent: #7C6CF4;
-  --accent-secondary: #4F8CFF;
+  --muted: #11141F;
+  --muted-foreground: #8B99B4;
+  --accent: #8777fa;
+  --accent-secondary: #5C95FF;
   --accent-foreground: #F8F9FC;
   --success: #22C55E;
   --destructive: #EF4444;
   --destructive-foreground: #F8F9FC;
   --border: rgba(255, 255, 255, 0.08);
-  --border-soft: rgba(255, 255, 255, 0.06);
+  --border-soft: rgba(255, 255, 255, 0.04);
   --input: #0A0C14;
-  --input-background: rgba(255, 255, 255, 0.02);
-  --switch-background: #262A35;
-  --ring: rgba(124, 108, 244, 0.4);
-  --grid: rgba(255, 255, 255, 0.03);
+  --input-background: rgba(255, 255, 255, 0.03);
+  --switch-background: #2A2F3D;
+  --ring: rgba(124, 108, 244, 0.5);
+  --grid: rgba(255, 255, 255, 0.025);
   --button-primary: #F8F9FC;
   --button-primary-hover: #E2E8F0;
-  --button-primary-text: #101219;
+  --button-primary-text: #0A0C14;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
   --radius: 24px;
@@ -44,53 +44,53 @@
   --sidebar-accent: rgba(255, 255, 255, 0.06);
   --sidebar-accent-foreground: #F8F9FC;
   --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: rgba(124, 108, 244, 0.4);
+  --sidebar-ring: rgba(124, 108, 244, 0.5);
 }
 
 .dark {
-  --background: #050608;
-  --surface: #0A0C14;
-  --surface-elevated: rgba(255, 255, 255, 0.02);
-  --foreground: #F8F9FC;
-  --foreground-secondary: #DDE2F0;
-  --foreground-muted: #ADB8D0;
-  --card: #0A0C14;
-  --card-foreground: #F8F9FC;
-  --popover: #0A0C14;
-  --popover-foreground: #F8F9FC;
-  --primary: #7C6CF4;
-  --primary-foreground: #F8F9FC;
+  --background: #09090b;
+  --surface: #121214;
+  --surface-elevated: #1a1a1e;
+  --foreground: #fafafa;
+  --foreground-secondary: #a1a1aa;
+  --foreground-muted: #71717a;
+  --card: #121214;
+  --card-foreground: #fafafa;
+  --popover: #121214;
+  --popover-foreground: #fafafa;
+  --primary: #8b5cf6;
+  --primary-foreground: #ffffff;
   --secondary: transparent;
-  --secondary-foreground: #F8F9FC;
-  --muted: #10131C;
-  --muted-foreground: #94A3B8;
-  --accent: #7C6CF4;
-  --accent-secondary: #4F8CFF;
-  --accent-foreground: #F8F9FC;
-  --success: #22C55E;
-  --destructive: #EF4444;
-  --destructive-foreground: #F8F9FC;
+  --secondary-foreground: #fafafa;
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  --accent: #a78bfa;
+  --accent-secondary: #c4b5fd;
+  --accent-foreground: #ffffff;
+  --success: #10b981;
+  --destructive: #ef4444;
+  --destructive-foreground: #fafafa;
   --border: rgba(255, 255, 255, 0.08);
-  --border-soft: rgba(255, 255, 255, 0.06);
-  --input: #0A0C14;
-  --input-background: rgba(255, 255, 255, 0.02);
-  --switch-background: #262A35;
-  --ring: rgba(124, 108, 244, 0.4);
+  --border-soft: rgba(255, 255, 255, 0.04);
+  --input: #18181b;
+  --input-background: rgba(255, 255, 255, 0.03);
+  --switch-background: #27272a;
+  --ring: rgba(139, 92, 246, 0.4);
   --grid: rgba(255, 255, 255, 0.03);
-  --button-primary: #F8F9FC;
-  --button-primary-hover: #E2E8F0;
-  --button-primary-text: #101219;
-  --font-weight-medium: 550;
-  --font-weight-normal: 450;
-  --radius: 24px;
-  --sidebar: #0A0C14;
-  --sidebar-foreground: #F8F9FC;
-  --sidebar-primary: #7C6CF4;
-  --sidebar-primary-foreground: #F8F9FC;
+  --button-primary: #fafafa;
+  --button-primary-hover: #e4e4e7;
+  --button-primary-text: #09090b;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --radius: 16px;
+  --sidebar: #121214;
+  --sidebar-foreground: #fafafa;
+  --sidebar-primary: #8b5cf6;
+  --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: rgba(255, 255, 255, 0.06);
-  --sidebar-accent-foreground: #F8F9FC;
+  --sidebar-accent-foreground: #fafafa;
   --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: rgba(124, 108, 244, 0.4);
+  --sidebar-ring: rgba(139, 92, 246, 0.4);
 }
 
 @theme inline {
@@ -151,7 +151,7 @@
   html {
     scroll-behavior: smooth;
     font-size: var(--font-size);
-    font-family: Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
   body {
@@ -159,12 +159,12 @@
     margin: 0;
     background: var(--background);
     color: var(--foreground);
-    font-family: Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-optical-sizing: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    font-weight: 450;
+    font-weight: 400;
   }
 
   :focus-visible {
@@ -174,10 +174,10 @@
 
   h1, h2, h3, h4, h5, h6 {
     color: var(--foreground);
-    font-family: "Bricolage Grotesque", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "Outfit", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-weight: 600;
     line-height: 1.05;
-    letter-spacing: -0.035em;
+    letter-spacing: -0.02em;
   }
 
   h1 {
@@ -190,7 +190,7 @@
 
   h3 {
     font-size: 1.5rem;
-    font-weight: 650;
+    font-weight: 600;
   }
 
   h4 {
@@ -199,23 +199,23 @@
   }
 
   p {
-    font-family: Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-weight: 450;
-    line-height: 1.75;
-    letter-spacing: 0.005em;
+    font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0;
   }
 
   label {
     font-size: var(--text-sm);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
-    font-family: Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
   button,
   input,
   textarea,
   select {
-    font-family: Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 }

@@ -4,16 +4,16 @@ export const personalInfo = {
   role: "Full-Stack Developer & AI Enthusiast",
   profilePhoto: "/images/profile.webp",
   heroBio:
-    "Building real products for the real web.",
+    "I'm a computer science student passionate about building full-stack applications and exploring AI.",
   heroContext:
-    "B.Tech ISE · Open Source · Always Shipping",
+    "Constantly learning and trying out new ideas.",
   openToWork: true,
   availabilityDate: "2027",
 };
 
 export const aboutInfo = {
   intro:
-    "B.Tech student who builds for the web. Full-stack apps, AI tools, open source — I learn by shipping real code.",
+    "I'm currently pursuing my B.Tech in Information Science & Engineering. I spend my time exploring new technologies, contributing to open source, and building projects that solve real problems.",
   secondary: "",
   degree: "B.Tech in Information Science & Engineering",
   university: "Sahyadri College of Engineering and Management",
