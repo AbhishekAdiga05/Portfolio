@@ -3,17 +3,15 @@ export const personalInfo = {
   lastName: "Adiga",
   role: "Full-Stack Developer & AI Enthusiast",
   profilePhoto: "/images/profile.webp",
-  heroBio:
-    "I'm a computer science student passionate about building full-stack applications and exploring AI.",
-  heroContext:
-    "Constantly learning and trying out new ideas.",
+  heroBio: "",
+  heroContext: "",
   openToWork: true,
   availabilityDate: "2027",
 };
 
 export const aboutInfo = {
   intro:
-    "I'm currently pursuing my B.Tech in Information Science & Engineering. I spend my time exploring new technologies, contributing to open source, and building projects that solve real problems.",
+    "Hey! 👋 I'm Abhishek Adiga, a self-driven developer passionate about building, learning, and solving problems through technology. What began as curiosity about software gradually evolved into a passion for creating applications and turning ideas into reality.\n\nI enjoy working on projects that challenge me to grow, explore new technologies, and strengthen my problem-solving skills. I'm constantly learning, building, and striving to create solutions that make a meaningful impact. 🚀",
   secondary: "",
   degree: "B.Tech in Information Science & Engineering",
   university: "Sahyadri College of Engineering and Management",
@@ -29,6 +27,7 @@ export const aboutInfo = {
     "Artificial Intelligence",
     "Data Structures & Algorithms",
     "Open Source",
+    "Problem Solving",
   ],
 };
 
@@ -212,6 +211,7 @@ export const contactInfo = {
   github: "https://github.com/AbhishekAdiga05",
   linkedin: "https://www.linkedin.com/in/abhishek-adiga-1a37b232a/",
   linkedinHandle: "/in/abhishek-adiga-1a37b232a",
+  leetcode: "#",
   location: "Udupi, Karnataka, India",
   description:
     "Open to collabs, internships, and tech chats. Say hi.",

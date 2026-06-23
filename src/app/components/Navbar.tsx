@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 const navLinks = [
@@ -8,13 +8,7 @@ const navLinks = [
   { label: "Projects", to: "/projects" },
 ];
 
-const sectionLinks = [
-  { label: "About", id: "about" },
-  { label: "Experience", id: "experience" },
-  { label: "Skills", id: "skills" },
-  { label: "Education", id: "education" },
-  { label: "Certifications", id: "certifications" },
-];
+
 
 function scrollToSection(id: string) {
   const el = document.getElementById(id);
@@ -24,8 +18,6 @@ function scrollToSection(id: string) {
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
@@ -38,21 +30,9 @@ export function Navbar() {
 
   useEffect(() => {
     setMenuOpen(false);
-    setDropdownOpen(false);
   }, [location]);
 
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setDropdownOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, []);
-
   function handleSectionClick(id: string) {
-    setDropdownOpen(false);
     setMenuOpen(false);
     if (isHome) {
       scrollToSection(id);
@@ -116,60 +96,7 @@ export function Navbar() {
               </NavLink>
             ))}
 
-            <div className="relative" ref={dropdownRef}>
-              <button
-                type="button"
-                onClick={() => setDropdownOpen(v => !v)}
-                className="flex items-center gap-1.5 px-4 h-10 rounded-full transition-colors duration-200"
-                style={{ color: dropdownOpen ? "var(--foreground)" : navInactive }}
-                aria-expanded={dropdownOpen}
-              >
-                <span className={`text-sm font-medium`}>Sections</span>
-                <motion.span animate={{ rotate: dropdownOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
-                  <ChevronDown size={13} />
-                </motion.span>
-              </button>
 
-              <AnimatePresence>
-                {dropdownOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 6, scale: 0.98 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 4, scale: 0.98 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute top-full right-0 mt-2 py-1.5 rounded-2xl overflow-hidden"
-                    style={{
-                      background: "rgba(5,6,8,0.92)",
-                      border: "1px solid rgba(255,255,255,0.08)",
-                      boxShadow: "0 24px 80px rgba(0,0,0,0.45)",
-                      backdropFilter: "blur(16px)",
-                      minWidth: "180px",
-                    }}
-                  >
-                    {sectionLinks.map((s) => (
-                      <button
-                        key={s.id}
-                        type="button"
-                        onClick={() => handleSectionClick(s.id)}
-                        className="w-full text-left px-4 py-2.5 text-sm transition-colors duration-200 flex items-center gap-3"
-                        style={{ color: "var(--foreground-secondary)" }}
-                        onMouseEnter={(e) => {
-                          (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)";
-                          (e.currentTarget as HTMLElement).style.color = "var(--foreground)";
-                        }}
-                        onMouseLeave={(e) => {
-                          (e.currentTarget as HTMLElement).style.background = "transparent";
-                          (e.currentTarget as HTMLElement).style.color = "var(--foreground-secondary)";
-                        }}
-                      >
-                        <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "rgba(124,108,244,0.65)" }} />
-                        {s.label}
-                      </button>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
           </div>
         </nav>
 
@@ -219,22 +146,7 @@ export function Navbar() {
               </NavLink>
             ))}
 
-            <div className="pt-2 pb-1" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-              <p className="text-xs mb-2 pt-2" style={{ color: "var(--foreground-muted)", letterSpacing: "0.08em", textTransform: "uppercase" }}>Sections</p>
-              <div className="grid grid-cols-2 gap-1">
-                {sectionLinks.map((s) => (
-                  <button
-                    key={s.id}
-                    type="button"
-                    onClick={() => handleSectionClick(s.id)}
-                    className="text-left py-3 px-3 text-sm rounded-lg transition-colors duration-200"
-                    style={{ color: "var(--foreground-secondary)" }}
-                  >
-                    {s.label}
-                  </button>
-                ))}
-              </div>
-            </div>
+
 
             <button
               type="button"
