@@ -1,109 +1,149 @@
-import { motion } from "motion/react";
+import { motion, useMotionValue, useTransform, useSpring } from "motion/react";
 import { Github, ExternalLink, ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router";
-import { featuredProjects } from "../../../data/portfolio-data";
-import { SpotlightCard } from "../ui/SpotlightCard";
+import { featuredProjects, otherProjects } from "../../../data/portfolio-data";
 import { ScrollReveal } from "../ui/ScrollReveal";
 import { SectionHeading } from "../ui/SectionHeading";
+import { Button } from "../ui/Button";
 
-function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
+function TiltMicroCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
   const navigate = useNavigate();
+  
+  // 3D Tilt Physics
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 20 });
+  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 20 });
+
+  // Map mouse position to rotation (-15 to 15 degrees)
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    
+    // Normalize values between -0.5 and 0.5
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    
+    x.set(xPct);
+    y.set(yPct);
+  }
+
+  function handleMouseLeave() {
+    x.set(0);
+    y.set(0);
+  }
 
   return (
-    <ScrollReveal delay={i * 0.06}>
-      <SpotlightCard
-        className="group flex flex-col cursor-pointer"
-        onClick={() => navigate("/projects")}
+    <ScrollReveal delay={i * 0.08}>
+      <motion.div
+        style={{ perspective: 1000 }}
+        className="h-full"
       >
-        <div className="flex flex-col h-full">
-          <div className="relative overflow-hidden" style={{ height: 240 }}>
-            <img src={p.image} alt={p.title} loading="lazy" width="400" height="240" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-            <div className="absolute inset-0 transition-opacity duration-300 opacity-100 group-hover:opacity-80" style={{ background: "linear-gradient(to top, rgba(5,6,8,0.72), transparent 55%)" }} />
-            <span className="absolute top-4 left-4 text-xs font-semibold px-2.5 py-1 rounded-full transition-transform duration-300 group-hover:scale-105" style={{ background: "rgba(5,6,8,0.62)", color: "var(--foreground-secondary)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}>
-              {p.number}
-            </span>
-          </div>
-
-          <div className="p-6 flex flex-col flex-1">
-            <p className="text-xs font-medium mb-3" style={{ color: "var(--accent-secondary)", letterSpacing: "-0.01em" }}>{p.subtitle}</p>
-            <h3 className="mb-3" style={{ fontSize: "1.5rem" }}>{p.title}</h3>
-            <p className="mb-5 flex-1" style={{ color: "var(--foreground-secondary)", lineHeight: 1.75, fontSize: "0.9375rem" }}>{p.description}</p>
-
-            <div className="flex flex-wrap gap-2 mb-6">
-              {p.tags.map((t) => (
-                <span key={t} className="text-xs px-2.5 py-1 rounded-full bg-black/40 border border-white/10 text-foreground-secondary transition-colors group-hover:border-white/20 group-hover:text-foreground">
-                  {t}
-                </span>
-              ))}
+        <motion.div
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          onClick={() => navigate("/projects")}
+          style={{
+            rotateX,
+            rotateY,
+            transformStyle: "preserve-3d",
+          }}
+          className="group relative h-full flex flex-col cursor-pointer rounded-[20px] bg-white/[0.02] border border-white/5 p-3 hover:bg-white/[0.04] hover:border-white/10 transition-colors duration-300 shadow-lg"
+        >
+          {/* Inner 3D Content Wrapper */}
+          <div style={{ transform: "translateZ(30px)" }} className="flex flex-col h-full">
+            
+            {/* Small Image Thumbnail */}
+            <div className="relative w-full h-32 sm:h-36 rounded-xl overflow-hidden mb-4">
+              <img 
+                src={p.image} 
+                alt={p.title} 
+                loading="lazy" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+              />
+              {/* Dark overlay that fades on hover */}
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-500" />
+              
+              {/* Floating Number Badge */}
+              <span className="absolute top-3 left-3 text-[10px] font-bold px-2 py-0.5 rounded-full" 
+                    style={{ background: "rgba(0,0,0,0.6)", color: "var(--foreground)", border: "1px solid rgba(255,255,255,0.1)", backdropFilter: "blur(8px)" }}>
+                {p.number}
+              </span>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-              <motion.a
-                href={p.github}
-                target="_blank"
-                rel="noreferrer"
-                className="h-11 rounded-xl flex items-center justify-center gap-2 text-xs font-semibold transition-colors duration-200"
-                style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.12)", color: "var(--foreground-secondary)" }}
-                whileHover={{ y: -1 }}
-                transition={{ duration: 0.2 }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--foreground)")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--foreground-secondary)")}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <Github size={13} /> Code
-              </motion.a>
-              <motion.a
-                href={p.live}
-                target="_blank"
-                rel="noreferrer"
-                className="h-11 rounded-xl flex items-center justify-center gap-2 text-xs font-semibold transition-colors duration-200"
-                style={{ background: "var(--button-primary)", color: "var(--button-primary-text)" }}
-                whileHover={{ y: -1 }}
-                transition={{ duration: 0.2 }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--button-primary-hover)")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--button-primary)")}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <ExternalLink size={13} /> Demo
-              </motion.a>
+            {/* Text Content */}
+            <div className="flex flex-col flex-1 px-1">
+              <h3 className="text-lg font-bold mb-1 tracking-wide" style={{ color: "var(--foreground)" }}>
+                {p.title}
+              </h3>
+              <p className="text-[13px] font-medium mb-3" style={{ color: "var(--primary)" }}>
+                {p.subtitle}
+              </p>
+              
+              {/* Very short description clamp */}
+              <p className="text-[13px] leading-relaxed mb-5 line-clamp-2" style={{ color: "var(--foreground-secondary)" }}>
+                {p.description}
+              </p>
+
+              <div className="mt-auto pt-4 flex gap-2" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                <Button 
+                  variant="ghost" 
+                  href={p.github} 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  icon={<Github size={12} />}
+                  className="w-full text-[11px] h-8 rounded-lg"
+                  onClick={(e: React.MouseEvent) => e.stopPropagation()}
+                >
+                  Code
+                </Button>
+                <Button 
+                  variant="secondary" 
+                  href={p.live} 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  icon={<ExternalLink size={12} />}
+                  className="w-full text-[11px] h-8 rounded-lg bg-white/5"
+                  onClick={(e: React.MouseEvent) => e.stopPropagation()}
+                >
+                  Demo
+                </Button>
+              </div>
             </div>
+
           </div>
-        </div>
-      </SpotlightCard>
+        </motion.div>
+      </motion.div>
     </ScrollReveal>
   );
 }
 
 export function FeaturedProjectsSection() {
+  const allProjects = [...featuredProjects, ...otherProjects];
+
   return (
-    <section id="projects" className="py-24 px-5 sm:px-6">
+    <section id="projects" className="py-24 sm:py-32 px-5 sm:px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-end justify-between gap-6 mb-12">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 sm:mb-16">
           <SectionHeading
-            eyebrow="Projects"
-            title="Featured Projects"
-            description="A selection of projects I've built recently."
+            eyebrow="Portfolio"
+            title="Selected Works"
+            description="A collection of my best projects, scaled down into interactive 3D micro-cards."
             className="mb-0"
           />
-
-          <motion.span style={{ display: "inline-block" }}>
-            <Link
-              to="/projects"
-              className="h-11 px-4 rounded-full flex items-center gap-2 text-xs font-semibold transition-colors duration-200"
-              style={{ background: "transparent", color: "var(--foreground)", border: "1px solid rgba(255,255,255,0.12)" }}
-              whileHover={{ y: -1 }}
-              transition={{ duration: 0.2 }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "transparent")}
-            >
-              All projects <ArrowRight size={12} />
-            </Link>
-          </motion.span>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          {featuredProjects.map((p, i) => (
-            <ProjectCard key={p.title} p={p} i={i} />
+        {/* 4-Column Grid to ensure cards are small */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6">
+          {allProjects.map((p, i) => (
+            <TiltMicroCard key={p.title} p={p} i={i} />
           ))}
         </div>
       </div>

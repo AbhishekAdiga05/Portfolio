@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import { Github, ExternalLink } from "lucide-react";
 import { otherProjects } from "../../../data/portfolio-data";
 import { ScrollReveal } from "../ui/ScrollReveal";
+import { Button } from "../ui/Button";
 
 function ProjectCard({ p, i }: { p: typeof otherProjects[0]; i: number }) {
   return (
@@ -30,32 +31,26 @@ function ProjectCard({ p, i }: { p: typeof otherProjects[0]; i: number }) {
             </div>
 
             <div className="grid grid-cols-2 gap-2 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-              <motion.a
-                href={p.github}
-                target="_blank"
-                rel="noreferrer"
-                className="h-11 rounded-xl flex items-center justify-center gap-2 text-xs font-semibold transition-colors duration-200"
-                style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.12)", color: "var(--foreground-secondary)" }}
-                whileHover={{ y: -1 }}
-                transition={{ duration: 0.2 }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--foreground)")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--foreground-secondary)")}
+              <Button 
+                variant="ghost" 
+                href={p.github} 
+                target="_blank" 
+                rel="noreferrer" 
+                icon={<Github size={13} />}
+                className="w-full text-xs h-10"
               >
-                <Github size={13} /> Code
-              </motion.a>
-              <motion.a
-                href={p.live}
-                target="_blank"
-                rel="noreferrer"
-                className="h-11 rounded-xl flex items-center justify-center gap-2 text-xs font-semibold transition-colors duration-200"
-                style={{ background: "var(--button-primary)", color: "var(--button-primary-text)" }}
-                whileHover={{ y: -1 }}
-                transition={{ duration: 0.2 }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--button-primary-hover)")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--button-primary)")}
+                Code
+              </Button>
+              <Button 
+                variant="secondary" 
+                href={p.live} 
+                target="_blank" 
+                rel="noreferrer" 
+                icon={<ExternalLink size={13} />}
+                className="w-full text-xs h-10"
               >
-                <ExternalLink size={13} /> Demo
-              </motion.a>
+                Demo
+              </Button>
             </div>
           </div>
         </div>

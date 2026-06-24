@@ -1,12 +1,9 @@
 import { motion } from "motion/react";
-import { Mail, Linkedin, Github, MapPin, Send } from "lucide-react";
+import { Mail, Linkedin, Github, Send, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { contactInfo } from "../../../data/portfolio-data";
-import { SpotlightCard } from "../ui/SpotlightCard";
 import { ScrollReveal } from "../ui/ScrollReveal";
-import { SectionHeading } from "../ui/SectionHeading";
-
-const focusStyle = "0 0 0 2px rgba(124,108,244,0.4)";
+import { Button } from "../ui/Button";
 
 export function ContactSection() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -16,192 +13,209 @@ export function ContactSection() {
     background: "rgba(255,255,255,0.02)",
     border: "1px solid rgba(255,255,255,0.08)",
     color: "var(--foreground)",
-    borderRadius: "16px",
-    padding: "13px 14px",
-    fontSize: "14px",
+    borderRadius: "12px",
+    padding: "16px",
+    fontSize: "15px",
     outline: "none",
     width: "100%",
-    transition: "border-color 0.2s, box-shadow 0.2s",
+    transition: "border-color 0.3s, box-shadow 0.3s, background-color 0.3s",
   };
 
-  const contactMethods = [
-    { icon: Mail, href: `mailto:${contactInfo.email}`, label: "Email", value: contactInfo.email },
-    { icon: Linkedin, label: "LinkedIn", value: contactInfo.linkedinHandle, href: contactInfo.linkedin },
-    { icon: Github, label: "GitHub", value: contactInfo.github.replace("https://", ""), href: contactInfo.github },
-    { icon: MapPin, label: "Location", value: contactInfo.location, href: null },
+  const focusStyle = "0 0 0 2px rgba(124,108,244,0.3)";
+
+  const socialLinks = [
+    { icon: Github, href: contactInfo.github, label: "GitHub" },
+    { icon: Linkedin, href: contactInfo.linkedin, label: "LinkedIn" },
   ];
 
   return (
-    <section id="contact" className="py-24 px-5 sm:px-6">
-      <div className="max-w-7xl mx-auto">
-        <SectionHeading
-          eyebrow="Contact"
-          title="Get in Touch"
-          description="I'm always open to new opportunities, collaborations, or just a quick chat. Feel free to reach out!"
-        />
+    <section id="contact" className="py-20 sm:py-24 px-5 sm:px-6 relative overflow-hidden">
+      {/* Subtle ambient glow */}
+      <div
+        className="absolute pointer-events-none inset-0 z-0"
+        style={{
+          background: "radial-gradient(1000px circle at 50% 100%, rgba(124,108,246,0.04), transparent 70%)",
+        }}
+        aria-hidden="true"
+      />
 
-        <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16">
-          <ScrollReveal delay={0.06}>
-            <div className="flex flex-wrap gap-3 mb-10">
-              {[
-                { icon: Mail, href: `mailto:${contactInfo.email}`, label: "Email" },
-                { icon: Github, href: contactInfo.github, label: "GitHub" },
-                { icon: Linkedin, href: contactInfo.linkedin, label: "LinkedIn" },
-              ].map(({ icon: Icon, href, label }) => (
-                <motion.a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="h-11 px-4 rounded-full flex items-center gap-2 text-xs font-semibold transition-colors duration-200"
-                  style={{ background: "transparent", color: "var(--foreground)", border: "1px solid rgba(255,255,255,0.12)" }}
-                  whileHover={{ y: -1 }}
-                  transition={{ duration: 0.2 }}
-                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)")}
-                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "transparent")}
-                >
-                  <Icon size={14} /> {label}
-                </motion.a>
-              ))}
-            </div>
+      <div className="max-w-6xl mx-auto relative z-10">
+        
+        {/* Horizontal Layout Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+          
+          {/* Left Column: Heading and Info */}
+          <div className="flex flex-col items-start text-left">
+            <ScrollReveal delay={0.05}>
+              <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-4" style={{ color: "var(--primary)" }}>
+                What's Next
+              </p>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 tracking-tight" style={{ color: "var(--foreground)" }}>
+                Get In Touch
+              </h2>
+              <p className="text-base sm:text-lg max-w-md mb-10 leading-relaxed" style={{ color: "var(--foreground-secondary)" }}>
+                I'm currently looking for new opportunities. Whether you have a question, a project idea, or just want to say hi, my inbox is always open!
+              </p>
+            </ScrollReveal>
 
-            <div className="flex flex-col gap-5">
-              {contactMethods.map(({ icon: Icon, label, value, href }) => (
-                <div
-                  key={label}
-                  className="flex items-start gap-4 p-3 rounded-2xl transition-colors duration-300 border border-transparent hover:border-white/10 hover:bg-white/5"
-                >
-                  <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 bg-white/5 border border-white/10">
-                    <Icon size={17} className="text-foreground-secondary" />
-                  </div>
-                  <div className="pt-0.5">
-                    <p className="text-xs mb-1" style={{ color: "var(--foreground-muted)" }}>{label}</p>
-                    {href ? (
-                      <a href={href} className="text-sm font-medium transition-colors duration-200" style={{ color: "var(--foreground)" }} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noreferrer" : undefined}>
-                        {value}
-                      </a>
-                    ) : (
-                      <p className="text-sm font-medium" style={{ color: "var(--foreground)" }}>{value}</p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </ScrollReveal>
+            <ScrollReveal delay={0.15}>
+              <motion.a
+                href={`mailto:${contactInfo.email}`}
+                className="group relative inline-flex items-center gap-3 mb-10 px-6 py-4 rounded-full overflow-hidden"
+                style={{
+                  background: "rgba(255,255,255,0.03)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  backdropFilter: "blur(12px)"
+                }}
+                whileHover="hover"
+                initial="idle"
+              >
+                <motion.div 
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
+                  style={{ background: "linear-gradient(90deg, rgba(124,108,244,0.1), rgba(124,108,244,0.0))" }}
+                />
+                
+                <Mail className="relative z-10" size={24} style={{ color: "var(--primary)" }} />
+                <span className="relative z-10 text-lg sm:text-xl font-medium tracking-tight" style={{ color: "var(--foreground)" }}>
+                  {contactInfo.email}
+                </span>
+                <ArrowRight className="relative z-10 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300" size={20} style={{ color: "var(--primary)" }} />
+              </motion.a>
+            </ScrollReveal>
 
-          <ScrollReveal delay={0.12}>
-            <SpotlightCard className="p-6 sm:p-7">
-              {sent ? (
-                <div className="flex flex-col items-center justify-center min-h-[420px] gap-4 text-center py-16">
-                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                    <Send size={24} style={{ color: "var(--foreground-secondary)" }} />
-                  </div>
-                  <p className="font-semibold" style={{ color: "var(--foreground)" }}>Message sent!</p>
-                  <p className="text-sm max-w-sm" style={{ color: "var(--foreground-secondary)" }}>{contactInfo.responseTime}</p>
-                </div>
-              ) : (
-                <form
-                  action={`https://formspree.io/f/manqbrkp`}
-                  method="POST"
-                  onSubmit={(e) => {
-                    if (!form.name || !form.email || !form.message) return;
-                    setSent(true);
-                  }}
-                  className="flex flex-col gap-4"
-                >
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block mb-2" style={{ color: "var(--foreground)" }}>Name</label>
-                      <input
-                        type="text"
-                        required
-                        placeholder="Your Name"
-                        value={form.name}
-                        onChange={(e) => setForm({ ...form, name: e.target.value })}
-                        style={inputStyle}
-                        onFocus={(e) => {
-                          (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,108,244,0.5)";
-                          (e.currentTarget as HTMLElement).style.boxShadow = focusStyle;
-                        }}
-                        onBlur={(e) => {
-                          (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
-                          (e.currentTarget as HTMLElement).style.boxShadow = "none";
-                        }}
-                        onMouseEnter={(e) => {
-                          if (document.activeElement !== e.currentTarget) (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.16)";
-                        }}
-                        onMouseLeave={(e) => {
-                          if (document.activeElement !== e.currentTarget) (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <label className="block mb-2" style={{ color: "var(--foreground)" }}>Email</label>
-                      <input
-                        type="email"
-                        required
-                        placeholder="you@example.com"
-                        value={form.email}
-                        onChange={(e) => setForm({ ...form, email: e.target.value })}
-                        style={inputStyle}
-                        onFocus={(e) => {
-                          (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,108,244,0.5)";
-                          (e.currentTarget as HTMLElement).style.boxShadow = focusStyle;
-                        }}
-                        onBlur={(e) => {
-                          (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
-                          (e.currentTarget as HTMLElement).style.boxShadow = "none";
-                        }}
-                        onMouseEnter={(e) => {
-                          if (document.activeElement !== e.currentTarget) (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.16)";
-                        }}
-                        onMouseLeave={(e) => {
-                          if (document.activeElement !== e.currentTarget) (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
-                        }}
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block mb-2" style={{ color: "var(--foreground)" }}>Message</label>
-                    <textarea
-                      required
-                      rows={6}
-                      placeholder="Tell me about your project or opportunity..."
-                      value={form.message}
-                      onChange={(e) => setForm({ ...form, message: e.target.value })}
-                      style={{ ...inputStyle, resize: "none" }}
-                      onFocus={(e) => {
-                        (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,108,244,0.5)";
-                        (e.currentTarget as HTMLElement).style.boxShadow = focusStyle;
-                      }}
-                      onBlur={(e) => {
-                        (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
-                        (e.currentTarget as HTMLElement).style.boxShadow = "none";
-                      }}
-                      onMouseEnter={(e) => {
-                        if (document.activeElement !== e.currentTarget) (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.16)";
-                      }}
-                      onMouseLeave={(e) => {
-                        if (document.activeElement !== e.currentTarget) (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
+            {/* Circular Social Icons */}
+            <div className="flex gap-4">
+              {socialLinks.map(({ icon: Icon, href, label }, idx) => (
+                <ScrollReveal key={label} delay={0.2 + idx * 0.05}>
+                  <motion.a
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={label}
+                    className="relative flex items-center justify-center w-14 h-14 rounded-full"
+                    style={{
+                      background: "rgba(255,255,255,0.04)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      color: "var(--foreground)"
+                    }}
+                    whileHover="hover"
+                    initial="idle"
+                    variants={{
+                      hover: { 
+                        scale: 1.1,
+                        borderColor: "var(--primary)",
+                        backgroundColor: "rgba(124,108,244,0.05)"
+                      }
+                    }}
+                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                  >
+                    <Icon size={22} className="relative z-10" />
+                    <motion.div
+                      className="absolute inset-0 rounded-full blur-[10px] z-0"
+                      variants={{
+                        hover: { opacity: 0.5, background: "var(--primary)" },
+                        idle: { opacity: 0, background: "transparent" }
                       }}
                     />
-                  </div>
+                  </motion.a>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
 
-                  <motion.button
-                    type="submit"
-                    className="h-11 rounded-xl flex items-center justify-center gap-2 text-sm font-semibold transition-colors duration-200"
-                    style={{ background: "var(--button-primary)", color: "var(--button-primary-text)" }}
-                    whileHover={{ y: -1 }}
-                    transition={{ duration: 0.2 }}
-                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--button-primary-hover)")}
-                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--button-primary)")}
-                  >
-                    <Send size={15} /> Send Message
-                  </motion.button>
-                </form>
-              )}
-            </SpotlightCard>
+          {/* Right Column: Contact Form */}
+          <ScrollReveal delay={0.3} className="w-full">
+            {sent ? (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="flex flex-col items-center justify-center py-16 px-8 rounded-3xl text-center"
+                style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" }}
+              >
+                <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6" style={{ background: "rgba(124,108,244,0.1)", border: "1px solid rgba(124,108,244,0.3)" }}>
+                  <Send size={28} style={{ color: "var(--primary)" }} />
+                </div>
+                <p className="text-2xl font-bold mb-2" style={{ color: "var(--foreground)" }}>Message sent!</p>
+                <p className="text-lg" style={{ color: "var(--foreground-secondary)" }}>I'll get back to you soon.</p>
+              </motion.div>
+            ) : (
+              <form
+                action={`https://formspree.io/f/manqbrkp`}
+                method="POST"
+                onSubmit={(e) => {
+                  if (!form.name || !form.email || !form.message) return;
+                  setSent(true);
+                }}
+                className="flex flex-col gap-4 text-left bg-white/[0.01] border border-white/5 p-6 sm:p-8 rounded-[24px]"
+              >
+                <div className="flex flex-col gap-4">
+                  <input
+                    type="text"
+                    required
+                    placeholder="Your Name"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    style={inputStyle}
+                    onFocus={(e) => {
+                      (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,108,244,0.5)";
+                      (e.currentTarget as HTMLElement).style.boxShadow = focusStyle;
+                      (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.04)";
+                    }}
+                    onBlur={(e) => {
+                      (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
+                      (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                      (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.02)";
+                    }}
+                  />
+                  <input
+                    type="email"
+                    required
+                    placeholder="Your Email"
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    style={inputStyle}
+                    onFocus={(e) => {
+                      (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,108,244,0.5)";
+                      (e.currentTarget as HTMLElement).style.boxShadow = focusStyle;
+                      (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.04)";
+                    }}
+                    onBlur={(e) => {
+                      (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
+                      (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                      (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.02)";
+                    }}
+                  />
+                </div>
+
+                <textarea
+                  required
+                  rows={3}
+                  placeholder="Tell me about your project..."
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  style={{ ...inputStyle, resize: "none" }}
+                  onFocus={(e) => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,108,244,0.5)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = focusStyle;
+                    (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.04)";
+                  }}
+                  onBlur={(e) => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                    (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.02)";
+                  }}
+                />
+
+                <Button 
+                  variant="primary" 
+                  type="submit" 
+                  className="w-full mt-2"
+                  icon={<Send size={15} />}
+                >
+                  Send Message
+                </Button>
+              </form>
+            )}
           </ScrollReveal>
         </div>
       </div>

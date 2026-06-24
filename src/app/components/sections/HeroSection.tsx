@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useMotionTemplate } from "motion/react";
-import { Github, Linkedin, ArrowRight, Download, Sparkles } from "lucide-react";
-import { Link } from "react-router";
+import { ArrowRight, Download, ChevronDown } from "lucide-react";
+import { personalInfo, resumeLink } from "../../../data/portfolio-data";
 import { usePrefersReducedMotion } from "../ui/ScrollReveal";
-import { personalInfo, resumeLink, contactInfo } from "../../../data/portfolio-data";
+import { Button } from "../ui/Button";
 
 export function HeroSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -22,7 +22,7 @@ export function HeroSection() {
 
   const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
   const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
-  const spotlightBackground = useMotionTemplate`radial-gradient(600px circle at ${springX}px ${springY}px, rgba(124, 108, 244, 0.15), transparent 80%)`;
+  const spotlightBackground = useMotionTemplate`radial-gradient(400px circle at ${springX}px ${springY}px, rgba(124, 108, 244, 0.05), transparent 80%)`;
 
   const roles = [
     "Full-Stack Developer",
@@ -50,13 +50,28 @@ export function HeroSection() {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 25 },
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.7,
-        ease: [0.21, 0.47, 0.32, 0.98],
+        type: "spring",
+        stiffness: 70,
+        damping: 15,
+      },
+    },
+  };
+
+  const nameVariants = {
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20, filter: prefersReducedMotion ? "blur(0px)" : "blur(10px)" },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        type: "spring",
+        stiffness: 70,
+        damping: 15,
       },
     },
   };
@@ -64,7 +79,7 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
       style={{ background: "transparent" }}
       onMouseMove={handleMouseMove}
     >
@@ -76,11 +91,13 @@ export function HeroSection() {
         />
       )}
 
-      {/* Static Fallback Glow (for mobile/reduced motion) */}
-      <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
-        <div 
-          className="w-[800px] h-[800px] rounded-full blur-[140px] opacity-15"
-          style={{ background: "radial-gradient(circle, var(--primary) 0%, transparent 60%)" }}
+      {/* Subtle Purple Aurora Glow */}
+      <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden">
+        <motion.div 
+          className="w-[60vw] h-[40vh] rounded-full blur-[120px] opacity-20"
+          style={{ background: "var(--primary)", filter: "blur(120px)" }}
+          animate={{ opacity: [0.15, 0.25, 0.15], scale: [0.9, 1.1, 0.9] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>
 
@@ -94,152 +111,148 @@ export function HeroSection() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 py-32 w-full flex justify-center">
+      {/* Noise Texture Overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.015] z-0 mix-blend-overlay"
+        style={{
+          backgroundImage: "url('data:image/svg+xml;utf8,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Main Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 w-full flex flex-col items-center justify-center flex-1 mt-16">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           className="w-full max-w-4xl flex flex-col items-center text-center"
         >
-          {/* Eyebrow: Name & Status */}
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-6">
-            <span className="text-xl sm:text-2xl font-medium tracking-wide flex items-center gap-2" style={{ color: "var(--foreground-secondary)" }}>
-              <motion.span 
-                animate={{ rotate: [0, 14, -8, 14, -4, 10, 0, 0] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", repeatDelay: 1 }}
-                style={{ transformOrigin: "bottom right" }}
-                className="inline-block text-2xl"
+          {/* 1. Intro Text */}
+          <motion.div variants={itemVariants} className="flex justify-center items-center mb-6">
+            <p className="text-xl sm:text-2xl font-medium tracking-wide flex items-center gap-3" style={{ color: "var(--foreground-secondary)" }}>
+              Hey There, I'm
+              <motion.span
+                animate={{ rotate: [0, 14, -8, 14, -4, 10, 0] }}
+                transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 1, ease: "easeInOut" }}
+                className="inline-block origin-bottom-right text-2xl sm:text-3xl"
               >
                 👋
               </motion.span>
-              Hi, I am
-            </span>
-            {personalInfo.openToWork && (
-              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium" style={{ background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.2)", color: "var(--success)" }}>
-                <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--success)" }} />
-                Available for opportunities
-              </span>
-            )}
+            </p>
           </motion.div>
 
-          {/* Massive Headline */}
-          <motion.h1 
-            variants={itemVariants}
-            className="mb-6 font-bold tracking-tighter"
-            style={{ 
-              fontSize: "clamp(3.5rem, 8vw, 6.5rem)", 
-              lineHeight: 1.05 
-            }}
-          >
-            <span className="text-white">{personalInfo.firstName} </span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-white/80 to-white/20">
-              {personalInfo.lastName}.
-            </span>
-          </motion.h1>
-
-          {/* Role & Bio */}
-          <motion.div variants={itemVariants} className="max-w-2xl mx-auto mb-12">
-            <div className="h-8 sm:h-10 overflow-hidden flex justify-center items-center">
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={roleIndex}
-                  initial={{ y: 25, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -25, opacity: 0 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="text-xl sm:text-2xl font-medium"
-                  style={{ color: "var(--accent-secondary)", letterSpacing: "-0.01em" }}
-                >
-                  {roles[roleIndex]}
-                </motion.p>
-              </AnimatePresence>
-            </div>
-            {(personalInfo.heroBio || personalInfo.heroContext) && (
-              <p className="text-base sm:text-lg leading-relaxed mt-4" style={{ color: "var(--foreground-secondary)" }}>
-                {personalInfo.heroBio}
-                {personalInfo.heroContext && (
-                  <><br /><span className="opacity-70 text-sm mt-1 block">{personalInfo.heroContext}</span></>
-                )}
-              </p>
-            )}
-          </motion.div>
-
-          {/* Action Buttons */}
-          <motion.div variants={itemVariants} className="flex flex-wrap justify-center items-center gap-4">
-            <motion.a
-              href={resumeLink}
-              className="h-12 px-6 rounded-full flex items-center justify-center gap-2 text-sm font-semibold transition-all duration-300"
+          {/* 2. Large Name with Blur Reveal and Glow */}
+          <motion.div variants={nameVariants} className="relative mb-6">
+            <motion.div 
+              className="absolute inset-0 z-0 blur-[40px] rounded-full opacity-20"
+              style={{ background: "radial-gradient(circle, var(--primary) 0%, transparent 60%)" }}
+              animate={{ opacity: [0.15, 0.3, 0.15], scale: [0.95, 1.05, 0.95] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <h1 
+              className="relative z-10 font-bold tracking-tighter"
               style={{ 
-                background: "var(--button-primary)", 
-                color: "var(--button-primary-text)",
-                boxShadow: "0 8px 30px -8px rgba(124,108,244,0.6)"
+                fontSize: "clamp(3rem, 8vw, 6rem)", 
+                lineHeight: 1.1 
               }}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
             >
-              <Download size={16} strokeWidth={2.5} /> Download Resume
-            </motion.a>
-
-            <motion.span style={{ display: "inline-block" }}>
-              <Link
-                to="/projects"
-                className="h-12 px-6 rounded-full flex items-center justify-center gap-2 text-sm font-semibold transition-all duration-300 backdrop-blur-md"
-                style={{ 
-                  background: "rgba(255,255,255,0.03)", 
-                  color: "var(--foreground)", 
-                  border: "1px solid rgba(255,255,255,0.12)" 
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.08)";
-                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.25)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.03)";
-                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.12)";
-                }}
+              <motion.span 
+                className="inline-flex cursor-default text-white"
+                whileHover="hover"
+                initial="initial"
               >
-                View Projects <ArrowRight size={15} />
-              </Link>
-            </motion.span>
+                {"Abhishek".split("").map((letter, i) => (
+                  <motion.span
+                    key={i}
+                    variants={{
+                      initial: { scale: 1, y: 0, color: "#ffffff" },
+                      hover: {
+                        scale: [1, 1.25, 1],
+                        y: [0, -8, 0],
+                        color: ["#ffffff", "var(--primary)", "#ffffff"],
+                        transition: { duration: 0.4, delay: i * 0.04 }
+                      }
+                    }}
+                    className="inline-block origin-bottom"
+                  >
+                    {letter}
+                  </motion.span>
+                ))}
+              </motion.span>
+              <span className="text-white"> </span>
+              <motion.span 
+                className="inline-flex cursor-default text-white"
+                whileHover="hover"
+                initial="initial"
+              >
+                {"Adiga".split("").map((letter, i) => (
+                  <motion.span
+                    key={i}
+                    variants={{
+                      initial: { scale: 1, y: 0, color: "#ffffff" },
+                      hover: {
+                        scale: [1, 1.25, 1],
+                        y: [0, -8, 0],
+                        color: ["#ffffff", "var(--primary)", "#ffffff"],
+                        transition: { duration: 0.4, delay: i * 0.04 }
+                      }
+                    }}
+                    className="inline-block origin-bottom"
+                  >
+                    {letter}
+                  </motion.span>
+                ))}
+              </motion.span>
+            </h1>
+          </motion.div>
 
-            {/* Social Icons */}
-            <div className="flex items-center gap-3 sm:ml-2">
-              {[
-                { icon: Github, href: contactInfo.github, label: "GitHub" },
-                { icon: Linkedin, href: contactInfo.linkedin, label: "LinkedIn" },
-              ].map(({ icon: Icon, href, label }) => (
-                <motion.a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={label}
-                  className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300"
-                  style={{ 
-                    background: "rgba(255,255,255,0.035)", 
-                    color: "var(--foreground-secondary)", 
-                    border: "1px solid rgba(255,255,255,0.12)" 
-                  }}
-                  whileHover={{ scale: 1.08, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.color = "var(--foreground)";
-                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.3)";
-                    (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.08)";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.color = "var(--foreground-secondary)";
-                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.12)";
-                    (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.035)";
-                  }}
-                >
-                  <Icon size={18} />
-                </motion.a>
-              ))}
-            </div>
+          {/* 3. Animated Role Switcher */}
+          <motion.div variants={itemVariants} className="h-10 sm:h-12 overflow-hidden flex justify-center items-center mb-14">
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={roleIndex}
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -20, opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="text-2xl sm:text-3xl font-medium"
+                style={{ color: "var(--accent-secondary)", letterSpacing: "-0.01em" }}
+              >
+                {roles[roleIndex]}
+              </motion.p>
+            </AnimatePresence>
+          </motion.div>
+
+          {/* 5. CTA Buttons */}
+          <motion.div variants={itemVariants} className="flex flex-wrap justify-center items-center gap-4">
+            <Button variant="primary" href={resumeLink} target="_blank" rel="noreferrer" icon={<Download size={16} strokeWidth={2.5} />}>
+              Get Resume
+            </Button>
+            <Button variant="secondary" to="/projects" iconRight icon={<ArrowRight size={15} />}>
+              View Projects
+            </Button>
           </motion.div>
         </motion.div>
       </div>
+
+      {/* 6. Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 1 }}
+        className="relative z-10 pb-8 mt-auto flex flex-col items-center justify-center opacity-60"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+          className="flex flex-col items-center gap-2 cursor-default select-none text-[13px] tracking-wide"
+          style={{ color: "var(--foreground-secondary)" }}
+        >
+          Scroll to Explore
+          <ChevronDown size={18} className="opacity-70" />
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

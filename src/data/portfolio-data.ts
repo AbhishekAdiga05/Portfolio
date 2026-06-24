@@ -89,6 +89,24 @@ export const skillCategories = [
 
 export const featuredProjects = [
   {
+  title: "NexPrice",
+  subtitle: "Product Price Tracking & Market Intelligence Platform",
+  description:
+  "Smart price tracking platform with multi-store comparison, deal insights, and historical price analytics.",
+  image: "/images/nexprice.webp",
+  tags: [
+    "Next.js",
+    "Supabase",
+    "PostgreSQL",
+    "Firecrawl",
+    "Recharts",
+    "Tailwind CSS",
+  ],
+  github: "https://github.com/AbhishekAdiga05/NexPrice",
+  live: "https://getnexprice.vercel.app/",
+  number: "03",
+},
+  {
     title: "NeonChat",
     subtitle: "AI-Powered Multi-Model Chat Platform",
     description:
@@ -124,24 +142,7 @@ export const featuredProjects = [
     live: "https://codeforge-neon.vercel.app/",
     number: "02",
   },
-  {
-  title: "NexPrice",
-  subtitle: "Product Price Tracking & Market Intelligence Platform",
-  description:
-  "Smart price tracking platform with multi-store comparison, deal insights, and historical price analytics.",
-  image: "/images/nexprice.webp",
-  tags: [
-    "Next.js",
-    "Supabase",
-    "PostgreSQL",
-    "Firecrawl",
-    "Recharts",
-    "Tailwind CSS",
-  ],
-  github: "https://github.com/AbhishekAdiga05/NexPrice",
-  live: "https://getnexprice.vercel.app/",
-  number: "03",
-},
+  
 ];
 
 export const otherProjects = [
@@ -162,6 +163,26 @@ export const otherProjects = [
     live: "https://safecasts.netlify.app",
     number: "",
   },
+  {
+  title: "ChatVerse",
+  subtitle: "Real-Time Messaging Platform",
+  description:
+    "Full-stack chat application with real-time messaging, JWT authentication, online presence tracking, media sharing via Cloudinary, and scalable Socket.io architecture.",
+  image: "/images/chatapp.png",
+  tags: [
+    "React",
+    "Node.js",
+    "MongoDB",
+    "Socket.io",
+    "JWT",
+    "Cloudinary",
+    "Zustand",
+    "Tailwind CSS",
+  ],
+  github: "https://github.com/AbhishekAdiga05/ChatVerse",
+  live: "realtime-chat-app-vulu.onrender.com",
+  number: "05",
+},
 ];
 
 export const certifications = [

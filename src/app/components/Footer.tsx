@@ -1,5 +1,5 @@
 import { Github, Linkedin, Mail } from "lucide-react";
-import { motion } from "motion/react";
+import { Button } from "./ui/Button";
 
 export function Footer() {
   return (
@@ -27,20 +27,16 @@ export function Footer() {
             { icon: Linkedin, href: "https://www.linkedin.com/in/abhishek-adiga-1a37b232a/" },
             { icon: Mail, href: "mailto:abhishekadiga2345@gmail.com" },
           ].map(({ icon: Icon, href }, i) => (
-            <motion.a
+            <Button
               key={i}
+              variant="ghost"
               href={href}
               target="_blank"
               rel="noreferrer"
-              className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-200"
-              style={{ color: "var(--foreground-secondary)", background: "rgba(255,255,255,0.035)", border: "1px solid rgba(255,255,255,0.08)" }}
-              whileHover={{ y: -1 }}
-              transition={{ duration: 0.15 }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--foreground)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--foreground-secondary)")}
+              className="w-10 h-10 p-0 rounded-md"
             >
               <Icon size={16} />
-            </motion.a>
+            </Button>
           ))}
         </div>
       </div>

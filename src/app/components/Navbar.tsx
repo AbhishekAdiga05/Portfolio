@@ -1,18 +1,52 @@
 import { useState, useEffect } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { Button } from "./ui/Button";
 
 const navLinks = [
-  { label: "Home", to: "/" },
-  { label: "Projects", to: "/projects" },
+  { label: "Home", to: "hero" },
+  { label: "About", to: "about" },
+  { label: "Experience", to: "experience" },
+  { label: "Projects", to: "projects" },
+  { label: "Skills", to: "skills" },
 ];
-
-
 
 function scrollToSection(id: string) {
   const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "smooth" });
+  if (el) {
+    // Offset for navbar
+    const y = el.getBoundingClientRect().top + window.scrollY - 80;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  } else if (id === "hero") {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}
+
+function useScrollSpy(ids: string[]) {
+  const [activeId, setActiveId] = useState(ids[0]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-40% 0px -40% 0px" }
+    );
+
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [ids]);
+
+  return activeId;
 }
 
 export function Navbar() {
@@ -20,7 +54,8 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const isHome = location.pathname === "/";
+  
+  const activeSection = useScrollSpy(navLinks.map(l => l.to));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -34,16 +69,16 @@ export function Navbar() {
 
   function handleSectionClick(id: string) {
     setMenuOpen(false);
-    if (isHome) {
-      scrollToSection(id);
-    } else {
+    if (location.pathname !== "/") {
       navigate("/");
-      setTimeout(() => scrollToSection(id), 120);
+      setTimeout(() => scrollToSection(id), 100);
+    } else {
+      scrollToSection(id);
     }
   }
 
   const navShell = "h-16 px-4 sm:px-6 flex items-center justify-between";
-  const navText = "text-sm font-medium transition-colors duration-200";
+  const navText = "text-sm font-medium transition-colors duration-200 cursor-pointer";
   const navInactive = "var(--foreground-secondary)";
   const navActive = "var(--foreground)";
 
@@ -57,7 +92,7 @@ export function Navbar() {
       }}
     >
       <div className={`max-w-7xl mx-auto ${navShell}`}>
-        <NavLink to="/" className="flex items-center gap-2.5 min-h-[44px] group">
+        <button onClick={() => handleSectionClick("hero")} className="flex items-center gap-2.5 min-h-[44px] group focus:outline-none">
           <motion.div
             whileHover={{ scale: 1.05, rotate: -2 }}
             whileTap={{ scale: 0.95 }}
@@ -69,50 +104,42 @@ export function Navbar() {
           <span className="text-white font-semibold text-sm hidden sm:block group-hover:text-primary transition-colors duration-300" style={{ letterSpacing: "-0.02em" }}>
             Abhi.dev
           </span>
-        </NavLink>
+        </button>
 
         <nav className="hidden md:flex items-center">
           <div
-            className="flex items-center gap-0.5 px-1.5 py-1.5 rounded-full"
+            className="flex items-center gap-0.5 px-1.5 py-1.5 rounded-md"
             style={{ background: "rgba(255,255,255,0.035)", border: "1px solid rgba(255,255,255,0.06)", backdropFilter: "blur(12px)" }}
           >
-            {navLinks.map((link) => (
-              <NavLink key={link.to} to={link.to} end={link.to === "/"}>
-                {({ isActive }) => (
-                  <div className="relative px-4 h-10 min-w-[78px] flex items-center justify-center rounded-full transition-colors duration-200">
-                    {isActive && (
-                      <motion.div
-                        layoutId="nav-pill"
-                        className="absolute inset-0 rounded-full"
-                        style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)" }}
-                        transition={{ duration: 0.2 }}
-                      />
-                    )}
-                    <span className={`relative ${navText}`} style={{ color: isActive ? navActive : navInactive }}>
-                      {link.label}
-                    </span>
-                  </div>
-                )}
-              </NavLink>
-            ))}
-
-
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.to;
+              return (
+                <button 
+                  key={link.to} 
+                  onClick={() => handleSectionClick(link.to)}
+                  className="relative px-4 h-10 min-w-[78px] flex items-center justify-center rounded-md transition-colors duration-200 focus:outline-none"
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="nav-pill"
+                      className="absolute inset-0 rounded-md"
+                      style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", boxShadow: "0 0 12px rgba(124,108,244,0.3)" }}
+                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    />
+                  )}
+                  <span className={`relative ${navText}`} style={{ color: isActive ? navActive : navInactive }}>
+                    {link.label}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            type="button"
-            onClick={() => handleSectionClick("contact")}
-            className="h-10 px-4 rounded-full text-sm font-semibold transition-colors duration-200"
-            style={{ background: "var(--button-primary)", color: "var(--button-primary-text)" }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--button-primary-hover)")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--button-primary)")}
-          >
+          <Button variant="primary" onClick={() => handleSectionClick("contact")} className="h-10 text-xs px-4">
             Contact
-          </motion.button>
+          </Button>
         </div>
 
         <button
@@ -136,26 +163,23 @@ export function Navbar() {
             className="md:hidden px-4 pb-5 pt-2 flex flex-col gap-1"
             style={{ background: "rgba(5,6,8,0.96)", borderBottom: "1px solid rgba(255,255,255,0.06)", backdropFilter: "blur(16px)" }}
           >
-            {navLinks.map((link) => (
-              <NavLink key={link.to} to={link.to} end={link.to === "/"}>
-                {({ isActive }) => (
-                  <span className="block py-3 text-sm font-medium border-b" style={{ color: isActive ? "var(--foreground)" : "var(--foreground-secondary)", borderColor: "rgba(255,255,255,0.06)" }}>
-                    {link.label}
-                  </span>
-                )}
-              </NavLink>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.to;
+              return (
+                <button 
+                  key={link.to} 
+                  onClick={() => handleSectionClick(link.to)}
+                  className="block py-3 text-sm font-medium border-b text-left focus:outline-none transition-colors"
+                  style={{ color: isActive ? "var(--foreground)" : "var(--foreground-secondary)", borderColor: "rgba(255,255,255,0.06)" }}
+                >
+                  {link.label}
+                </button>
+              );
+            })}
 
-
-
-            <button
-              type="button"
-              onClick={() => handleSectionClick("contact")}
-              className="mt-3 block text-center h-11 rounded-full text-sm font-semibold transition-colors duration-200"
-              style={{ background: "var(--button-primary)", color: "var(--button-primary-text)" }}
-            >
+            <Button variant="primary" onClick={() => handleSectionClick("contact")} className="mt-3 w-full">
               Contact
-            </button>
+            </Button>
           </motion.div>
         )}
       </AnimatePresence>
