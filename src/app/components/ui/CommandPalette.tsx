@@ -28,7 +28,7 @@ export function CommandPalette() {
     {
       id: "home",
       label: "Home",
-      description: "Jump to the portfolio landing section",
+      description: "Go back to the top of the page",
       icon: <Home size={16} />,
       keywords: ["landing", "hero", "home"],
       action: () => {
@@ -39,7 +39,7 @@ export function CommandPalette() {
     {
       id: "about",
       label: "About",
-      description: "Read the story behind the work",
+      description: "Learn more about me and what I do",
       icon: <User size={16} />,
       keywords: ["about", "story", "profile"],
       action: () => {
@@ -50,7 +50,7 @@ export function CommandPalette() {
     {
       id: "projects",
       label: "Featured Projects",
-      description: "Open the project showcase",
+      description: "Browse my featured and side projects",
       icon: <Layers3 size={16} />,
       keywords: ["projects", "portfolio", "case study"],
       action: () => {
@@ -61,7 +61,7 @@ export function CommandPalette() {
     {
       id: "tech-arsenal",
       label: "Tech Arsenal",
-      description: "Explore frontend, backend, database, and deployment tools",
+      description: "See the tools and technologies I work with",
       icon: <Moon size={16} />,
       keywords: ["skills", "tech", "tools", "arsenal", "frontend", "backend"],
       action: () => {
@@ -72,7 +72,7 @@ export function CommandPalette() {
     {
       id: "experience",
       label: "Experience",
-      description: "Review recent development experience",
+      description: "View my work history and experience",
       icon: <MapPin size={16} />,
       keywords: ["experience", "work", "community", "open source"],
       action: () => {
@@ -83,7 +83,7 @@ export function CommandPalette() {
     {
       id: "resume",
       label: "Resume",
-      description: "Open the downloadable resume",
+      description: "Download or view my resume",
       icon: <ExternalLink size={16} />,
       keywords: ["resume", "cv", "pdf", "download"],
       action: () => navigate("/resume"),
@@ -91,7 +91,7 @@ export function CommandPalette() {
     {
       id: "github",
       label: "GitHub",
-      description: "Open GitHub profile",
+      description: "Visit my GitHub profile",
       icon: <Github size={16} />,
       keywords: ["github", "code", "profile"],
       action: () => window.open(contactInfo.github, "_blank", "noopener,noreferrer"),
@@ -99,7 +99,7 @@ export function CommandPalette() {
     {
       id: "email",
       label: "Email",
-      description: "Start an email conversation",
+      description: "Send me an email",
       icon: <Mail size={16} />,
       keywords: ["email", "mail", "contact"],
       action: () => window.open(`mailto:${contactInfo.email}`, "_blank", "noopener,noreferrer"),

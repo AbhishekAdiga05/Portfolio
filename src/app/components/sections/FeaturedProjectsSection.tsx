@@ -135,7 +135,7 @@ export function FeaturedProjectsSection() {
           <SectionHeading
             eyebrow="Portfolio"
             title="Selected Works"
-            description="A collection of my best projects, scaled down into interactive 3D micro-cards."
+            description="Some of the projects I've built — from full-stack apps to developer tools."
             className="mb-0"
           />
         </div>

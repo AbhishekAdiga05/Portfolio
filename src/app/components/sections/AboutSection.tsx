@@ -53,7 +53,7 @@ export function AboutSection() {
           <div className="flex flex-col justify-center">
             <ScrollReveal delay={0.05}>
               <h2 className="text-4xl sm:text-5xl font-bold mb-10 tracking-tight" style={{ color: "var(--foreground)" }}>
-                Hey! I'm <span className="pb-1 border-b-[3px]" style={{ color: "var(--primary)", borderColor: "var(--primary)" }}>{personalInfo.firstName.toUpperCase()}</span>
+                About Me
               </h2>
             </ScrollReveal>
 

@@ -100,7 +100,7 @@ export function ExperienceSection() {
         <SectionHeading
           eyebrow="Experience"
           title="Work History"
-          description="A chronological look at my professional roles and the impact I've made."
+          description="A look at the roles I've held and the work I've done so far."
         />
 
         <div className="flex flex-col gap-6 sm:gap-8 mt-16 sm:mt-20">

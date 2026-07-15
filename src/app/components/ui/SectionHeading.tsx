@@ -18,7 +18,7 @@ export function SectionHeading({ eyebrow, title, description, className = "" }: 
       </div>
       <h2
         className="mb-4 text-foreground"
-        style={{ fontSize: "clamp(2.25rem, 4vw, 3rem)", fontWeight: 650, letterSpacing: "-0.035em", lineHeight: 1.05 }}
+        style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", fontWeight: 650, letterSpacing: "-0.025em", lineHeight: 1.15 }}
       >
         {title}
       </h2>

@@ -3,15 +3,13 @@ export const personalInfo = {
   lastName: "Adiga",
   role: "Full-Stack Developer & AI Enthusiast",
   profilePhoto: "/images/profile.webp",
-  heroBio: "",
-  heroContext: "",
   openToWork: true,
   availabilityDate: "2027",
 };
 
 export const aboutInfo = {
   intro:
-    "Hey! 👋 I'm Abhishek Adiga, a self-driven developer passionate about building, learning, and solving problems through technology. What began as curiosity about software gradually evolved into a passion for creating applications and turning ideas into reality.\n\nI enjoy working on projects that challenge me to grow, explore new technologies, and strengthen my problem-solving skills. I'm constantly learning, building, and striving to create solutions that make a meaningful impact. 🚀",
+    "I'm Abhishek Adiga, a full-stack developer and B.Tech student at Sahyadri College of Engineering and Management. I started coding because I wanted to build things that people actually use — websites, tools, and apps that solve real problems. What began as curiosity turned into a genuine interest in software development.\n\nI work mostly with React, Next.js, TypeScript, and Node.js. I also spend time on data structures, algorithms, and AI tooling. I contribute to open source when I can, and I'm always looking for opportunities to learn something new.",
   secondary: "",
   degree: "B.Tech in Information Science & Engineering",
   university: "Sahyadri College of Engineering and Management",
@@ -37,9 +35,9 @@ export const experiences = [
     org: "Innovex Student Developer Community",
     duration: "Aug 2025 - Present",
     bullets: [
-      "Built web projects with React, Next.js, and TypeScript alongside student peers.",
-      "Maintained apps via code reviews and team conventions.",
-      "Shipped features through code reviews and team collaboration.",
+      "Built full-stack web projects using React, Next.js, and TypeScript as part of a student team.",
+      "Reviewed code and followed team conventions to keep projects maintainable.",
+      "Collaborated on feature development and shipped updates through structured workflows.",
     ],
   },
   {
@@ -47,43 +45,29 @@ export const experiences = [
     org: "FitMart",
     duration: "2025 - Present",
     bullets: [
-      "Submitted bug fixes and features to an OSS project on GitHub.",
-      "Learned a production codebase's architecture and contributor workflow.",
-      "Collaborated via PRs, code reviews, issues, and Git.",
+      "Fixed bugs and contributed features to an open source project on GitHub.",
+      "Learned how production codebases are architected and how contributors collaborate.",
+      "Worked with pull requests, issue tracking, and code reviews as part of the contribution process.",
     ],
   },
 ];
 
 export const skillCategories = [
   {
-    label: "Frontend",
-    capability: "Build responsive, accessible interfaces and product-grade web apps.",
-    skills: ["JavaScript", "TypeScript", "React", "Next.js", "Tailwind CSS"],
+    label: "Languages",
+    skills: ["Java", "JavaScript", "TypeScript", "Python", "C++"],
   },
   {
-    label: "Backend",
-    capability: "Design reliable APIs, application logic, and integration layers.",
-    skills: ["Java", "Node.js"],
+    label: "Development",
+    skills: ["React", "Next.js", "Node.js", "FastAPI"],
   },
   {
-    label: "Database",
-    capability: "Model data, query efficiently, and connect apps to persistent storage.",
-    skills: ["MongoDB", "PostgreSQL", "Prisma"],
+    label: "Data & AI",
+    skills: ["MongoDB", "PostgreSQL", "Supabase", "LangChain"],
   },
   {
-    label: "AI / ML",
-    capability: "Integrate LLM workflows and evaluation tooling into practical features.",
-    skills: ["OpenRouter", "Judge0 API"],
-  },
-  {
-    label: "DevOps",
-    capability: "Package, deploy, and maintain services with repeatable workflows.",
-    skills: ["Docker", "Git"],
-  },
-  {
-    label: "Tools",
-    capability: "Use focused product tools to move from idea to shipped software.",
-    skills: ["GitHub", "Postman"],
+    label: "Cloud & Tools",
+    skills: ["Docker", "AWS", "Git", "Postman"],
   },
 ];
 
@@ -92,8 +76,8 @@ export const featuredProjects = [
   title: "NexPrice",
   subtitle: "Product Price Tracking & Market Intelligence Platform",
   description:
-  "Smart price tracking platform with multi-store comparison, deal insights, and historical price analytics.",
-  image: "/images/nexprice.webp",
+  "Tracks product prices across multiple stores and shows price history, deal alerts, and market trends.",
+  image: "/images/nexprice.png",
   tags: [
     "Next.js",
     "Supabase",
@@ -110,8 +94,8 @@ export const featuredProjects = [
     title: "NeonChat",
     subtitle: "AI-Powered Multi-Model Chat Platform",
     description:
-      "AI chat platform with 100+ LLMs, real-time streaming, GitHub auth, and persistent history.",
-    image: "/images/neonchat.webp",
+      "A chat interface that connects to over 100 language models with real-time streaming, GitHub login, and conversation history.",
+    image: "/images/neonchat.png",
     tags: [
       "Next.js",
       "TypeScript",
@@ -128,8 +112,8 @@ export const featuredProjects = [
     title: "CodeForge",
     subtitle: "Full-Stack DSA Practice Platform",
     description:
-      "LeetCode-style platform with online code execution, progress tracking, and analytics.",
-    image: "/images/codeforge.webp",
+      "A coding practice platform where you can solve problems, run code online, and track your progress over time.",
+    image: "/images/codeforge.png",
     tags: [
       "Next.js",
       "React",
@@ -150,8 +134,8 @@ export const otherProjects = [
     title: "SafeCast",
     subtitle: "Cybersecure E-Voting System",
     description:
-      "Secure e-voting with threat detection, anti-DDoS, and encrypted voting.",
-    image: "/images/safecast.webp",
+      "An encrypted e-voting system with threat detection, DDoS protection, and real-time monitoring.",
+    image: "/images/safecast.png",
     tags: [
       "MERN",
       "Cybersecurity",
@@ -167,7 +151,7 @@ export const otherProjects = [
   title: "ChatVerse",
   subtitle: "Real-Time Messaging Platform",
   description:
-    "Full-stack chat application with real-time messaging, JWT authentication, online presence tracking, media sharing via Cloudinary, and scalable Socket.io architecture.",
+    "Real-time messaging app with authentication, online status indicators, media sharing, and Socket.io-based architecture.",
   image: "/images/chatapp.png",
   tags: [
     "React",
@@ -182,6 +166,67 @@ export const otherProjects = [
   github: "https://github.com/AbhishekAdiga05/ChatVerse",
   live: "realtime-chat-app-vulu.onrender.com",
   number: "05",
+},
+{
+  title: "Syncverse",
+  subtitle: "AI-Powered Collaborative Code Editor",
+  description:
+    "A collaborative code editor with real-time sync, AI-assisted code review, whiteboarding, multi-language execution, and built-in chat.",
+  image: "/images/syncverse.png",
+  tags: [
+    "React",
+    "Node.js",
+    "MongoDB",
+    "Socket.io",
+    "Yjs",
+    "Monaco Editor",
+    "OpenRouter",
+    "Judge0",
+    "tldraw",
+    "Clerk",
+  ],
+  github: "https://github.com/AbhishekAdiga05/SyncVerse.git",
+  live: "https://pairverse-hpp9.onrender.com/",
+  number: "06",
+},
+{
+  title: "DocPilot",
+  subtitle: "AI-Powered Documentation Agent",
+  description:
+    "Analyzes source code and generates README files, API docs, docstrings, and code walkthroughs across multiple languages.",
+  image: "/images/docpilot.png",
+  tags: [
+    "Python",
+    "Streamlit",
+    "LangChain",
+    "Groq",
+    "LLaMA 3.3",
+    "AST",
+    "Generative AI",
+  ],
+  github: "https://github.com/AbhishekAdiga05/DocPilot.git",
+  live: "https://docpilotai.streamlit.app/",
+  number: "07",
+},
+{
+  title: "Tandoor Kitchen",
+  subtitle: "Premium Restaurant Web Experience",
+  description:
+    "A restaurant website with categorized menus, photo galleries, customer reviews, and a reservation system.",
+  image: "/images/tandoor-kitchen.png",
+  tags: [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "Framer Motion",
+    "REST API",
+    "Google Maps API",
+    "Vercel",
+  ],
+  github: "https://github.com/isdc-sahyadri/Tandoor-Website.git",
+  live: "https://tandoor-kitchen.vercel.app/",
+  number: "08",
 },
 ];
 

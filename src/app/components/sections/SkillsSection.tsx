@@ -146,7 +146,7 @@ export function SkillsSection() {
         <SectionHeading
           eyebrow="Tech Arsenal"
           title="Skills & Tools"
-          description="A set of tools I've picked up building projects — continually learning and refining my stack."
+          description="Tools and technologies I've picked up while building projects."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-12">
