@@ -1,136 +1,157 @@
+import { useNavigate } from "react-router";
 import { motion, useMotionValue, useTransform, useSpring } from "motion/react";
 import { Github, ExternalLink, ArrowRight } from "lucide-react";
-import { Link, useNavigate } from "react-router";
-import { featuredProjects, otherProjects } from "../../../data/portfolio-data";
-import { ScrollReveal } from "../ui/ScrollReveal";
+import { featuredProjects } from "../../../data/portfolio-data";
 import { SectionHeading } from "../ui/SectionHeading";
 import { Button } from "../ui/Button";
 
-function TiltMicroCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
+function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
   const navigate = useNavigate();
-  
-  // 3D Tilt Physics
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
 
-  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 20 });
-  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 20 });
+  const x = useMotionValue(0.5);
+  const y = useMotionValue(0.5);
+  const mouseXSpring = useSpring(x, { stiffness: 200, damping: 18 });
+  const mouseYSpring = useSpring(y, { stiffness: 200, damping: 18 });
+  const rotateX = useTransform(mouseYSpring, [0, 1], ["6deg", "-6deg"]);
+  const rotateY = useTransform(mouseXSpring, [0, 1], ["-6deg", "6deg"]);
 
-  // Map mouse position to rotation (-15 to 15 degrees)
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+  const imgX = useTransform(mouseXSpring, [0, 1], [-8, 8]);
+  const imgY = useTransform(mouseYSpring, [0, 1], [-6, 6]);
 
-  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    
-    // Normalize values between -0.5 and 0.5
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-    
-    x.set(xPct);
-    y.set(yPct);
-  }
+    x.set((e.clientX - rect.left) / rect.width);
+    y.set((e.clientY - rect.top) / rect.height);
+  };
 
-  function handleMouseLeave() {
-    x.set(0);
-    y.set(0);
-  }
+  const handleMouseLeave = () => { x.set(0.5); y.set(0.5); };
+
+  const directions = [
+    { x: -30, y: 10 },
+    { x: 0, y: 30 },
+    { x: 30, y: 10 },
+  ];
 
   return (
-    <ScrollReveal delay={i * 0.08}>
+    <motion.div
+      initial={{ opacity: 0, ...directions[i] }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      className="h-full"
+    >
       <motion.div
-        style={{ perspective: 1000 }}
-        className="h-full"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        onClick={() => navigate("/projects")}
+        style={{
+          rotateX,
+          rotateY,
+          perspective: 1000,
+          transformStyle: "preserve-3d",
+        }}
+        className="group relative h-full cursor-pointer rounded-2xl overflow-hidden bg-[#0A0C14] border border-white/[0.06] transition-all duration-300 hover:border-white/[0.12] hover:shadow-[0_8px_40px_rgba(124,108,244,0.06)]"
       >
-        <motion.div
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-          onClick={() => navigate("/projects")}
+        {/* Gradient hover wash */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"
           style={{
-            rotateX,
-            rotateY,
-            transformStyle: "preserve-3d",
+            background: "linear-gradient(135deg, rgba(124,108,244,0.08), transparent 60%)",
           }}
-          className="group relative h-full flex flex-col cursor-pointer rounded-[20px] bg-white/[0.02] border border-white/5 p-3 hover:bg-white/[0.04] hover:border-white/10 transition-colors duration-300 shadow-lg"
-        >
-          {/* Inner 3D Content Wrapper */}
-          <div style={{ transform: "translateZ(30px)" }} className="flex flex-col h-full">
-            
-            {/* Small Image Thumbnail */}
-            <div className="relative w-full h-32 sm:h-36 rounded-xl overflow-hidden mb-4">
-              <img 
-                src={p.image} 
-                alt={p.title} 
-                loading="lazy" 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-              />
-              {/* Dark overlay that fades on hover */}
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-500" />
-              
-              {/* Floating Number Badge */}
-              <span className="absolute top-3 left-3 text-[10px] font-bold px-2 py-0.5 rounded-full" 
-                    style={{ background: "rgba(0,0,0,0.6)", color: "var(--foreground)", border: "1px solid rgba(255,255,255,0.1)", backdropFilter: "blur(8px)" }}>
-                {p.number}
-              </span>
-            </div>
+        />
 
-            {/* Text Content */}
-            <div className="flex flex-col flex-1 px-1">
-              <h3 className="text-lg font-bold mb-1 tracking-wide" style={{ color: "var(--foreground)" }}>
-                {p.title}
-              </h3>
-              <p className="text-[13px] font-medium mb-3" style={{ color: "var(--primary)" }}>
-                {p.subtitle}
-              </p>
-              
-              {/* Very short description clamp */}
-              <p className="text-[13px] leading-relaxed mb-5 line-clamp-2" style={{ color: "var(--foreground-secondary)" }}>
-                {p.description}
-              </p>
+        {/* Number watermark */}
+        <div className="absolute -top-6 -right-4 text-[90px] font-black leading-none opacity-[0.035] pointer-events-none select-none z-0"
+          style={{ color: "var(--primary)" }}>
+          {p.number}
+        </div>
 
-              <div className="mt-auto pt-4 flex gap-2" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-                <Button 
-                  variant="ghost" 
-                  href={p.github} 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  icon={<Github size={12} />}
-                  className="w-full text-[11px] h-8 rounded-lg"
-                  onClick={(e: React.MouseEvent) => e.stopPropagation()}
-                >
-                  Code
-                </Button>
-                <Button 
-                  variant="secondary" 
-                  href={p.live} 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  icon={<ExternalLink size={12} />}
-                  className="w-full text-[11px] h-8 rounded-lg bg-white/5"
-                  onClick={(e: React.MouseEvent) => e.stopPropagation()}
-                >
-                  Demo
-                </Button>
-              </div>
-            </div>
-
+        {/* Image */}
+        <div className="relative overflow-hidden h-44 sm:h-48">
+          <motion.div className="w-full h-full" style={{ x: imgX, y: imgY }}>
+            <img
+              src={p.image}
+              alt={p.title}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </motion.div>
+          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#0A0C14] via-[#0A0C14]/60 to-transparent" />
+          <div className="absolute top-3 left-3">
+            <span className="text-[10px] font-bold px-2 py-1 rounded-md backdrop-blur-sm bg-black/40 border border-white/10"
+              style={{ color: "var(--primary)" }}>
+              {p.number}
+            </span>
           </div>
-        </motion.div>
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 p-5">
+          <h3 className="text-lg font-bold mb-1 tracking-tight" style={{ color: "var(--foreground)" }}>
+            {p.title}
+          </h3>
+          <p className="text-sm font-medium mb-3" style={{ color: "var(--foreground-secondary)" }}>
+            {p.subtitle}
+          </p>
+          <p className="text-sm leading-relaxed mb-4 line-clamp-2" style={{ color: "var(--foreground-muted)" }}>
+            {p.description}
+          </p>
+
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {p.tags.slice(0, 4).map((t) => (
+              <span key={t} className="text-[10px] px-2 py-0.5 rounded-md border border-white/[0.08] font-medium"
+                style={{ background: "rgba(124,108,244,0.06)", color: "var(--primary)" }}>
+                {t}
+              </span>
+            ))}
+            {p.tags.length > 4 && (
+              <span className="text-[10px] px-2 py-0.5" style={{ color: "var(--foreground-muted)" }}>
+                +{p.tags.length - 4}
+              </span>
+            )}
+          </div>
+
+          <div className="flex gap-2 pt-3 border-t border-white/[0.06]">
+            <motion.a
+              href={p.github} target="_blank" rel="noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              className="flex-1 flex items-center justify-center gap-2 h-9 rounded-lg text-xs font-medium transition-all duration-200 border border-white/[0.08] hover:border-white/[0.15]"
+              style={{ background: "rgba(255,255,255,0.03)", color: "var(--foreground-secondary)" }}
+            >
+              <Github size={13} /> Code
+            </motion.a>
+            <motion.a
+              href={p.live} target="_blank" rel="noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              className="flex-1 flex items-center justify-center gap-2 h-9 rounded-lg text-xs font-semibold transition-all duration-200"
+              style={{ background: "var(--button-primary)", color: "var(--button-primary-text)" }}
+            >
+              <ExternalLink size={13} /> Demo
+            </motion.a>
+          </div>
+        </div>
       </motion.div>
-    </ScrollReveal>
+    </motion.div>
   );
 }
 
 export function FeaturedProjectsSection() {
-  const allProjects = [...featuredProjects, ...otherProjects];
+  const displayProjects = featuredProjects.slice(0, 3);
 
   return (
-    <section id="projects" className="py-24 sm:py-32 px-5 sm:px-6">
-      <div className="max-w-7xl mx-auto">
+    <section id="projects" className="py-24 sm:py-32 px-5 sm:px-6 relative overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{ opacity: [0.03, 0.06, 0.03] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full blur-[200px]"
+          style={{ background: "radial-gradient(circle, var(--primary), transparent 70%)" }}
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto relative">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 sm:mb-16">
           <SectionHeading
             eyebrow="Portfolio"
@@ -138,13 +159,32 @@ export function FeaturedProjectsSection() {
             description="Some of the projects I've built — from full-stack apps to developer tools."
             className="mb-0"
           />
+          <Button 
+            variant="secondary" 
+            to="/projects" 
+            iconRight 
+            icon={<ArrowRight size={16} />}
+            className="hidden sm:flex"
+          >
+            View All Projects
+          </Button>
         </div>
 
-        {/* 4-Column Grid to ensure cards are small */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6">
-          {allProjects.map((p, i) => (
-            <TiltMicroCard key={p.title} p={p} i={i} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6">
+          {displayProjects.map((p, i) => (
+            <ProjectCard key={p.title} p={p} i={i} />
           ))}
+        </div>
+
+        <div className="mt-10 flex justify-center sm:hidden">
+          <Button 
+            variant="secondary" 
+            to="/projects" 
+            iconRight 
+            icon={<ArrowRight size={16} />}
+          >
+            View All Projects
+          </Button>
         </div>
       </div>
     </section>

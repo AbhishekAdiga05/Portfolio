@@ -2,7 +2,7 @@ export const personalInfo = {
   firstName: "Abhishek",
   lastName: "Adiga",
   role: "Full-Stack Developer & AI Enthusiast",
-  profilePhoto: "/images/profile.webp",
+  profilePhoto: "/images/profile.png",
   openToWork: true,
   availabilityDate: "2027",
 };
