@@ -143,6 +143,7 @@ export function ContactSection() {
                 action={`https://formspree.io/f/manqbrkp`}
                 method="POST"
                 onSubmit={(e) => {
+                  e.preventDefault();
                   if (!form.name || !form.email || !form.message) return;
                   setSent(true);
                 }}

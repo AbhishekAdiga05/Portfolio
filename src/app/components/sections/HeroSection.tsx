@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useMotionTemplate } from "motion/react";
 import { ArrowRight, Download, ChevronDown } from "lucide-react";
-import { personalInfo, resumeLink } from "../../../data/portfolio-data";
+import { resumeLink } from "../../../data/portfolio-data";
 import { usePrefersReducedMotion } from "../ui/ScrollReveal";
 import { Button } from "../ui/Button";
 
@@ -37,7 +37,7 @@ export function HeroSection() {
       setRoleIndex((prev) => (prev + 1) % roles.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, [prefersReducedMotion]);
+  }, [prefersReducedMotion, roles.length]);
 
   const containerVariants = {
     hidden: { opacity: 0 },

@@ -188,8 +188,6 @@ export function AboutSection() {
                 ))}
               </motion.div>
             </div>
-
-            </ScrollReveal>
           </div>
         </div>
       </div>

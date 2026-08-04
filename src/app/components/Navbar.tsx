@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
@@ -55,7 +55,8 @@ export function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   
-  const activeSection = useScrollSpy(navLinks.map(l => l.to));
+  const activeIds = useMemo(() => navLinks.map(l => l.to), []);
+  const activeSection = useScrollSpy(activeIds);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);

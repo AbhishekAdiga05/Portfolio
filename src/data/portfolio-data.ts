@@ -164,7 +164,7 @@ export const otherProjects = [
     "Tailwind CSS",
   ],
   github: "https://github.com/AbhishekAdiga05/ChatVerse",
-  live: "realtime-chat-app-vulu.onrender.com",
+  live: "https://realtime-chat-app-vulu.onrender.com",
   number: "05",
 },
 {

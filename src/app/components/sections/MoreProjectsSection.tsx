@@ -1,4 +1,3 @@
-import { motion } from "motion/react";
 import { Github, ExternalLink } from "lucide-react";
 import { otherProjects } from "../../../data/portfolio-data";
 import { ScrollReveal } from "../ui/ScrollReveal";

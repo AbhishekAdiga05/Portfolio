@@ -1,4 +1,3 @@
-import { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useMotionTemplate } from "motion/react";
 import { Calendar, ChevronRight } from "lucide-react";
 import { experiences } from "../../../data/portfolio-data";
