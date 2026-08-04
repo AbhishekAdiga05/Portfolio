@@ -6,14 +6,14 @@ import { Button } from "../ui/Button";
 
 function ProjectCard({ p, i }: { p: typeof otherProjects[0]; i: number }) {
   return (
-    <ScrollReveal delay={i * 0.06}>
-      <div className="group flex flex-col">
+    <ScrollReveal delay={i * 0.06} className="h-full">
+      <div className="group flex flex-col h-full">
         <div
-          className="flex flex-col h-full rounded-[24px] overflow-hidden transition-colors duration-200"
+          className="flex flex-col h-full rounded-[24px] overflow-hidden transition-all duration-300 hover:-translate-y-1"
           style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
         >
-          <div className="relative overflow-hidden" style={{ height: 240 }}>
-            <img src={p.image} alt={p.title} loading="lazy" width="400" height="240" className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-[1.015]" />
+          <div className="relative overflow-hidden aspect-[16/10]">
+            <img src={p.image} alt={p.title} loading="lazy" decoding="async" width="400" height="250" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(5,6,8,0.72), transparent 55%)" }} />
           </div>
 
@@ -30,7 +30,7 @@ function ProjectCard({ p, i }: { p: typeof otherProjects[0]; i: number }) {
               ))}
             </div>
 
-            <div className="grid grid-cols-2 gap-2 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+            <div className="grid grid-cols-2 gap-2 pt-4 mt-auto" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
               <Button 
                 variant="ghost" 
                 href={p.github} 

@@ -1,4 +1,5 @@
-import { ScrollReveal } from "./ScrollReveal";
+import { motion } from "motion/react";
+import { usePrefersReducedMotion } from "./ScrollReveal";
 
 type SectionHeadingProps = {
   eyebrow: string;
@@ -7,26 +8,69 @@ type SectionHeadingProps = {
   className?: string;
 };
 
+const container = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.08 },
+  },
+};
+
+const line = {
+  hidden: { opacity: 0, y: 14 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
+};
+
 export function SectionHeading({ eyebrow, title, description, className = "" }: SectionHeadingProps) {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  if (prefersReducedMotion) {
+    return (
+      <div className={`mb-14 max-w-3xl ${className}`}>
+        <div className="mb-5">
+          <p className="text-[11px] font-semibold tracking-[0.2em] uppercase whitespace-nowrap" style={{ color: "var(--primary)" }}>
+            {eyebrow}
+          </p>
+        </div>
+        <h2
+          className="mb-4 text-foreground"
+          style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", fontWeight: 650, letterSpacing: "-0.025em", lineHeight: 1.15 }}
+        >
+          {title}
+        </h2>
+        {description ? (
+          <p className="max-w-2xl text-foreground-secondary text-lg font-light leading-relaxed">
+            {description}
+          </p>
+        ) : null}
+      </div>
+    );
+  }
+
   return (
-    <ScrollReveal className={`mb-14 max-w-3xl ${className}`}>
-      <div className="flex items-center gap-3 mb-5">
-        <div className="h-px w-10" style={{ background: "rgba(124,108,244,0.45)" }} />
+    <motion.div
+      className={`mb-14 max-w-3xl ${className}`}
+      variants={container}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3, margin: "-60px" }}
+    >
+      <motion.div variants={line} className="mb-5">
         <p className="text-[11px] font-semibold tracking-[0.2em] uppercase whitespace-nowrap" style={{ color: "var(--primary)" }}>
           {eyebrow}
         </p>
-      </div>
-      <h2
+      </motion.div>
+      <motion.h2
+        variants={line}
         className="mb-4 text-foreground"
         style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", fontWeight: 650, letterSpacing: "-0.025em", lineHeight: 1.15 }}
       >
         {title}
-      </h2>
+      </motion.h2>
       {description ? (
-        <p className="max-w-2xl text-foreground-secondary text-lg font-light leading-relaxed">
+        <motion.p variants={line} className="max-w-2xl text-foreground-secondary text-lg font-light leading-relaxed">
           {description}
-        </p>
+        </motion.p>
       ) : null}
-    </ScrollReveal>
+    </motion.div>
   );
 }

@@ -91,7 +91,7 @@ export function ExperienceSection() {
       <div
         className="absolute pointer-events-none inset-0 z-0"
         style={{
-          background: "radial-gradient(800px circle at 50% 0%, rgba(124,108,246,0.03), transparent 70%)",
+          background: "radial-gradient(800px circle at 50% 0%, rgba(124,108,246,0.02), transparent 70%)",
         }}
         aria-hidden="true"
       />

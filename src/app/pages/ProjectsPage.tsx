@@ -82,14 +82,14 @@ function ProjectModal({ project, onClose }: { project: typeof featuredProjects[0
 
 function ProjectCard({ p, i, onClick }: { p: typeof featuredProjects[0]; i: number; onClick: () => void }) {
   return (
-    <ScrollReveal delay={i * 0.05}>
+    <ScrollReveal delay={i * 0.05} className="h-full">
       <div
-        className="group relative rounded-[24px] overflow-hidden cursor-pointer flex flex-col"
+        className="group relative rounded-[24px] overflow-hidden cursor-pointer flex flex-col h-full"
         style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
         onClick={onClick}
       >
-        <div className="relative overflow-hidden" style={{ height: 210 }}>
-          <img src={p.image} alt={p.title} loading="lazy" width="400" height="210" className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-[1.015]" />
+        <div className="relative overflow-hidden aspect-[16/10]">
+          <img src={p.image} alt={p.title} loading="lazy" decoding="async" width="400" height="210" className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-[1.015]" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(5,6,8,0.78), transparent 60%)" }} />
           {p.number && (
             <span className="absolute top-4 left-4 text-xs font-semibold px-2.5 py-1 rounded-full" style={{ background: "rgba(5,6,8,0.62)", color: "var(--foreground-secondary)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}>
@@ -112,7 +112,7 @@ function ProjectCard({ p, i, onClick }: { p: typeof featuredProjects[0]; i: numb
             {p.tags.length > 4 && <span className="text-xs px-2.5 py-1 rounded-full" style={{ color: "var(--foreground-muted)" }}>+{p.tags.length - 4}</span>}
           </div>
 
-          <div className="grid grid-cols-2 gap-2 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+          <div className="grid grid-cols-2 gap-2 pt-4 mt-auto" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
             <a href={p.github} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}
               className="h-11 rounded-xl flex items-center justify-center gap-2 text-xs font-semibold transition-colors duration-200"
               style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.12)", color: "var(--foreground-secondary)" }}

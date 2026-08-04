@@ -50,7 +50,7 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
           perspective: 1000,
           transformStyle: "preserve-3d",
         }}
-        className="group relative h-full cursor-pointer rounded-2xl overflow-hidden bg-[#0A0C14] border border-white/[0.06] transition-all duration-300 hover:border-white/[0.12] hover:shadow-[0_8px_40px_rgba(124,108,244,0.06)]"
+        className="group relative flex flex-col h-full cursor-pointer rounded-2xl overflow-hidden bg-[#0A0C14] border border-white/[0.06] transition-all duration-300 hover:border-primary/25 hover:shadow-[0_12px_40px_rgba(0,0,0,0.5),0_0_0_1px_rgba(124,108,244,0.12)]"
       >
         {/* Gradient hover wash */}
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"
@@ -66,11 +66,13 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
         </div>
 
         {/* Image */}
-        <div className="relative overflow-hidden h-44 sm:h-48">
+        <div className="relative overflow-hidden aspect-[16/10]">
           <motion.div className="w-full h-full" style={{ x: imgX, y: imgY }}>
             <img
               src={p.image}
               alt={p.title}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </motion.div>
@@ -84,7 +86,7 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 p-5">
+        <div className="relative z-10 p-5 flex flex-col flex-1">
           <h3 className="text-lg font-bold mb-1 tracking-tight" style={{ color: "var(--foreground)" }}>
             {p.title}
           </h3>
@@ -109,7 +111,7 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
             )}
           </div>
 
-          <div className="flex gap-2 pt-3 border-t border-white/[0.06]">
+          <div className="flex gap-2 pt-3 border-t border-white/[0.06] mt-auto">
             <motion.a
               href={p.github} target="_blank" rel="noreferrer"
               onClick={(e) => e.stopPropagation()}
@@ -144,9 +146,9 @@ export function FeaturedProjectsSection() {
     <section id="projects" className="py-24 sm:py-32 px-5 sm:px-6 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          animate={{ opacity: [0.03, 0.06, 0.03] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full blur-[200px]"
+          animate={{ opacity: [0.02, 0.04, 0.02] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full blur-[200px] hidden lg:block"
           style={{ background: "radial-gradient(circle, var(--primary), transparent 70%)" }}
         />
       </div>

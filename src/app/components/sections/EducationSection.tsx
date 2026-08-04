@@ -1,69 +1,110 @@
-import { GraduationCap, BookOpen, Award, ChevronRight } from "lucide-react";
+import { motion } from "motion/react";
+import { GraduationCap, BookOpen, CalendarRange, Award } from "lucide-react";
 import { education } from "../../../data/portfolio-data";
-import { SpotlightCard } from "../ui/SpotlightCard";
-import { ScrollReveal } from "../ui/ScrollReveal";
 import { SectionHeading } from "../ui/SectionHeading";
 
-function StatCard({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <SpotlightCard className="p-4">
-      <p className="text-xs mb-1.5" style={{ color: "var(--foreground-muted)" }}>{label}</p>
-      <div className="flex items-center gap-2 text-sm font-medium" style={{ color: "var(--foreground)" }}>
-        {children}
-      </div>
-    </SpotlightCard>
+const listContainer = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.12 },
+  },
+};
+
+const listItem = {
+  hidden: { opacity: 0, y: 18, filter: "blur(6px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+function EduIcon({ degree }: { degree: string }) {
+  return degree.toLowerCase().includes("b.tech") ? (
+    <GraduationCap size={20} />
+  ) : (
+    <BookOpen size={20} />
   );
 }
 
 export function EducationSection() {
   return (
     <section id="education" className="py-24 px-5 sm:px-6">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <SectionHeading
           eyebrow="Education"
           title="Education"
           description="My academic background and studies."
         />
 
-        <ScrollReveal delay={0.06}>
-          <SpotlightCard className="max-w-4xl p-7">
-            <div className="flex items-start gap-5">
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 bg-white/5 border border-white/10">
-                <GraduationCap size={22} className="text-foreground-secondary" />
-              </div>
-              <div className="min-w-0 flex-1">
-                <h3 className="mb-1.5" style={{ fontSize: "1.35rem", fontWeight: 600 }}>{education.degree}</h3>
-                <p className="mb-6 text-sm" style={{ color: "var(--foreground-secondary)" }}>{education.university}</p>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-7">
-                  <StatCard label="Duration">
-                    <BookOpen size={14} style={{ color: "var(--primary)" }} /> {education.duration}
-                  </StatCard>
-                  <StatCard label="GPA">
-                    <Award size={14} style={{ color: "var(--primary)" }} /> {education.gpa}
-                  </StatCard>
-                  <StatCard label="Focus">
-                    <ChevronRight size={14} style={{ color: "var(--primary)" }} /> Information Science
-                  </StatCard>
+        <motion.div
+          variants={listContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2, margin: "-60px" }}
+        >
+          {education.map((edu, i) => (
+            <motion.div
+              key={edu.degree}
+              variants={listItem}
+              className="relative flex gap-5 pb-8 last:pb-0"
+            >
+              {/* Rail */}
+              <div className="flex flex-col items-center">
+                <div
+                  className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 border"
+                  style={{
+                    background: "rgba(124,108,244,0.08)",
+                    borderColor: "rgba(124,108,244,0.25)",
+                    color: "var(--primary)",
+                  }}
+                >
+                  <EduIcon degree={edu.degree} />
                 </div>
+                {i < education.length - 1 && (
+                  <div
+                    className="w-px flex-1 my-2"
+                    style={{
+                      background: "linear-gradient(180deg, rgba(124,108,244,0.3), rgba(255,255,255,0.06))",
+                    }}
+                  />
+                )}
+              </div>
 
-                <div>
-                  <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--foreground-muted)" }}>Relevant Coursework</p>
+              {/* Card */}
+              <div className="flex-1 min-w-0 pt-1">
+                <div
+                  className="rounded-2xl p-5 bg-white/[0.02] transition-colors duration-300 hover:border-primary/25"
+                  style={{ border: "1px solid var(--border-soft)" }}
+                >
+                  <h3 className="font-semibold leading-snug" style={{ fontSize: "1.15rem" }}>
+                    {edu.degree}
+                  </h3>
+                  <p className="text-sm mt-1 mb-4" style={{ color: "var(--foreground-secondary)" }}>
+                    {edu.institution}
+                  </p>
                   <div className="flex flex-wrap gap-2">
-                    {education.coursework.map((course) => (
-                      <span
-                        key={course}
-                        className="text-xs px-2.5 py-1 rounded-full bg-black/40 border border-white/10 text-foreground-secondary transition-colors hover:border-white/20 hover:text-foreground"
-                      >
-                        {course}
-                      </span>
-                    ))}
+                    <span
+                      className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full border"
+                      style={{ background: "rgba(255,255,255,0.03)", borderColor: "rgba(255,255,255,0.08)", color: "var(--foreground-secondary)" }}
+                    >
+                      <CalendarRange size={12} style={{ color: "var(--primary)" }} />
+                      {edu.duration}
+                    </span>
+                    <span
+                      className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full border"
+                      style={{ background: "rgba(255,255,255,0.03)", borderColor: "rgba(255,255,255,0.08)", color: "var(--foreground-secondary)" }}
+                    >
+                      <Award size={12} style={{ color: "var(--primary)" }} />
+                      {edu.score}
+                    </span>
                   </div>
                 </div>
               </div>
-            </div>
-          </SpotlightCard>
-        </ScrollReveal>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

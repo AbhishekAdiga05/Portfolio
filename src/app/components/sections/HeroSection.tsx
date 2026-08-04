@@ -32,11 +32,12 @@ export function HeroSection() {
   ];
 
   useEffect(() => {
+    if (prefersReducedMotion) return;
     const interval = setInterval(() => {
       setRoleIndex((prev) => (prev + 1) % roles.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [prefersReducedMotion]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -91,31 +92,22 @@ export function HeroSection() {
         />
       )}
 
-      {/* Subtle Purple Aurora Glow */}
-      <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden">
+      {/* Subtle Purple Aurora Glow (desktop only for performance) */}
+      <div className="hidden md:block absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden">
         <motion.div 
-          className="w-[60vw] h-[40vh] rounded-full blur-[120px] opacity-20"
+          className="w-[60vw] h-[40vh] rounded-full blur-[120px]"
           style={{ background: "var(--primary)", filter: "blur(120px)" }}
-          animate={{ opacity: [0.15, 0.25, 0.15], scale: [0.9, 1.1, 0.9] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          animate={{ opacity: [0.08, 0.14, 0.08], scale: [0.95, 1.05, 0.95] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>
 
       {/* Grid Pattern Overlay */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.03] z-0"
+        className="absolute inset-0 pointer-events-none opacity-[0.02] z-0"
         style={{
           backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.4) 1px, transparent 1px)",
           backgroundSize: "24px 24px",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Noise Texture Overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.015] z-0 mix-blend-overlay"
-        style={{
-          backgroundImage: "url('data:image/svg+xml;utf8,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')",
         }}
         aria-hidden="true"
       />
@@ -142,13 +134,11 @@ export function HeroSection() {
             </p>
           </motion.div>
 
-          {/* 2. Large Name with Blur Reveal and Glow */}
+          {/* 2. Large Name with Blur Reveal (static glow — cheaper than animated) */}
           <motion.div variants={nameVariants} className="relative mb-6">
-            <motion.div 
-              className="absolute inset-0 z-0 blur-[40px] rounded-full opacity-20"
-              style={{ background: "radial-gradient(circle, var(--primary) 0%, transparent 60%)" }}
-              animate={{ opacity: [0.15, 0.3, 0.15], scale: [0.95, 1.05, 0.95] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            <motion.div
+              className="absolute inset-0 z-0 blur-[40px] rounded-full"
+              style={{ background: "radial-gradient(circle, var(--primary) 0%, transparent 60%)", opacity: 0.16 }}
             />
             <h1 
               className="relative z-10 font-bold tracking-tighter"

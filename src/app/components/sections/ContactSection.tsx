@@ -34,7 +34,7 @@ export function ContactSection() {
       <div
         className="absolute pointer-events-none inset-0 z-0"
         style={{
-          background: "radial-gradient(1000px circle at 50% 100%, rgba(124,108,246,0.04), transparent 70%)",
+          background: "radial-gradient(1000px circle at 50% 100%, rgba(124,108,246,0.03), transparent 70%)",
         }}
         aria-hidden="true"
       />

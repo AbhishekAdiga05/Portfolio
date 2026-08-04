@@ -12,14 +12,18 @@ const getIconUrl = (tech: string) => {
     "React": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
     "Next.js": "https://cdn.simpleicons.org/nextdotjs/ffffff",
     "Node.js": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg",
+    "Express.js": "https://cdn.simpleicons.org/express/ffffff",
     "FastAPI": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg",
     "MongoDB": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg",
     "PostgreSQL": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg",
     "Supabase": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg",
+    "Tailwind CSS": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
+    "Framer Motion": "https://cdn.simpleicons.org/framer/ffffff",
     "LangChain": "https://cdn.simpleicons.org/langchain/ffffff",
     "Docker": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg",
     "AWS": "https://cdn.simpleicons.org/amazonaws/ffffff",
     "Git": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg",
+    "GitHub": "https://cdn.simpleicons.org/github/ffffff",
     "Postman": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg",
   };
   return map[tech] || null;
@@ -34,14 +38,16 @@ function TechCard({ tech, index }: { tech: string; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.3, delay: index * 0.03, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -5, scale: 1.04 }}
+      whileHover={{ y: -5 }}
       whileTap={{ scale: 0.96 }}
-      className="flex flex-col items-center gap-2.5 p-4 rounded-xl bg-surface border border-border-soft hover:border-primary/20 transition-all duration-200 cursor-default"
+      className="group flex flex-col items-center gap-2.5 p-4 rounded-xl bg-surface border border-border-soft hover:border-border transition-all duration-200 cursor-default"
       style={{ minWidth: 0 }}
     >
-      <div className="w-11 h-11 rounded-full bg-background flex items-center justify-center overflow-hidden border border-border shadow-sm">
-        {iconUrl && (
+      <div className="w-11 h-11 rounded-xl bg-background flex items-center justify-center overflow-hidden border border-border shadow-sm transition-colors duration-200 group-hover:bg-white/[0.04]">
+        {iconUrl ? (
           <img src={iconUrl} alt={tech} className="w-6 h-6 object-contain" loading="lazy" />
+        ) : (
+          <span className="text-sm font-bold text-foreground-muted">{tech.slice(0, 2)}</span>
         )}
       </div>
       <span className="text-[11px] font-medium text-foreground-muted text-center leading-tight">{tech}</span>
@@ -54,9 +60,9 @@ export function SkillsSection() {
     <section id="skills" className="relative py-24 px-5 sm:px-6 overflow-hidden bg-background">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          animate={{ opacity: [0.03, 0.06, 0.03] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/3 right-0 w-[600px] h-[600px] rounded-full blur-[200px]"
+          animate={{ opacity: [0.02, 0.04, 0.02] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/3 right-0 w-[600px] h-[600px] rounded-full blur-[200px] hidden lg:block"
           style={{ background: "radial-gradient(circle, var(--primary), transparent 70%)" }}
         />
       </div>

@@ -9,7 +9,7 @@ export const personalInfo = {
 
 export const aboutInfo = {
   intro:
-    "I'm Abhishek Adiga, a full-stack developer and B.Tech student at Sahyadri College of Engineering and Management. I started coding because I wanted to build things that people actually use — websites, tools, and apps that solve real problems. What began as curiosity turned into a genuine interest in software development.\n\nI work mostly with React, Next.js, TypeScript, and Node.js. I also spend time on data structures, algorithms, and AI tooling. I contribute to open source when I can, and I'm always looking for opportunities to learn something new.",
+    "I'm Abhishek Adiga - an Information Science engineering student and Full stack developer who enjoys building modern web applications with React, Next.js, TypeScript, and Node.js. I'm passionate about solving real world problems, exploring AI, and continuously improving my craft as an engineer.",
   secondary: "",
   degree: "B.Tech in Information Science & Engineering",
   university: "Sahyadri College of Engineering and Management",
@@ -31,13 +31,13 @@ export const aboutInfo = {
 
 export const experiences = [
   {
-    role: "Student Developer",
+    role: "Full Stack Developer",
     org: "Innovex Student Developer Community",
     duration: "Aug 2025 - Present",
     bullets: [
-      "Built full-stack web projects using React, Next.js, and TypeScript as part of a student team.",
-      "Reviewed code and followed team conventions to keep projects maintainable.",
-      "Collaborated on feature development and shipped updates through structured workflows.",
+  "Built and maintained web applications for community initiatives and client projects using React, Next.js, and TypeScript.",
+  "Worked closely with developers to implement assigned features, review code, and integrate changes through Git workflows.",
+  "Resolved reported bugs, refined existing functionality, and helped keep applications stable after deployment.",
     ],
   },
   {
@@ -45,9 +45,9 @@ export const experiences = [
     org: "FitMart",
     duration: "2025 - Present",
     bullets: [
-      "Fixed bugs and contributed features to an open source project on GitHub.",
-      "Learned how production codebases are architected and how contributors collaborate.",
-      "Worked with pull requests, issue tracking, and code reviews as part of the contribution process.",
+      "Contributed UI refinements to product and cart pages, improving responsiveness and overall user experience.",
+      "Resolved styling inconsistencies, form validation issues, and minor functional bugs reported by the community.",
+      "Worked with project maintainers through pull requests and code reviews while adhering to the project's architecture and coding standards.",
     ],
   },
 ];
@@ -55,19 +55,19 @@ export const experiences = [
 export const skillCategories = [
   {
     label: "Languages",
-    skills: ["Java", "JavaScript", "TypeScript", "Python", "C++"],
+    skills: ["Java", "Python", "JavaScript", "TypeScript", "C++"],
   },
   {
-    label: "Development",
-    skills: ["React", "Next.js", "Node.js", "FastAPI"],
+    label: "Frontend",
+    skills: ["React", "Next.js", "Tailwind CSS", "Framer Motion"],
   },
   {
-    label: "Data & AI",
-    skills: ["MongoDB", "PostgreSQL", "Supabase", "LangChain"],
+    label: "Backend",
+    skills: ["Node.js", "Express.js", "FastAPI", "PostgreSQL", "MongoDB"],
   },
   {
     label: "Cloud & Tools",
-    skills: ["Docker", "AWS", "Git", "Postman"],
+    skills: ["Docker", "AWS", "Git", "GitHub", "LangChain"],
   },
 ];
 
@@ -238,10 +238,16 @@ export const certifications = [
     date: "Apr 2026",
   },
   {
-    icon: "🚀",
-    name: "MERN Stack Development",
-    issuer: "Technical Career Education",
-    date: "Jun 2025",
+    icon: "🤖",
+    name: "AI Agents: Intensive Vibe Coding Workshop",
+    issuer: "Google × Kaggle",
+    date: "2026",
+  },
+  {
+    icon: "💻",
+    name: "Problem Solving (Intermediate)",
+    issuer: "HackerRank",
+    date: "2026",
   },
   {
     icon: "📡",
@@ -255,22 +261,28 @@ export const certifications = [
     issuer: "Scaler",
     date: "Aug 2025",
   },
+  {
+    icon: "🏆",
+    name: "Vibe2Ship Hackathon",
+    issuer: "Coding Ninjas",
+    date: "2026",
+  },
 ];
 
-export const education = {
-  degree: "B.Tech in Information Science & Engineering",
-  university: "Sahyadri College of Engineering and Management",
-  duration: "2023 - 2027",
-  gpa: "8.0 / 10.0",
-  coursework: [
-    "Data Structures & Algorithms",
-    "Operating Systems",
-    "Database Management Systems",
-    "Computer Networks",
-    "Software Engineering",
-    "Web Technologies",
-  ],
-};
+export const education = [
+  {
+    degree: "B.Tech in Information Science & Engineering",
+    institution: "Sahyadri College of Engineering and Management",
+    duration: "2023 - 2027",
+    score: "8.0 / 10.0 CGPA",
+  },
+  {
+    degree: "Pre-University Course (PCMC)",
+    institution: "Viveka Pre-University College, Kota, Udupi",
+    duration: "2021-2023",
+    score: "95%",
+  },
+];
 
 export const contactInfo = {
   email: "abhishekadiga2345@gmail.com",

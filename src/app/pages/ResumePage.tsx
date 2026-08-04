@@ -66,8 +66,8 @@ export function ResumePage() {
                 </div>
                 <div className="rounded-2xl p-4 flex-shrink-0" style={{ background: "rgba(255,255,255,0.035)", border: "1px solid rgba(255,255,255,0.08)" }}>
                   <p className="text-xs mb-1" style={{ color: "var(--foreground-muted)" }}>Education</p>
-                  <p className="text-sm" style={{ color: "var(--foreground)" }}>{education.degree}</p>
-                  <p className="text-xs mt-1" style={{ color: "var(--foreground-secondary)" }}>{education.duration} · {education.gpa}</p>
+                  <p className="text-sm" style={{ color: "var(--foreground)" }}>{education[0].degree}</p>
+                  <p className="text-xs mt-1" style={{ color: "var(--foreground-secondary)" }}>{education[0].duration} · {education[0].score}</p>
                 </div>
               </div>
 

@@ -2,6 +2,11 @@
 @import './tailwind.css';
 @import './theme.css';
 
+section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

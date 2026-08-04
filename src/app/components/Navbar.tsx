@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { Button } from "./ui/Button";
 
 const navLinks = [
   { label: "Home", to: "hero" },
@@ -10,6 +9,7 @@ const navLinks = [
   { label: "Experience", to: "experience" },
   { label: "Projects", to: "projects" },
   { label: "Skills", to: "skills" },
+  { label: "Contact", to: "contact" },
 ];
 
 function scrollToSection(id: string) {
@@ -77,7 +77,7 @@ export function Navbar() {
     }
   }
 
-  const navShell = "h-16 px-4 sm:px-6 flex items-center justify-between";
+  const navShell = "relative h-16 px-4 sm:px-6 flex items-center";
   const navText = "text-sm font-medium transition-colors duration-200 cursor-pointer";
   const navInactive = "var(--foreground-secondary)";
   const navActive = "var(--foreground)";
@@ -106,7 +106,7 @@ export function Navbar() {
           </span>
         </button>
 
-        <nav className="hidden md:flex items-center">
+        <nav className="hidden md:flex items-center absolute left-1/2 -translate-x-1/2">
           <div
             className="flex items-center gap-0.5 px-1.5 py-1.5 rounded-md"
             style={{ background: "rgba(255,255,255,0.035)", border: "1px solid rgba(255,255,255,0.06)", backdropFilter: "blur(12px)" }}
@@ -123,7 +123,7 @@ export function Navbar() {
                     <motion.div
                       layoutId="nav-pill"
                       className="absolute inset-0 rounded-md"
-                      style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", boxShadow: "0 0 12px rgba(124,108,244,0.3)" }}
+                      style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.14)" }}
                       transition={{ type: "spring", stiffness: 500, damping: 30 }}
                     />
                   )}
@@ -136,15 +136,9 @@ export function Navbar() {
           </div>
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
-          <Button variant="primary" onClick={() => handleSectionClick("contact")} className="h-10 text-xs px-4">
-            Contact
-          </Button>
-        </div>
-
         <button
           type="button"
-          className="md:hidden w-11 h-11 rounded-lg flex items-center justify-center transition-colors duration-200"
+          className="md:hidden ml-auto w-11 h-11 rounded-lg flex items-center justify-center transition-colors duration-200"
           style={{ color: "var(--foreground)", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
           onClick={() => setMenuOpen(v => !v)}
           aria-label={menuOpen ? "Close navigation" : "Open navigation"}
@@ -176,10 +170,6 @@ export function Navbar() {
                 </button>
               );
             })}
-
-            <Button variant="primary" onClick={() => handleSectionClick("contact")} className="mt-3 w-full">
-              Contact
-            </Button>
           </motion.div>
         )}
       </AnimatePresence>
