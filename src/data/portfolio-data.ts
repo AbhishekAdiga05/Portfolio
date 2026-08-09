@@ -1,7 +1,7 @@
 export const personalInfo = {
   firstName: "Abhishek",
   lastName: "Adiga",
-  role: "Full-Stack Developer & AI Enthusiast",
+  role: "Full-Stack Developer & AI Tools Enthusiast",
   profilePhoto: "/images/profile.png",
   openToWork: true,
   availabilityDate: "2027",
@@ -9,7 +9,7 @@ export const personalInfo = {
 
 export const aboutInfo = {
   intro:
-    "I'm Abhishek Adiga - an Information Science engineering student and Full stack developer who enjoys building modern web applications with React, Next.js, TypeScript, and Node.js. I'm passionate about solving real world problems, exploring AI, and continuously improving my craft as an engineer.",
+    "I'm Abhishek Adiga - an Information Science engineering student and Full-Stack Developer who enjoys building modern web applications with React, Next.js, TypeScript, and Node.js. I integrate AI tools into my workflow to boost productivity and explore how LLMs can enhance developer experience.",
   secondary: "",
   degree: "B.Tech in Information Science & Engineering",
   university: "Sahyadri College of Engineering and Management",
@@ -18,11 +18,11 @@ export const aboutInfo = {
   location: "Udupi, Karnataka, India",
   locationDetail: "Open to internships & entry-level roles",
   yearsExperience: "3+ Years Building",
-  experienceDetail: "Projects · DSA · Full-Stack",
+  experienceDetail: "Projects · DSA · AI Integration",
   interests: [
     "Full-Stack Development",
     "Backend Engineering",
-    "Artificial Intelligence",
+    "AI Tools & Integration",
     "Data Structures & Algorithms",
     "Open Source",
     "Problem Solving",
@@ -36,8 +36,8 @@ export const experiences = [
     duration: "Aug 2025 - Present",
     bullets: [
   "Built and maintained web applications for community initiatives and client projects using React, Next.js, and TypeScript.",
+  "Leveraged AI tools for code generation, debugging, and documentation to accelerate development cycles and maintain code quality.",
   "Worked closely with developers to implement assigned features, review code, and integrate changes through Git workflows.",
-  "Resolved reported bugs, refined existing functionality, and helped keep applications stable after deployment.",
     ],
   },
   {
@@ -66,8 +66,8 @@ export const skillCategories = [
     skills: ["Node.js", "Express.js", "FastAPI", "PostgreSQL", "MongoDB"],
   },
   {
-    label: "Cloud & Tools",
-    skills: ["Docker", "AWS", "Git", "GitHub", "LangChain"],
+    label: "AI & DevOps",
+    skills: ["LangChain", "OpenRouter", "Docker", "AWS", "Git", "Postman"],
   },
 ];
 
@@ -292,7 +292,7 @@ export const contactInfo = {
   leetcode: "#",
   location: "Udupi, Karnataka, India",
   description:
-    "Open to collabs, internships, and tech chats. Say hi.",
+    "Open to collabs, internships, and discussions about full-stack development, AI tools, or tech in general.",
   responseTime: "Usually within 24 hours.",
 };
 

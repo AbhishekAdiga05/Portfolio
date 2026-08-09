@@ -30,7 +30,7 @@ function EduIcon({ degree }: { degree: string }) {
 
 export function EducationSection() {
   return (
-    <section id="education" className="py-24 px-5 sm:px-6">
+    <section id="education" className="py-24 sm:py-32 px-5 sm:px-6">
       <div className="max-w-4xl mx-auto">
         <SectionHeading
           eyebrow="Education"
@@ -74,9 +74,13 @@ export function EducationSection() {
 
               {/* Card */}
               <div className="flex-1 min-w-0 pt-1">
-                <div
-                  className="rounded-2xl p-5 bg-white/[0.02] transition-colors duration-300 hover:border-primary/25"
+                <motion.div
+                  className="rounded-2xl p-5 bg-white/[0.02] transition-all duration-300 hover:border-primary/25 hover:-translate-y-1"
                   style={{ border: "1px solid var(--border-soft)" }}
+                  whileHover={{
+                    boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
                   <h3 className="font-semibold leading-snug" style={{ fontSize: "1.15rem" }}>
                     {edu.degree}
@@ -100,7 +104,7 @@ export function EducationSection() {
                       {edu.score}
                     </span>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </motion.div>
           ))}

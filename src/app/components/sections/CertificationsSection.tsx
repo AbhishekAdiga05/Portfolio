@@ -21,11 +21,23 @@ const listItem = {
 
 function CertRow({ cert }: { cert: typeof certifications[0] }) {
   return (
-    <motion.div variants={listItem} className="group">
-      <div className="flex items-center gap-4 p-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] transition-colors duration-300 hover:border-primary/25 hover:bg-white/[0.04]">
-        <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-background border border-border flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
+    <motion.div
+      variants={listItem}
+      className="group"
+      whileHover={{ y: -3 }}
+      transition={{ type: "spring", stiffness: 400, damping: 20 }}
+    >
+      <motion.div
+        className="flex items-center gap-4 p-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] transition-colors duration-300 hover:border-primary/25 hover:bg-white/[0.04]"
+        whileHover={{ boxShadow: "0 8px 20px rgba(0,0,0,0.25)" }}
+      >
+        <motion.div
+          className="w-11 h-11 rounded-xl flex items-center justify-center bg-background border border-border flex-shrink-0"
+          whileHover={{ scale: 1.1, rotate: 5 }}
+          transition={{ type: "spring", stiffness: 400, damping: 15 }}
+        >
           <span className="text-xl leading-none">{cert.icon || "🎓"}</span>
-        </div>
+        </motion.div>
         <div className="min-w-0 flex-1">
           <p className="text-sm font-semibold leading-snug truncate" style={{ color: "var(--foreground)" }}>
             {cert.name}
@@ -40,14 +52,14 @@ function CertRow({ cert }: { cert: typeof certifications[0] }) {
         >
           {cert.date}
         </span>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
 
 export function CertificationsSection() {
   return (
-    <section id="certifications" className="py-24 px-5 sm:px-6 relative">
+    <section id="certifications" className="py-24 sm:py-32 px-5 sm:px-6 relative">
       <div className="max-w-5xl mx-auto">
         <SectionHeading
           eyebrow="Credentials"

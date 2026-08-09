@@ -26,7 +26,7 @@ export function HeroSection() {
 
   const roles = [
     "Full-Stack Developer",
-    "AI Enthusiast",
+    "AI Tools Enthusiast",
     "Open Source Contributor",
     "ISE Student"
   ];

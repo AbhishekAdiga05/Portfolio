@@ -29,7 +29,7 @@ export function ContactSection() {
   ];
 
   return (
-    <section id="contact" className="py-20 sm:py-24 px-5 sm:px-6 relative overflow-hidden">
+    <section id="contact" className="py-24 sm:py-32 px-5 sm:px-6 relative overflow-hidden">
       {/* Subtle ambient glow */}
       <div
         className="absolute pointer-events-none inset-0 z-0"
@@ -54,7 +54,7 @@ export function ContactSection() {
                 Get In Touch
               </h2>
               <p className="text-base sm:text-lg max-w-md mb-10 leading-relaxed" style={{ color: "var(--foreground-secondary)" }}>
-                I'm currently looking for new opportunities. Whether you have a question, a project idea, or just want to say hi, my inbox is always open!
+                I'm currently looking for opportunities in full-stack development and AI integration. Whether you have a project idea, want to discuss AI tools, or just say hi, my inbox is always open!
               </p>
             </ScrollReveal>
 

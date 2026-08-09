@@ -85,7 +85,7 @@ function SpotlightExperienceCard({ exp }: { exp: typeof experiences[0] }) {
 
 export function ExperienceSection() {
   return (
-    <section id="experience" className="relative py-24 sm:py-32 px-5 sm:px-6 overflow-hidden border-t border-white/5">
+    <section id="experience" className="relative py-24 sm:py-32 px-5 sm:px-6 overflow-hidden">
       {/* Subtle ambient glow */}
       <div
         className="absolute pointer-events-none inset-0 z-0"
