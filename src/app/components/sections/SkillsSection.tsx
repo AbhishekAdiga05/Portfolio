@@ -1,6 +1,8 @@
 import { motion } from "motion/react";
+import { Code2, Layout, Server, Bot } from "lucide-react";
 import { skillCategories } from "../../../data/portfolio-data";
 import { SectionHeading } from "../ui/SectionHeading";
+import { usePrefersReducedMotion } from "../ui/ScrollReveal";
 
 const getIconUrl = (tech: string) => {
   const map: Record<string, string> = {
@@ -20,6 +22,7 @@ const getIconUrl = (tech: string) => {
     "Tailwind CSS": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
     "Framer Motion": "https://cdn.simpleicons.org/framer/ffffff",
     "LangChain": "https://cdn.simpleicons.org/langchain/ffffff",
+    "OpenRouter": "https://cdn.simpleicons.org/openrouter/ffffff",
     "Docker": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg",
     "AWS": "https://cdn.simpleicons.org/amazonaws/ffffff",
     "Git": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg",
@@ -29,66 +32,129 @@ const getIconUrl = (tech: string) => {
   return map[tech] || null;
 };
 
-function TechBadge({ tech, index }: { tech: string; index: number }) {
+// Small lucide glyphs for each category header.
+const categoryIcons: Record<string, React.ReactNode> = {
+  Languages: <Code2 size={16} />,
+  Frontend: <Layout size={16} />,
+  Backend: <Server size={16} />,
+  "AI & DevOps": <Bot size={16} />,
+};
+
+// A single "2D box" tile — flat face with a solid bottom edge (box thickness),
+// a top highlight, and a soft 3D tilt + purple glow on hover.
+function TechBox({ tech, index }: { tech: string; index: number }) {
+  const prefersReducedMotion = usePrefersReducedMotion();
   const iconUrl = getIconUrl(tech);
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{
-        duration: 0.4,
-        delay: index * 0.02,
-        ease: [0.22, 1, 0.36, 1]
-      }}
-      whileHover={{
-        y: -3,
-        scale: 1.05,
-        boxShadow: "0 8px 20px rgba(124,108,244,0.15)"
-      }}
-      whileTap={{ scale: 0.97 }}
-      className="group relative flex items-center gap-2.5 px-3 py-2 rounded-xl border cursor-default overflow-hidden"
+      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
+      whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.4, delay: index * 0.03, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={
+        prefersReducedMotion
+          ? undefined
+          : {
+              y: -5,
+              rotateX: 7,
+              rotateY: -7,
+              scale: 1.05,
+              borderColor: "rgba(124,108,244,0.5)",
+              boxShadow:
+                "inset 0 1px 0 rgba(255,255,255,0.1), 0 3px 0 rgba(124,108,244,0.45), 0 14px 30px rgba(124,108,244,0.2)",
+            }
+      }
+      whileTap={prefersReducedMotion ? undefined : { scale: 0.96 }}
       style={{
-        background: "rgba(255,255,255,0.02)",
-        borderColor: "rgba(255,255,255,0.08)"
+        transformPerspective: 700,
+        background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015))",
+        border: "1px solid rgba(255,255,255,0.09)",
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.08), 0 3px 0 rgba(0,0,0,0.45), 0 8px 18px rgba(0,0,0,0.25)",
       }}
+      className="group relative flex flex-col items-center justify-center gap-2 h-[104px] rounded-2xl cursor-default overflow-hidden"
     >
-      {/* Hover gradient overlay */}
-      <motion.div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{
-          background: "linear-gradient(135deg, rgba(124,108,244,0.08), transparent 60%)"
-        }}
+      {/* Top highlight line that fades in on hover */}
+      <span
+        className="absolute inset-x-3 top-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+        style={{ background: "linear-gradient(90deg, transparent, var(--primary), transparent)" }}
+        aria-hidden="true"
       />
 
       {/* Icon */}
-      <motion.div
-        className="relative z-10 w-6 h-6 flex items-center justify-center flex-shrink-0"
-        whileHover={{ rotate: [0, -10, 10, 0] }}
-        transition={{ duration: 0.5 }}
-      >
+      <span className="h-7 w-7 flex items-center justify-center">
         {iconUrl ? (
-          <img
-            src={iconUrl}
-            alt={tech}
-            className="w-full h-full object-contain"
-            loading="lazy"
-          />
+          <img src={iconUrl} alt={tech} className="w-full h-full object-contain" loading="lazy" />
         ) : (
-          <span className="text-xs font-bold" style={{ color: "var(--primary)" }}>
+          <span className="text-sm font-bold" style={{ color: "var(--primary)" }}>
             {tech.slice(0, 2)}
           </span>
         )}
-      </motion.div>
+      </span>
 
       {/* Label */}
       <span
-        className="relative z-10 text-xs font-medium whitespace-nowrap"
+        className="relative z-10 text-[11px] sm:text-xs font-medium leading-tight text-center px-1"
         style={{ color: "var(--foreground-secondary)" }}
       >
         {tech}
       </span>
+    </motion.div>
+  );
+}
+
+function CategoryPanel({ group, groupIndex }: { group: { label: string; skills: string[] }; groupIndex: number }) {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  return (
+    <motion.div
+      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 24 }}
+      whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.5, delay: groupIndex * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      className="rounded-3xl border p-5 sm:p-7"
+      style={{
+        background: "linear-gradient(160deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008))",
+        borderColor: "rgba(255,255,255,0.08)",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), 0 3px 0 rgba(0,0,0,0.35)",
+      }}
+    >
+      {/* Category header */}
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-2.5">
+          <span
+            className="w-8 h-8 rounded-lg flex items-center justify-center"
+            style={{
+              background: "rgba(124,108,244,0.12)",
+              border: "1px solid rgba(124,108,244,0.25)",
+              color: "var(--primary)",
+            }}
+          >
+            {categoryIcons[group.label]}
+          </span>
+          <h3 className="text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--foreground)" }}>
+            {group.label}
+          </h3>
+        </div>
+        <span
+          className="text-[11px] px-2.5 py-1 rounded-full font-medium whitespace-nowrap"
+          style={{
+            color: "var(--primary)",
+            background: "rgba(124,108,244,0.08)",
+            border: "1px solid rgba(124,108,244,0.2)",
+          }}
+        >
+          {group.skills.length} tools
+        </span>
+      </div>
+
+      {/* Tool boxes */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        {group.skills.map((tech, techIndex) => (
+          <TechBox key={tech} tech={tech} index={techIndex} />
+        ))}
+      </div>
     </motion.div>
   );
 }
@@ -110,7 +176,6 @@ export function SkillsSection() {
       </div>
 
       <div className="max-w-5xl mx-auto relative z-10">
-        {/* Centered heading */}
         <div className="text-center mb-16">
           <SectionHeading
             eyebrow="Skills"
@@ -120,48 +185,9 @@ export function SkillsSection() {
           />
         </div>
 
-        {/* Skills in flowing layout */}
-        <div className="space-y-8">
+        <div className="grid md:grid-cols-2 gap-5 sm:gap-6">
           {skillCategories.map((group, groupIndex) => (
-            <motion.div
-              key={group.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: groupIndex * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="space-y-4"
-            >
-              {/* Category label */}
-              <motion.div
-                className="flex items-center gap-3"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: groupIndex * 0.1 + 0.1 }}
-              >
-                <div
-                  className="h-[1px] w-8"
-                  style={{ background: "var(--primary)" }}
-                />
-                <h3
-                  className="text-xs font-semibold tracking-wider uppercase"
-                  style={{ color: "var(--primary)" }}
-                >
-                  {group.label}
-                </h3>
-              </motion.div>
-
-              {/* Skills badges */}
-              <div className="flex flex-wrap gap-2">
-                {group.skills.map((tech, techIndex) => (
-                  <TechBadge
-                    key={tech}
-                    tech={tech}
-                    index={groupIndex * 5 + techIndex}
-                  />
-                ))}
-              </div>
-            </motion.div>
+            <CategoryPanel key={group.label} group={group} groupIndex={groupIndex} />
           ))}
         </div>
       </div>
