@@ -11,7 +11,7 @@ function ProjectModal({ project, onClose }: { project: typeof featuredProjects[0
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto py-8 px-4"
-      style={{ background: "rgba(5,6,8,0.92)", backdropFilter: "blur(16px)" }}
+      style={{ background: "rgba(5,6,8,0.95)" }}
       onClick={onClose}
     >
       <motion.div
@@ -24,7 +24,7 @@ function ProjectModal({ project, onClose }: { project: typeof featuredProjects[0
         onClick={(e) => e.stopPropagation()}
       >
         <div className="relative h-56 overflow-hidden">
-          <img src={project.image} alt={project.title} loading="lazy" width="800" height="224" className="w-full h-full object-cover" />
+          <img src={project.image} alt={project.title} loading="lazy" decoding="async" width="800" height="224" className="w-full h-full object-cover" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(5,6,8,0.85), transparent 65%)" }} />
           <button
             onClick={onClose}

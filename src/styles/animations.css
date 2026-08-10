@@ -132,11 +132,6 @@
     animation: none !important;
     transition: none !important;
   }
-
-  /* Reduce blur for performance */
-  [style*="blur"] {
-    filter: blur(60px) !important;
-  }
 }
 
 /* Smooth transitions */
@@ -160,4 +155,25 @@
 /* Stagger animation helpers */
 .stagger-children > * {
   animation-delay: calc(var(--stagger-index, 0) * 0.05s);
+}
+
+/* Infinite marquee (used in the About interests band) */
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }

@@ -1,5 +1,7 @@
+import { useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import { usePrefersReducedMotion } from "./ScrollReveal";
+import { gsap, SplitText } from "../../lib/gsap";
 
 type SectionHeadingProps = {
   eyebrow: string;
@@ -22,6 +24,40 @@ const line = {
 
 export function SectionHeading({ eyebrow, title, description, className = "" }: SectionHeadingProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const titleRef = useRef<HTMLHeadingElement>(null);
+
+  // Masked line-by-line reveal of the title (waits for webfonts so line breaks are correct).
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    const el = titleRef.current;
+    if (!el) return;
+
+    let split: ReturnType<typeof SplitText.create> | null = null;
+    const init = () => {
+      split = SplitText.create(el, { type: "lines", mask: "lines" });
+      gsap.from(split.lines, {
+        yPercent: 110,
+        duration: 0.7,
+        ease: "power3.out",
+        stagger: 0.06,
+        scrollTrigger: {
+          trigger: el,
+          start: "top 90%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    };
+
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(init);
+    } else {
+      init();
+    }
+
+    return () => {
+      split?.revert();
+    };
+  }, [prefersReducedMotion]);
 
   if (prefersReducedMotion) {
     return (
@@ -33,7 +69,7 @@ export function SectionHeading({ eyebrow, title, description, className = "" }: 
         </div>
         <h2
           className="mb-4 text-foreground"
-          style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", fontWeight: 650, letterSpacing: "-0.025em", lineHeight: 1.15 }}
+          style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", fontWeight: 700, letterSpacing: "-0.025em", lineHeight: 1.15 }}
         >
           {title}
         </h2>
@@ -59,13 +95,13 @@ export function SectionHeading({ eyebrow, title, description, className = "" }: 
           {eyebrow}
         </p>
       </motion.div>
-      <motion.h2
-        variants={line}
+      <h2
+        ref={titleRef}
         className="mb-4 text-foreground"
-        style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", fontWeight: 650, letterSpacing: "-0.025em", lineHeight: 1.15 }}
+        style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", fontWeight: 700, letterSpacing: "-0.025em", lineHeight: 1.15 }}
       >
         {title}
-      </motion.h2>
+      </h2>
       {description ? (
         <motion.p variants={line} className="max-w-2xl text-foreground-secondary text-lg font-light leading-relaxed">
           {description}

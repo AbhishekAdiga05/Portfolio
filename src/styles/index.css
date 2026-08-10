@@ -1,11 +1,9 @@
-@import './fonts.css';
 @import './tailwind.css';
 @import './theme.css';
+@import './animations.css';
 
-section {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 900px;
-}
+/* NOTE: `content-visibility` was removed — it estimated off-screen section
+   heights, which corrupts GSAP ScrollTrigger trigger positions. */
 
 @media (prefers-reduced-motion: reduce) {
   html {

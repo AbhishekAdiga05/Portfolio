@@ -1,7 +1,10 @@
+import { useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import { GraduationCap, BookOpen, CalendarRange, Award } from "lucide-react";
 import { education } from "../../../data/portfolio-data";
 import { SectionHeading } from "../ui/SectionHeading";
+import { usePrefersReducedMotion } from "../ui/ScrollReveal";
+import { gsap } from "../../lib/gsap";
 
 const listContainer = {
   hidden: {},
@@ -29,8 +32,36 @@ function EduIcon({ degree }: { degree: string }) {
 }
 
 export function EducationSection() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+  const listWrapRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+
+  // The timeline rail draws from top to bottom, scrubbed to the scroll position.
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        progressRef.current,
+        { scaleY: 0 },
+        {
+          scaleY: 1,
+          ease: "none",
+          transformOrigin: "top center",
+          scrollTrigger: {
+            trigger: listWrapRef.current,
+            start: "top 85%",
+            end: "bottom 70%",
+            scrub: true,
+          },
+        }
+      );
+    }, sectionRef);
+    return () => ctx.revert();
+  }, [prefersReducedMotion]);
+
   return (
-    <section id="education" className="py-24 sm:py-32 px-5 sm:px-6">
+    <section id="education" ref={sectionRef} className="py-24 sm:py-32 px-5 sm:px-6">
       <div className="max-w-4xl mx-auto">
         <SectionHeading
           eyebrow="Education"
@@ -38,12 +69,26 @@ export function EducationSection() {
           description="My academic background and studies."
         />
 
-        <motion.div
-          variants={listContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2, margin: "-60px" }}
-        >
+        <div ref={listWrapRef} className="relative">
+          {/* Scroll-drawn progress line along the icon rail */}
+          <div
+            ref={progressRef}
+            className="absolute left-6 top-0 bottom-0 w-px"
+            style={{
+              background: "linear-gradient(180deg, var(--primary), rgba(124,108,244,0.15))",
+              boxShadow: "0 0 8px rgba(124,108,244,0.5)",
+              transform: "scaleY(0)",
+              transformOrigin: "top center",
+            }}
+            aria-hidden="true"
+          />
+
+          <motion.div
+            variants={listContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2, margin: "-60px" }}
+          >
           {education.map((edu, i) => (
             <motion.div
               key={edu.degree}
@@ -108,7 +153,8 @@ export function EducationSection() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

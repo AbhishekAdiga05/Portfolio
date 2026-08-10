@@ -96,7 +96,7 @@ function TechBadge({ tech, index }: { tech: string; index: number }) {
 export function SkillsSection() {
   return (
     <section id="skills" className="relative py-24 sm:py-32 px-5 sm:px-6 overflow-hidden">
-      {/* Animated background gradient */}
+      {/* Animated background gradient (desktop only — large blur + infinite pulse on mobile) */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           animate={{
@@ -104,7 +104,7 @@ export function SkillsSection() {
             scale: [1, 1.1, 1]
           }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full blur-[150px]"
+          className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full blur-[150px]"
           style={{ background: "radial-gradient(circle, var(--primary), transparent 70%)" }}
         />
       </div>

@@ -2,56 +2,44 @@ import { useCallback } from "react";
 import Particles, { ParticlesProvider } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import type { Engine } from "@tsparticles/engine";
+import { usePrefersReducedMotion } from "./ScrollReveal";
 
 export function ParticleBackground() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
   const particlesInit = useCallback(async (engine: Engine) => {
     await loadSlim(engine);
   }, []);
+
+  if (prefersReducedMotion) return null;
 
   return (
     <ParticlesProvider init={particlesInit}>
       <Particles
         id="tsparticles"
-        className="absolute inset-0 z-0 pointer-events-auto opacity-[0.35]"
+        className="absolute inset-0 z-0 pointer-events-none opacity-[0.45]"
         options={{
           background: {
             color: {
               value: "transparent",
             },
           },
-          fpsLimit: 60,
+          fpsLimit: 45,
           interactivity: {
             events: {
-              onHover: {
-                enable: true,
-                mode: "grab",
-              },
-              onClick: {
-                enable: true,
-                mode: "push",
-              },
-            },
-            modes: {
-              grab: {
-                distance: 150,
-                links: {
-                  opacity: 0.4,
-                },
-              },
-              push: {
-                quantity: 2,
-              },
+              onHover: { enable: false },
+              onClick: { enable: false },
             },
           },
           particles: {
             color: {
-              value: ["#ffffff", "#7c6cf4"],
+              value: ["#7c6cf4", "#a78bfa", "#ffffff"],
             },
             links: {
-              color: "#ffffff",
+              color: "#7c6cf4",
               distance: 160,
               enable: true,
-              opacity: 0.15,
+              opacity: 0.25,
               width: 1,
             },
             move: {
@@ -61,7 +49,7 @@ export function ParticleBackground() {
                 default: "bounce",
               },
               random: false,
-              speed: 0.5,
+              speed: 0.4,
               straight: false,
             },
             number: {
@@ -70,15 +58,15 @@ export function ParticleBackground() {
                 width: 800,
                 height: 800,
               },
-              value: 65,
+              value: 40,
             },
             opacity: {
               value: 0.5,
               animation: {
                 enable: true,
-                speed: 0.5,
+                speed: 0.4,
                 sync: false,
-              }
+              },
             },
             shape: {
               type: "circle",

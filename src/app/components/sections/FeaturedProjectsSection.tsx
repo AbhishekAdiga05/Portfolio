@@ -1,8 +1,11 @@
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import { motion, useMotionValue, useTransform, useSpring } from "motion/react";
 import { Github, ExternalLink, ArrowRight } from "lucide-react";
 import { featuredProjects } from "../../../data/portfolio-data";
 import { SectionHeading } from "../ui/SectionHeading";
+import { usePrefersReducedMotion } from "../ui/ScrollReveal";
+import { gsap, ScrollTrigger } from "../../lib/gsap";
 import { Button } from "../ui/Button";
 
 function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
@@ -31,6 +34,31 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
     { x: 0, y: 30 },
     { x: 30, y: 10 },
   ];
+
+  const imageRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  // Cinematic zoom-out as the card image scrolls through the viewport.
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        imageRef.current,
+        { scale: 1.06 },
+        {
+          scale: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: imageRef.current,
+            start: "top bottom",
+            end: "top 25%",
+            scrub: true,
+          },
+        }
+      );
+    }, imageRef);
+    return () => ctx.revert();
+  }, [prefersReducedMotion]);
 
   return (
     <motion.div
@@ -66,7 +94,7 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
         </div>
 
         {/* Image */}
-        <div className="relative overflow-hidden aspect-[16/10]">
+        <div ref={imageRef} className="relative overflow-hidden aspect-[16/10]">
           <motion.div className="w-full h-full" style={{ x: imgX, y: imgY }}>
             <img
               src={p.image}
@@ -141,9 +169,44 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
 
 export function FeaturedProjectsSection() {
   const displayProjects = featuredProjects.slice(0, 3);
+  const sectionRef = useRef<HTMLElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  // Subtle depth drift: the card grid lags slightly behind the scroll.
+  // Desktop only — moving the whole grid (3 image cards) per scroll frame on mobile is costly.
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 768px)", () => {
+      const ctx = gsap.context(() => {
+        gsap.to(gridRef.current, {
+          yPercent: -6,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+      }, sectionRef);
+
+      // Re-measure once lazy-loaded card images land, so triggers stay accurate.
+      const onImgLoad = () => ScrollTrigger.refresh();
+      const imgs = sectionRef.current?.querySelectorAll("img") ?? [];
+      imgs.forEach((img) => img.addEventListener("load", onImgLoad));
+
+      return () => {
+        ctx.revert();
+        imgs.forEach((img) => img.removeEventListener("load", onImgLoad));
+      };
+    });
+    return () => mm.revert();
+  }, [prefersReducedMotion]);
 
   return (
-    <section id="projects" className="py-24 sm:py-32 px-5 sm:px-6 relative overflow-hidden">
+    <section id="projects" ref={sectionRef} className="py-24 sm:py-32 px-5 sm:px-6 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           animate={{ opacity: [0.02, 0.04, 0.02] }}
@@ -172,7 +235,7 @@ export function FeaturedProjectsSection() {
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6">
+        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6">
           {displayProjects.map((p, i) => (
             <ProjectCard key={p.title} p={p} i={i} />
           ))}

@@ -1,13 +1,40 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useMotionTemplate } from "motion/react";
 import { ArrowRight, Download, ChevronDown } from "lucide-react";
 import { resumeLink } from "../../../data/portfolio-data";
 import { usePrefersReducedMotion } from "../ui/ScrollReveal";
+import { gsap } from "../../lib/gsap";
 import { Button } from "../ui/Button";
 
 export function HeroSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const [roleIndex, setRoleIndex] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  // Scroll-scrubbed exit: the hero content drifts up and fades as you scroll past.
+  // Desktop only — on mobile the full hero block moving on every scroll frame adds jank.
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 768px)", () => {
+      const ctx = gsap.context(() => {
+        gsap.to(contentRef.current, {
+          yPercent: -18,
+          opacity: 0.25,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "90% top",
+            scrub: true,
+          },
+        });
+      }, sectionRef);
+      return () => ctx.revert();
+    });
+    return () => mm.revert();
+  }, [prefersReducedMotion]);
 
   // Mouse Spotlight Effect
   const mouseX = useMotionValue(0);
@@ -80,6 +107,7 @@ export function HeroSection() {
   return (
     <section
       id="hero"
+      ref={sectionRef}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
       style={{ background: "transparent" }}
       onMouseMove={handleMouseMove}
@@ -104,16 +132,16 @@ export function HeroSection() {
 
       {/* Grid Pattern Overlay */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.02] z-0"
+        className="absolute inset-0 pointer-events-none opacity-[0.05] z-0"
         style={{
-          backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.4) 1px, transparent 1px)",
+          backgroundImage: "linear-gradient(rgba(124,108,244,0.55) 1px, transparent 1px), linear-gradient(90deg, rgba(124,108,244,0.55) 1px, transparent 1px)",
           backgroundSize: "24px 24px",
         }}
         aria-hidden="true"
       />
 
       {/* Main Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 w-full flex flex-col items-center justify-center flex-1 mt-16">
+      <div ref={contentRef} className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 w-full flex flex-col items-center justify-center flex-1 mt-16">
         <motion.div
           variants={containerVariants}
           initial="hidden"

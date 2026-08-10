@@ -2,7 +2,7 @@ export const personalInfo = {
   firstName: "Abhishek",
   lastName: "Adiga",
   role: "Full-Stack Developer & AI Tools Enthusiast",
-  profilePhoto: "/images/profile.png",
+  profilePhoto: "/images/profile.webp",
   openToWork: true,
   availabilityDate: "2027",
 };
@@ -77,7 +77,7 @@ export const featuredProjects = [
   subtitle: "Product Price Tracking & Market Intelligence Platform",
   description:
   "Tracks product prices across multiple stores and shows price history, deal alerts, and market trends.",
-  image: "/images/nexprice.png",
+  image: "/images/nexprice.webp",
   tags: [
     "Next.js",
     "Supabase",
@@ -95,7 +95,7 @@ export const featuredProjects = [
     subtitle: "AI-Powered Multi-Model Chat Platform",
     description:
       "A chat interface that connects to over 100 language models with real-time streaming, GitHub login, and conversation history.",
-    image: "/images/neonchat.png",
+    image: "/images/neonchat.webp",
     tags: [
       "Next.js",
       "TypeScript",
@@ -113,7 +113,7 @@ export const featuredProjects = [
     subtitle: "Full-Stack DSA Practice Platform",
     description:
       "A coding practice platform where you can solve problems, run code online, and track your progress over time.",
-    image: "/images/codeforge.png",
+    image: "/images/codeforge.webp",
     tags: [
       "Next.js",
       "React",
@@ -135,7 +135,7 @@ export const otherProjects = [
     subtitle: "Cybersecure E-Voting System",
     description:
       "An encrypted e-voting system with threat detection, DDoS protection, and real-time monitoring.",
-    image: "/images/safecast.png",
+    image: "/images/safecast.webp",
     tags: [
       "MERN",
       "Cybersecurity",
@@ -152,7 +152,7 @@ export const otherProjects = [
   subtitle: "Real-Time Messaging Platform",
   description:
     "Real-time messaging app with authentication, online status indicators, media sharing, and Socket.io-based architecture.",
-  image: "/images/chatapp.png",
+  image: "/images/chatapp.webp",
   tags: [
     "React",
     "Node.js",
@@ -172,7 +172,7 @@ export const otherProjects = [
   subtitle: "AI-Powered Collaborative Code Editor",
   description:
     "A collaborative code editor with real-time sync, AI-assisted code review, whiteboarding, multi-language execution, and built-in chat.",
-  image: "/images/syncverse.png",
+  image: "/images/syncverse.webp",
   tags: [
     "React",
     "Node.js",
@@ -194,7 +194,7 @@ export const otherProjects = [
   subtitle: "AI-Powered Documentation Agent",
   description:
     "Analyzes source code and generates README files, API docs, docstrings, and code walkthroughs across multiple languages.",
-  image: "/images/docpilot.png",
+  image: "/images/docpilot.webp",
   tags: [
     "Python",
     "Streamlit",
@@ -213,7 +213,7 @@ export const otherProjects = [
   subtitle: "Premium Restaurant Web Experience",
   description:
     "A restaurant website with categorized menus, photo galleries, customer reviews, and a reservation system.",
-  image: "/images/tandoor-kitchen.png",
+  image: "/images/tandoor-kitchen.webp",
   tags: [
     "Next.js",
     "React",
@@ -297,3 +297,93 @@ export const contactInfo = {
 };
 
 export const resumeLink = "/resume.pdf";
+
+// Stats shown in the Highlights band under the hero.
+// Real, verifiable numbers only — update these if your stats change.
+export const highlights = [
+  { value: 3, suffix: "+", label: "Years Building" },
+  { value: 10, suffix: "+", label: "Projects Shipped" },
+  { value: 200, suffix: "+", label: "LeetCode Problems Solved" },
+];
+
+// A blog post's body is a list of content blocks — paragraphs, headings, lists,
+// and pull-quotes. Inline `**bold**` markers are supported in block text.
+export type BlogBlock =
+  | { type: "paragraph"; text: string }
+  | { type: "heading"; text: string }
+  | { type: "list"; items: string[] }
+  | { type: "quote"; text: string };
+
+export type BlogPost = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  readTime: string;
+  tags: string[];
+  content: BlogBlock[];
+  draft?: boolean;
+};
+
+// Posts render on the dedicated /blog page; the home page only teases the latest one.
+export const blogPosts: BlogPost[] = [
+  {
+    slug: "learning-to-use-ai-better",
+    title: "How I Use AI Tools to Learn Better",
+    excerpt:
+      "In college, we learn many subjects and technologies. But one thing I slowly learned from working on my projects is how to find the right tool when I don't know how to do something.",
+    date: "Aug 10, 2026",
+    readTime: "4 min read",
+    tags: ["AI Tools", "Learning", "Productivity"],
+    content: [
+      {
+        type: "paragraph",
+        text: "In college, we learn many subjects and technologies. But one thing I slowly learned from working on my projects and college work is **how to find the right tool when I don't know how to do something**.",
+      },
+      {
+        type: "paragraph",
+        text: "Earlier, when I got stuck, I would spend a lot of time searching tutorials and trying different things. Later, I started exploring AI tools, websites, libraries, APIs and documentation. I realised that I don't always have to do everything from zero.",
+      },
+      {
+        type: "paragraph",
+        text: "Now, when I face a problem, I first check if there is already a tool or a simpler way to solve it. This has helped me save time, learn new things and try ideas that I may have avoided before.",
+      },
+      {
+        type: "paragraph",
+        text: "I also made a mistake. I started trying too many tools just because they looked interesting. Sometimes I spent more time testing tools than doing my actual work. Now I first ask myself, **\"Do I really need this?\"** and try it with a small task.",
+      },
+      {
+        type: "heading",
+        text: "How I find and use AI tools",
+      },
+      {
+        type: "paragraph",
+        text: "One thing I started doing is searching for the right AI tool instead of using the same tool for everything. When I have a task, I search for tools made for that type of work, compare a few options and try one with a small task. This helped me find tools that I would not have found otherwise.",
+      },
+      {
+        type: "paragraph",
+        text: "I also learned that **good research is not just searching and taking the first answer**. I check different sources, look at official websites or documentation and compare the information. AI can help me find things faster, but I still check important information myself.",
+      },
+      {
+        type: "paragraph",
+        text: "A simple process that helps me is:",
+      },
+      {
+        type: "paragraph",
+        text: "**Define the problem → Search for options → Compare → Try → Check the result → Learn more**",
+      },
+      {
+        type: "paragraph",
+        text: "This is useful not only for coding, but also for studying, projects, assignments, research and other college work.",
+      },
+      {
+        type: "paragraph",
+        text: "I am still learning this myself, but I think we don't need to know every new tool. We just need to get better at **searching, comparing and choosing what actually helps us**.",
+      },
+      {
+        type: "quote",
+        text: "Don't just search for an answer. Learn how to find the right source and the right tool.",
+      },
+    ],
+  },
+];
