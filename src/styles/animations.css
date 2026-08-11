@@ -177,3 +177,13 @@
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+/* Hero name — subtle letter hover (soft color shift, no bounce) */
+.hero-name .char {
+  display: inline-block;
+  transition: color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-name .char:hover {
+  color: var(--primary);
+}

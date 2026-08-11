@@ -1,50 +1,29 @@
-@custom-variant dark (&:is(.dark *));
-
-/* Vercel-style typeface, bundled locally (no external font fetch, always loads). */
+/* Display sans — Archivo (Google Fonts, OFL), bundled locally as a variable font
+   (wght 100–900), reserved for display and headline text. */
 @font-face {
-  font-family: "Geist";
-  src: url("/fonts/Geist-Variable.woff2") format("woff2");
+  font-family: "Archivo";
+  src: url("/fonts/Archivo-Variable.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
-/* Display serif — open-source Bodoni-style Didone (the free twin of LTC Bodoni 175),
-   bundled locally so headings always render. Variable wght 400-900. */
+/* Body/UI sans — Instrument Sans (Google Fonts, OFL), bundled locally as a
+   variable font (wght 400–700), used for body, UI, and supporting text. */
 @font-face {
-  font-family: "Bodoni Moda";
-  src: url("/fonts/Bodoni-Moda-Variable.woff2") format("woff2");
-  font-weight: 400 900;
+  font-family: "Instrument Sans";
+  src: url("/fonts/Instrument-Sans-Variable.woff2") format("woff2");
+  font-weight: 400 700;
   font-style: normal;
   font-display: swap;
 }
 
-/* Body sans — Titillium Web (Google Fonts, OFL), bundled locally. */
+/* Hero display sans — Space Grotesk (Google Fonts, OFL), bundled locally as a
+   variable font (wght 300–700), used only for the hero name. */
 @font-face {
-  font-family: "Titillium Web";
-  src: url("/fonts/Titillium-Web-400.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Titillium Web";
-  src: url("/fonts/Titillium-Web-300.woff2") format("woff2");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Titillium Web";
-  src: url("/fonts/Titillium-Web-600.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Titillium Web";
-  src: url("/fonts/Titillium-Web-700.woff2") format("woff2");
-  font-weight: 700;
+  font-family: "Space Grotesk";
+  src: url("/fonts/Space-Grotesk-Variable.woff2") format("woff2");
+  font-weight: 300 700;
   font-style: normal;
   font-display: swap;
 }
@@ -94,52 +73,6 @@
   --sidebar-accent-foreground: #F8F9FC;
   --sidebar-border: rgba(255, 255, 255, 0.08);
   --sidebar-ring: rgba(124, 108, 244, 0.5);
-}
-
-.dark {
-  --background: #09090b;
-  --surface: #121214;
-  --surface-elevated: #1a1a1e;
-  --foreground: #fafafa;
-  --foreground-secondary: #a1a1aa;
-  --foreground-muted: #71717a;
-  --card: #121214;
-  --card-foreground: #fafafa;
-  --popover: #121214;
-  --popover-foreground: #fafafa;
-  --primary: #8b5cf6;
-  --primary-foreground: #ffffff;
-  --secondary: transparent;
-  --secondary-foreground: #fafafa;
-  --muted: #27272a;
-  --muted-foreground: #a1a1aa;
-  --accent: #a78bfa;
-  --accent-secondary: #c4b5fd;
-  --accent-foreground: #ffffff;
-  --success: #10b981;
-  --destructive: #ef4444;
-  --destructive-foreground: #fafafa;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-soft: rgba(255, 255, 255, 0.04);
-  --input: #18181b;
-  --input-background: rgba(255, 255, 255, 0.03);
-  --switch-background: #27272a;
-  --ring: rgba(139, 92, 246, 0.4);
-  --grid: rgba(255, 255, 255, 0.03);
-  --button-primary: #fafafa;
-  --button-primary-hover: #e4e4e7;
-  --button-primary-text: #09090b;
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
-  --radius: 16px;
-  --sidebar: #121214;
-  --sidebar-foreground: #fafafa;
-  --sidebar-primary: #8b5cf6;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: rgba(255, 255, 255, 0.06);
-  --sidebar-accent-foreground: #fafafa;
-  --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: rgba(139, 92, 246, 0.4);
 }
 
 @theme inline {
@@ -200,7 +133,7 @@
   html {
     scroll-behavior: smooth;
     font-size: var(--font-size);
-    font-family: "Titillium Web", "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
   /* Keep anchored sections clear of the fixed navbar */
@@ -213,7 +146,7 @@
     margin: 0;
     background: var(--background);
     color: var(--foreground);
-    font-family: "Titillium Web", "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-optical-sizing: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -228,50 +161,56 @@
 
   h1, h2, h3, h4, h5, h6 {
     color: var(--foreground);
-    font-family: "Bodoni Moda", "Titillium Web", "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", serif;
-    font-weight: 700;
-    line-height: 1.15;
+    font-family: "Archivo", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height: 1.12;
     letter-spacing: -0.025em;
   }
 
   h1 {
     font-size: clamp(2.75rem, 7vw, 4.25rem);
-    letter-spacing: -0.03em;
+    font-weight: 800;
+    letter-spacing: -0.035em;
   }
 
   h2 {
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    letter-spacing: -0.025em;
+    font-size: clamp(2.25rem, 4.5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
   }
 
   h3 {
     font-size: 1.5rem;
+    font-weight: 700;
     letter-spacing: -0.02em;
   }
 
-  h4 {
+  h4,
+  h5,
+  h6 {
     font-size: 1.125rem;
+    font-weight: 600;
     letter-spacing: -0.015em;
   }
 
   p {
-    font-family: "Titillium Web", "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-weight: 400;
-    line-height: 1.65;
+    line-height: 1.7;
     letter-spacing: -0.01em;
+    text-wrap: pretty;
   }
 
   label {
     font-size: var(--text-sm);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
-    font-family: "Titillium Web", "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
   button,
   input,
   textarea,
   select {
-    font-family: "Titillium Web", "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 }

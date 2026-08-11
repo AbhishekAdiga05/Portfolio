@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { Calendar, Clock, ArrowUpRight } from "lucide-react";
 import { blogPosts } from "../../data/portfolio-data";
 import { ScrollReveal } from "../components/ui/ScrollReveal";
+import { Seo } from "../components/Seo";
 
 const container = {
   hidden: {},
@@ -17,6 +18,7 @@ const item = {
 export function BlogPage() {
   return (
     <div className="min-h-screen pt-20 pb-24 px-5 sm:px-6">
+      <Seo title="Blog & Write-ups" description="Notes on full-stack development, AI tooling, and what I'm building and learning." />
       <div className="relative max-w-4xl mx-auto">
         <ScrollReveal>
           <div className="flex items-center gap-3 mb-4">
@@ -28,7 +30,7 @@ export function BlogPage() {
           <h1 className="mb-4" style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)" }}>
             Blog &amp; Write-ups
           </h1>
-          <p className="text-sm mb-10 max-w-2xl" style={{ color: "var(--foreground-secondary)", lineHeight: 1.8 }}>
+          <p className="text-base sm:text-lg mb-10 max-w-2xl" style={{ color: "var(--foreground-secondary)", lineHeight: 1.7 }}>
             Notes on full-stack development, AI tooling, and what I'm building and learning.
           </p>
         </ScrollReveal>
@@ -56,7 +58,7 @@ export function BlogPage() {
                   }}
                 >
                   <div className="flex items-start justify-between gap-4">
-                    <h2 className="text-lg sm:text-xl font-semibold mb-2 leading-snug" style={{ color: "var(--foreground)" }}>
+                    <h2 className="text-lg sm:text-xl font-bold mb-2 leading-snug" style={{ color: "var(--foreground)" }}>
                       {post.title}
                     </h2>
                     <ArrowUpRight
@@ -65,7 +67,7 @@ export function BlogPage() {
                       style={{ color: "var(--primary)" }}
                     />
                   </div>
-                  <p className="text-sm leading-relaxed mb-5 max-w-2xl" style={{ color: "var(--foreground-secondary)" }}>
+                  <p className="text-[15px] leading-[1.7] mb-5 max-w-2xl" style={{ color: "var(--foreground-secondary)" }}>
                     {post.excerpt}
                   </p>
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs mb-4" style={{ color: "var(--foreground-muted)" }}>

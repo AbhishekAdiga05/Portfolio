@@ -19,7 +19,7 @@ function ProjectCard({ p, i }: { p: typeof otherProjects[0]; i: number }) {
           <div className="p-6 flex flex-col flex-1">
             <p className="text-xs font-medium mb-3" style={{ color: "var(--accent-secondary)", letterSpacing: "-0.01em" }}>{p.subtitle}</p>
             <h3 className="mb-3" style={{ fontSize: "1.5rem" }}>{p.title}</h3>
-            <p className="mb-5 flex-1" style={{ color: "var(--foreground-secondary)", lineHeight: 1.75, fontSize: "0.9375rem" }}>{p.description}</p>
+            <p className="mb-5 flex-1" style={{ color: "var(--foreground-secondary)", lineHeight: 1.7, fontSize: "0.9375rem" }}>{p.description}</p>
 
             <div className="flex flex-wrap gap-2 mb-6">
               {p.tags.map((t) => (

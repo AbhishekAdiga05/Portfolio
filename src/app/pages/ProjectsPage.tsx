@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Github, ExternalLink, X } from "lucide-react";
 import { featuredProjects, otherProjects } from "../../data/portfolio-data";
 import { ScrollReveal } from "../components/ui/ScrollReveal";
+import { Seo } from "../components/Seo";
 
 function ProjectModal({ project, onClose }: { project: typeof featuredProjects[0]; onClose: () => void }) {
   return (
@@ -42,7 +43,7 @@ function ProjectModal({ project, onClose }: { project: typeof featuredProjects[0
         <div className="p-6">
           <p className="text-xs font-medium mb-2" style={{ color: "var(--accent-secondary)" }}>{project.subtitle}</p>
           <h2 className="mb-4" style={{ fontSize: "2rem" }}>{project.title}</h2>
-          <p className="text-sm mb-6" style={{ color: "var(--foreground-secondary)", lineHeight: 1.8 }}>{project.description}</p>
+          <p className="text-[15px] mb-6" style={{ color: "var(--foreground-secondary)", lineHeight: 1.7 }}>{project.description}</p>
 
           <div className="flex flex-wrap gap-2 mb-6">
             {project.tags.map((t) => (
@@ -101,7 +102,7 @@ function ProjectCard({ p, i, onClick }: { p: typeof featuredProjects[0]; i: numb
         <div className="p-5 flex flex-col flex-1">
           <p className="text-xs font-medium mb-2" style={{ color: "var(--accent-secondary)" }}>{p.subtitle}</p>
           <h3 className="mb-3" style={{ fontSize: "1.375rem" }}>{p.title}</h3>
-          <p className="text-sm mb-4 flex-1" style={{ color: "var(--foreground-secondary)", lineHeight: 1.7 }}>{p.description}</p>
+          <p className="text-[15px] mb-4 flex-1" style={{ color: "var(--foreground-secondary)", lineHeight: 1.7 }}>{p.description}</p>
 
           <div className="flex flex-wrap gap-2 mb-5">
             {p.tags.slice(0, 4).map((t) => (
@@ -147,6 +148,10 @@ export function ProjectsPage() {
 
   return (
     <div className="min-h-screen pt-20 pb-24 px-5 sm:px-6">
+      <Seo
+        title="Projects"
+        description="A selection of full-stack projects I've built — product trackers, AI chat platforms, DSA tools, and more."
+      />
       <div className="relative max-w-7xl mx-auto">
         <ScrollReveal>
           <div className="flex items-center gap-3 mb-4">
@@ -154,7 +159,7 @@ export function ProjectsPage() {
             <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)" }}>Portfolio</span>
           </div>
           <h1 className="mb-4" style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)" }}>Projects</h1>
-          <p className="text-sm mb-10 max-w-2xl" style={{ color: "var(--foreground-secondary)", lineHeight: 1.8 }}>
+          <p className="text-base sm:text-lg mb-10 max-w-2xl" style={{ color: "var(--foreground-secondary)", lineHeight: 1.7 }}>
             A closer look at the projects I've built. Click any card to see details.
           </p>
         </ScrollReveal>

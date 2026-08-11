@@ -9,10 +9,12 @@ import { CertificationsSection } from "../components/sections/CertificationsSect
 import { EducationSection } from "../components/sections/EducationSection";
 import { BlogSection } from "../components/sections/BlogSection";
 import { ContactSection } from "../components/sections/ContactSection";
+import { Seo } from "../components/Seo";
 
 export function HomePage() {
   return (
     <>
+      <Seo />
       <HeroSection />
       <StatsBand />
       <GitHubContributionsSection />

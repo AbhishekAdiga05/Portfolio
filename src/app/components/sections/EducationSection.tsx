@@ -127,7 +127,7 @@ export function EducationSection() {
                   }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
-                  <h3 className="font-semibold leading-snug" style={{ fontSize: "1.15rem" }}>
+                  <h3 className="font-bold leading-snug" style={{ fontSize: "1.15rem" }}>
                     {edu.degree}
                   </h3>
                   <p className="text-sm mt-1 mb-4" style={{ color: "var(--foreground-secondary)" }}>

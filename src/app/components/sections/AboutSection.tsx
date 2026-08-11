@@ -197,7 +197,7 @@ export function AboutSection() {
             <p className="text-xs font-semibold uppercase tracking-wider mb-4" style={{ color: "var(--primary)" }}>
               Who I Am
             </p>
-            <p className="text-base sm:text-lg leading-relaxed mb-8" style={{ color: "var(--foreground-secondary)" }}>
+            <p className="text-base sm:text-lg leading-[1.7] mb-8" style={{ color: "var(--foreground-secondary)" }}>
               {aboutInfo.intro}
             </p>
             <div className="flex flex-wrap gap-3">

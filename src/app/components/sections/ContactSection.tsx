@@ -47,13 +47,13 @@ export function ContactSection() {
           {/* Left Column: Heading and Info */}
           <div className="flex flex-col items-start text-left">
             <ScrollReveal delay={0.05}>
-              <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-4" style={{ color: "var(--primary)" }}>
-                What's Next
+              <p className="text-[11px] font-semibold tracking-[0.2em] uppercase mb-4" style={{ color: "var(--primary)" }}>
+                What's Next?
               </p>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 tracking-tight" style={{ color: "var(--foreground)" }}>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight" style={{ color: "var(--foreground)" }}>
                 Get In Touch
               </h2>
-              <p className="text-base sm:text-lg max-w-md mb-10 leading-relaxed" style={{ color: "var(--foreground-secondary)" }}>
+              <p className="text-base sm:text-lg max-w-md mb-10 leading-[1.7]" style={{ color: "var(--foreground-secondary)" }}>
                 I'm currently looking for opportunities in full-stack development and AI integration. Whether you have a project idea, want to discuss AI tools, or just say hi, my inbox is always open!
               </p>
             </ScrollReveal>

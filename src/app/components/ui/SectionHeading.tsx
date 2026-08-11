@@ -69,12 +69,12 @@ export function SectionHeading({ eyebrow, title, description, className = "" }: 
         </div>
         <h2
           className="mb-4 text-foreground"
-          style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", fontWeight: 700, letterSpacing: "-0.025em", lineHeight: 1.15 }}
+          style={{ fontSize: "clamp(2.25rem, 4.5vw, 3rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.1 }}
         >
           {title}
         </h2>
         {description ? (
-          <p className="max-w-2xl text-foreground-secondary text-lg font-light leading-relaxed">
+          <p className="max-w-2xl text-foreground-secondary text-lg font-normal leading-[1.7]">
             {description}
           </p>
         ) : null}
@@ -98,12 +98,12 @@ export function SectionHeading({ eyebrow, title, description, className = "" }: 
       <h2
         ref={titleRef}
         className="mb-4 text-foreground"
-        style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)", fontWeight: 700, letterSpacing: "-0.025em", lineHeight: 1.15 }}
+        style={{ fontSize: "clamp(2.25rem, 4.5vw, 3rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.1 }}
       >
         {title}
       </h2>
       {description ? (
-        <motion.p variants={line} className="max-w-2xl text-foreground-secondary text-lg font-light leading-relaxed">
+        <motion.p variants={line} className="max-w-2xl text-foreground-secondary text-lg font-normal leading-[1.7]">
           {description}
         </motion.p>
       ) : null}

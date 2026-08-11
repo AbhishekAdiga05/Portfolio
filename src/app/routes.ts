@@ -7,6 +7,7 @@ const ProjectsPage = lazy(() => import("./pages/ProjectsPage").then(m => ({ defa
 const ResumePage = lazy(() => import("./pages/ResumePage").then(m => ({ default: m.ResumePage })));
 const BlogPage = lazy(() => import("./pages/BlogPage").then(m => ({ default: m.BlogPage })));
 const BlogPostPage = lazy(() => import("./pages/BlogPostPage").then(m => ({ default: m.BlogPostPage })));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage").then(m => ({ default: m.NotFoundPage })));
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ export const router = createBrowserRouter([
       { path: "resume", Component: ResumePage },
       { path: "blog", Component: BlogPage },
       { path: "blog/:slug", Component: BlogPostPage },
+      { path: "*", Component: NotFoundPage },
     ],
   },
 ]);

@@ -133,7 +133,7 @@ function CategoryPanel({ group, groupIndex }: { group: { label: string; skills: 
           >
             {categoryIcons[group.label]}
           </span>
-          <h3 className="text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--foreground)" }}>
+          <h3 className="text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--foreground)", fontFamily: "Instrument Sans" }}>
             {group.label}
           </h3>
         </div>

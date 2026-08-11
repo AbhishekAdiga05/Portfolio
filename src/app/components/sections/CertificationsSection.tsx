@@ -39,7 +39,7 @@ function CertRow({ cert }: { cert: typeof certifications[0] }) {
           <span className="text-xl leading-none">{cert.icon || "🎓"}</span>
         </motion.div>
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-semibold leading-snug truncate" style={{ color: "var(--foreground)" }}>
+          <p className="text-sm font-semibold leading-snug truncate" style={{ color: "var(--foreground)", fontFamily: "Archivo" }}>
             {cert.name}
           </p>
           <p className="text-xs mt-0.5" style={{ color: "var(--foreground-muted)" }}>

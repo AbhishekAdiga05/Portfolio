@@ -107,6 +107,7 @@ export function StatsBand() {
               <p
                 className="font-bold"
                 style={{
+                  fontFamily: "Archivo",
                   fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
                   letterSpacing: "-0.03em",
                   background: "linear-gradient(120deg, var(--primary), var(--accent-secondary))",

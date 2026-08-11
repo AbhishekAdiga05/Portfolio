@@ -11,11 +11,11 @@ const GITHUB_PROFILE_URL = `https://github.com/${GITHUB_USERNAME}`;
 
 // level 0 → 4, tuned to the portfolio's purple theme (0 = faint, 4 = full primary).
 const LEVEL_COLORS = [
-  "rgba(124,108,244,0.08)",
-  "rgba(124,108,244,0.22)",
-  "rgba(124,108,244,0.45)",
-  "rgba(124,108,244,0.72)",
-  "#7C6CF4",
+  "rgba(74,222,128,0.08)",
+  "rgba(74,222,128,0.22)",
+  "rgba(74,222,128,0.45)",
+  "rgba(74,222,128,0.72)",
+  "#22C55E",
 ];
 
 const CELL = 11;
@@ -188,7 +188,7 @@ function LoadingSkeleton() {
 function ErrorState({ onRetry }: { onRetry: () => void }) {
   return (
     <div className="flex flex-col items-center gap-4 py-10 text-center">
-      <p className="text-sm max-w-sm" style={{ color: "var(--foreground-secondary)" }}>
+      <p className="text-[15px] max-w-md leading-[1.7]" style={{ color: "var(--foreground-secondary)" }}>
         Couldn't load contribution data from GitHub right now. Check your connection and try again.
       </p>
       <button

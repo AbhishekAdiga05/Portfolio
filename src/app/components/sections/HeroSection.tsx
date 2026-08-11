@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useMotionTemplate }
 import { ArrowRight, Download, ChevronDown } from "lucide-react";
 import { resumeLink } from "../../../data/portfolio-data";
 import { usePrefersReducedMotion } from "../ui/ScrollReveal";
-import { gsap } from "../../lib/gsap";
+import { gsap, SplitText } from "../../lib/gsap";
 import { Button } from "../ui/Button";
 
 export function HeroSection() {
@@ -11,6 +11,9 @@ export function HeroSection() {
   const [roleIndex, setRoleIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const nameRef = useRef<HTMLHeadingElement>(null);
+  const firstNameRef = useRef<HTMLSpanElement>(null);
+  const lastNameRef = useRef<HTMLSpanElement>(null);
 
   // Scroll-scrubbed exit: the hero content drifts up and fades as you scroll past.
   // Desktop only — on mobile the full hero block moving on every scroll frame adds jank.
@@ -66,6 +69,54 @@ export function HeroSection() {
     return () => clearInterval(interval);
   }, [prefersReducedMotion, roles.length]);
 
+  // Refined char-by-char masked reveal for the hero name. Each name is split on
+  // its own span (avoids per-char space collapse inside the masks) and the
+  // chars rise out of a clipped mask in one smooth sequence. Waits for webfonts
+  // so the split uses the final metrics — same pattern as SectionHeading.
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    const el = nameRef.current;
+    const firstEl = firstNameRef.current;
+    const lastEl = lastNameRef.current;
+    if (!el || !firstEl || !lastEl) return;
+
+    let splitFirst: ReturnType<typeof SplitText.create> | null = null;
+    let splitLast: ReturnType<typeof SplitText.create> | null = null;
+    let cancelled = false;
+
+    const init = () => {
+      if (cancelled) return;
+      splitFirst = SplitText.create(firstEl, { type: "chars", mask: "chars" });
+      splitLast = SplitText.create(lastEl, { type: "chars", mask: "chars" });
+      const chars = [...splitFirst.chars, ...splitLast.chars];
+      gsap.set(el, { opacity: 1 });
+      gsap.from(chars, {
+        yPercent: 115,
+        duration: 1.1,
+        ease: "power4.out",
+        stagger: 0.04,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+          toggleActions: "play none none none",
+        },
+      });
+    };
+
+    gsap.set(el, { opacity: 0 });
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(init);
+    } else {
+      init();
+    }
+
+    return () => {
+      cancelled = true;
+      splitFirst?.revert();
+      splitLast?.revert();
+    };
+  }, [prefersReducedMotion]);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -82,20 +133,6 @@ export function HeroSection() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 70,
-        damping: 15,
-      },
-    },
-  };
-
-  const nameVariants = {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20, filter: prefersReducedMotion ? "blur(0px)" : "blur(10px)" },
-    visible: {
-      opacity: 1,
-      y: 0,
-      filter: "blur(0px)",
       transition: {
         type: "spring",
         stiffness: 70,
@@ -162,68 +199,28 @@ export function HeroSection() {
             </p>
           </motion.div>
 
-          {/* 2. Large Name with Blur Reveal (static glow — cheaper than animated) */}
-          <motion.div variants={nameVariants} className="relative mb-6">
+          {/* 2. Large Name with Refined Masked Reveal */}
+          <div className="relative mb-6">
             <motion.div
               className="absolute inset-0 z-0 blur-[40px] rounded-full"
               style={{ background: "radial-gradient(circle, var(--primary) 0%, transparent 60%)", opacity: 0.16 }}
             />
-            <h1 
-              className="relative z-10 font-bold tracking-tighter"
-              style={{ 
-                fontSize: "clamp(3rem, 8vw, 6rem)", 
-                lineHeight: 1.1 
+            <h1
+              ref={nameRef}
+              className="relative z-10 hero-name"
+              style={{
+                fontFamily: "Space Grotesk",
+                fontSize: "clamp(3rem, 8vw, 6rem)",
+                lineHeight: 1.15,
+                letterSpacing: "-0.03em",
+                fontWeight: 700,
               }}
             >
-              <motion.span 
-                className="inline-flex cursor-default text-white"
-                whileHover="hover"
-                initial="initial"
-              >
-                {"Abhishek".split("").map((letter, i) => (
-                  <motion.span
-                    key={i}
-                    variants={{
-                      initial: { scale: 1, y: 0, color: "#ffffff" },
-                      hover: {
-                        scale: [1, 1.25, 1],
-                        y: [0, -8, 0],
-                        color: ["#ffffff", "var(--primary)", "#ffffff"],
-                        transition: { duration: 0.4, delay: i * 0.04 }
-                      }
-                    }}
-                    className="inline-block origin-bottom"
-                  >
-                    {letter}
-                  </motion.span>
-                ))}
-              </motion.span>
-              <span className="text-white"> </span>
-              <motion.span 
-                className="inline-flex cursor-default text-white"
-                whileHover="hover"
-                initial="initial"
-              >
-                {"Adiga".split("").map((letter, i) => (
-                  <motion.span
-                    key={i}
-                    variants={{
-                      initial: { scale: 1, y: 0, color: "#ffffff" },
-                      hover: {
-                        scale: [1, 1.25, 1],
-                        y: [0, -8, 0],
-                        color: ["#ffffff", "var(--primary)", "#ffffff"],
-                        transition: { duration: 0.4, delay: i * 0.04 }
-                      }
-                    }}
-                    className="inline-block origin-bottom"
-                  >
-                    {letter}
-                  </motion.span>
-                ))}
-              </motion.span>
+              <span ref={firstNameRef}>Abhishek</span>
+              <span aria-hidden="true">&nbsp;</span>
+              <span ref={lastNameRef}>Adiga</span>
             </h1>
-          </motion.div>
+          </div>
 
           {/* 3. Animated Role Switcher */}
           <motion.div variants={itemVariants} className="h-10 sm:h-12 overflow-hidden flex justify-center items-center mb-14">

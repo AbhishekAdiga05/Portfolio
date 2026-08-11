@@ -1,6 +1,7 @@
 import { Download, Eye } from "lucide-react";
 import { personalInfo, aboutInfo, education, certifications, experiences, skillCategories, contactInfo } from "../../data/portfolio-data";
 import { ScrollReveal } from "../components/ui/ScrollReveal";
+import { Seo } from "../components/Seo";
 
 export function ResumePage() {
   const skills = skillCategories.map((category) => ({
@@ -10,6 +11,7 @@ export function ResumePage() {
 
   return (
     <div className="min-h-screen pt-20 pb-24 px-5 sm:px-6 flex flex-col items-center">
+      <Seo title="Resume" description="Download or preview Abhishek Adiga's resume." />
       <div className="w-full max-w-5xl">
         <ScrollReveal className="text-center mb-10">
           <div className="flex items-center justify-center gap-3 mb-4">
@@ -74,7 +76,7 @@ export function ResumePage() {
               <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.4fr] gap-6">
                 <div className="flex flex-col gap-5">
                   <section>
-                    <h3 className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--foreground-muted)" }}>Skills</h3>
+                    <h3 className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--foreground-muted)", fontFamily: "Instrument Sans" }}>Skills</h3>
                     <div className="flex flex-col gap-2">
                       {skills.map((group) => (
                         <div key={group.title} className="rounded-xl p-3" style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.06)" }}>
@@ -86,7 +88,7 @@ export function ResumePage() {
                   </section>
 
                   <section>
-                    <h3 className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--foreground-muted)" }}>Certifications</h3>
+                    <h3 className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--foreground-muted)", fontFamily: "Instrument Sans" }}>Certifications</h3>
                     <ul className="flex flex-col gap-2">
                       {certifications.map((item) => (
                         <li key={item.name} className="text-xs leading-relaxed" style={{ color: "var(--foreground-secondary)" }}>{item.name}</li>
@@ -95,7 +97,7 @@ export function ResumePage() {
                   </section>
 
                   <section>
-                    <h3 className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--foreground-muted)" }}>Interests</h3>
+                    <h3 className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--foreground-muted)", fontFamily: "Instrument Sans" }}>Interests</h3>
                     <div className="flex flex-wrap gap-2">
                       {aboutInfo.interests.map((item) => (
                         <span key={item} className="text-xs px-2.5 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.035)", color: "var(--foreground-secondary)", border: "1px solid rgba(255,255,255,0.07)" }}>{item}</span>
@@ -106,14 +108,14 @@ export function ResumePage() {
 
                 <div>
                   <section className="mb-6">
-                    <h3 className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--foreground-muted)" }}>Summary</h3>
-                    <p className="text-sm leading-relaxed" style={{ color: "var(--foreground-secondary)" }}>
+                    <h3 className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--foreground-muted)", fontFamily: "Instrument Sans" }}>Summary</h3>
+                    <p className="text-[15px] leading-[1.7]" style={{ color: "var(--foreground-secondary)" }}>
                       {aboutInfo.intro}
                     </p>
                   </section>
 
                   <section className="mb-6">
-                    <h3 className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--foreground-muted)" }}>Experience</h3>
+                    <h3 className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--foreground-muted)", fontFamily: "Instrument Sans" }}>Experience</h3>
                     {experiences.map((e) => (
                       <div key={e.role + e.org} className="mb-5">
                         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-2">
@@ -136,7 +138,7 @@ export function ResumePage() {
                   </section>
 
                   <section>
-                    <h3 className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--foreground-muted)" }}>Projects</h3>
+                    <h3 className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--foreground-muted)", fontFamily: "Instrument Sans" }}>Projects</h3>
                     {[
                       { name: "NeonChat", tech: "Next.js · TypeScript · Prisma · PostgreSQL · OpenRouter", desc: "Chat interface connecting to 100+ language models with real-time streaming and GitHub authentication." },
                       { name: "CodeForge", tech: "Next.js · React · Prisma · PostgreSQL · Judge0 API · Clerk", desc: "Coding practice platform with online code execution, progress tracking, and analytics." },

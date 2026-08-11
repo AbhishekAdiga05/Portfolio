@@ -46,10 +46,10 @@ export function BlogSection() {
               Latest Post
             </span>
 
-            <h3 className="text-xl sm:text-2xl font-semibold mb-3 leading-snug max-w-2xl" style={{ color: "var(--foreground)" }}>
+            <h3 className="text-xl sm:text-2xl font-bold mb-3 leading-snug max-w-2xl" style={{ color: "var(--foreground)" }}>
               {latest.title}
             </h3>
-            <p className="text-sm sm:text-base mb-6 max-w-xl leading-relaxed" style={{ color: "var(--foreground-secondary)" }}>
+            <p className="text-sm sm:text-base mb-6 max-w-2xl leading-[1.7]" style={{ color: "var(--foreground-secondary)" }}>
               {latest.excerpt}
             </p>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs mb-6" style={{ color: "var(--foreground-muted)" }}>

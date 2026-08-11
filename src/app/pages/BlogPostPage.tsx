@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router";
 import { Calendar, Clock, ArrowLeft } from "lucide-react";
 import { blogPosts } from "../../data/portfolio-data";
 import type { BlogBlock } from "../../data/portfolio-data";
+import { Seo, SITE_URL } from "../components/Seo";
 
 // Renders inline `**bold**` markers from the block text into <strong> elements.
 function renderInline(text: string) {
@@ -21,7 +22,7 @@ function Block({ block }: { block: BlogBlock }) {
   switch (block.type) {
     case "heading":
       return (
-        <h2 className="mt-10 mb-4" style={{ fontSize: "clamp(1.5rem, 3vw, 1.75rem)", fontWeight: 650, letterSpacing: "-0.02em" }}>
+        <h2 className="mt-10 mb-4" style={{ fontSize: "clamp(1.5rem, 3vw, 1.75rem)", fontWeight: 700, letterSpacing: "-0.02em" }}>
           {renderInline(block.text)}
         </h2>
       );
@@ -46,13 +47,13 @@ function Block({ block }: { block: BlogBlock }) {
             color: "var(--foreground)",
           }}
         >
-          <p className="text-base sm:text-lg font-medium leading-relaxed">{renderInline(block.text)}</p>
+          <p className="text-base sm:text-lg font-medium leading-[1.7]">{renderInline(block.text)}</p>
         </blockquote>
       );
     case "paragraph":
     default:
       return (
-        <p className="my-4 leading-relaxed" style={{ color: "var(--foreground-secondary)" }}>
+        <p className="my-4 leading-[1.7]" style={{ color: "var(--foreground-secondary)" }}>
           {renderInline(block.text)}
         </p>
       );
@@ -66,6 +67,7 @@ export function BlogPostPage() {
   if (!post) {
     return (
       <div className="min-h-screen pt-32 pb-24 px-5 sm:px-6">
+        <Seo title="Post Not Found" />
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="mb-4 text-2xl font-semibold" style={{ color: "var(--foreground)" }}>
             Post not found
@@ -83,6 +85,20 @@ export function BlogPostPage() {
 
   return (
     <article className="min-h-screen pt-24 pb-24 px-5 sm:px-6">
+      <Seo
+        title={post.title}
+        description={post.excerpt}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: post.title,
+          description: post.excerpt,
+          datePublished: post.date,
+          url: `${SITE_URL}/blog/${post.slug}`,
+          mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+          author: { "@type": "Person", name: "Abhishek Adiga", url: SITE_URL },
+        }}
+      />
       <div className="max-w-3xl mx-auto">
         <Link
           to="/blog"
@@ -95,7 +111,7 @@ export function BlogPostPage() {
         <p className="text-[11px] font-semibold tracking-[0.2em] uppercase mb-4" style={{ color: "var(--primary)" }}>
           Blog
         </p>
-        <h1 className="mb-6 leading-tight" style={{ fontSize: "clamp(1.75rem, 4.5vw, 2.75rem)", fontWeight: 700, letterSpacing: "-0.03em" }}>
+        <h1 className="mb-6 leading-tight" style={{ fontSize: "clamp(1.75rem, 4.5vw, 2.75rem)", fontWeight: 800, letterSpacing: "-0.03em" }}>
           {post.title}
         </h1>
 

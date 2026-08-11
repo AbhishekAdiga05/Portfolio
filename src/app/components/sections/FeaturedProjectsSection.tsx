@@ -89,7 +89,7 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
 
         {/* Number watermark */}
         <div className="absolute -top-6 -right-4 text-[90px] font-black leading-none opacity-[0.035] pointer-events-none select-none z-0"
-          style={{ color: "var(--primary)" }}>
+          style={{ color: "var(--primary)", fontFamily: "Archivo" }}>
           {p.number}
         </div>
 
@@ -121,7 +121,7 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
           <p className="text-sm font-medium mb-3" style={{ color: "var(--foreground-secondary)" }}>
             {p.subtitle}
           </p>
-          <p className="text-sm leading-relaxed mb-4 line-clamp-2" style={{ color: "var(--foreground-muted)" }}>
+          <p className="text-[15px] leading-[1.7] mb-4 line-clamp-2" style={{ color: "var(--foreground-secondary)" }}>
             {p.description}
           </p>
 
