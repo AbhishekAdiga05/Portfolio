@@ -126,6 +126,29 @@
   }
 }
 
+/* Slow ambient mesh drift — replaces the particle network (desktop only).
+   The mesh layer moves/tilts very slowly instead of networking dots. */
+@media (min-width: 768px) {
+  @keyframes mesh-drift {
+    0%, 100% {
+      transform: translate3d(0, 0, 0) scale(1);
+      filter: hue-rotate(0deg);
+    }
+    33% {
+      transform: translate3d(-2%, -1%, 0) scale(1.04);
+    }
+    66% {
+      transform: translate3d(2%, 1%, 0) scale(0.98);
+      filter: hue-rotate(12deg);
+    }
+  }
+
+  .animate-mesh-drift {
+    animation: mesh-drift 40s ease-in-out infinite;
+    will-change: transform, filter;
+  }
+}
+
 /* Disable heavy animations on mobile for performance */
 @media (max-width: 767px) {
   .disable-on-mobile {

@@ -142,17 +142,25 @@ export function ContactSection() {
               <form
                 action={`https://formspree.io/f/manqbrkp`}
                 method="POST"
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
                   if (!form.name || !form.email || !form.message) return;
-                  setSent(true);
+                  try {
+                    const res = await fetch("https://formspree.io/f/manqbrkp", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ name: form.name, email: form.email, message: form.message }),
+                    });
+                    if (res.ok) setSent(true);
+                  } catch { /* network error — silently ignore */ }
                 }}
-                className="flex flex-col gap-4 text-left bg-white/[0.01] border border-white/5 p-6 sm:p-8 rounded-[24px]"
+                className="flex flex-col gap-5 text-left bg-white/[0.01] border border-white/5 p-6 sm:p-8 rounded-[24px]"
               >
                 <div className="flex flex-col gap-4">
                   <input
                     type="text"
                     required
+                    autoComplete="name"
                     placeholder="Your Name"
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -171,6 +179,8 @@ export function ContactSection() {
                   <input
                     type="email"
                     required
+                    autoComplete="email"
+                    inputMode="email"
                     placeholder="Your Email"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -190,11 +200,11 @@ export function ContactSection() {
 
                 <textarea
                   required
-                  rows={3}
+                  rows={5}
                   placeholder="Tell me about your project..."
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  style={{ ...inputStyle, resize: "none" }}
+                  style={{ ...inputStyle, minHeight: "120px" }}
                   onFocus={(e) => {
                     (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,108,244,0.5)";
                     (e.currentTarget as HTMLElement).style.boxShadow = focusStyle;

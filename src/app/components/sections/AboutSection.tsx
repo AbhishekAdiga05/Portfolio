@@ -118,7 +118,7 @@ export function AboutSection() {
             whileHover={prefersReducedMotion ? undefined : { y: -3 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div ref={photoWrapRef} className="relative w-full max-w-[280px] mx-auto">
+            <div ref={photoWrapRef} className="relative w-full max-w-[280px] mx-auto will-change-transform">
               {/* Soft pulsing glow behind photo (desktop only) */}
               <motion.div
                 className="hidden md:block absolute inset-6 rounded-full blur-[60px]"

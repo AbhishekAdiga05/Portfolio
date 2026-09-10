@@ -124,6 +124,14 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    -webkit-tap-highlight-color: rgba(124, 108, 244, 0.25);
+  }
+
+  /* Momentum scrolling + edge containment for horizontally scrollable areas on touch devices */
+  .overscroll-x-contain {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
   }
 
   *::selection {

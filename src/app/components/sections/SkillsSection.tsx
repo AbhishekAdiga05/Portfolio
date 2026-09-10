@@ -40,9 +40,18 @@ const categoryIcons: Record<string, React.ReactNode> = {
   "AI & DevOps": <Bot size={16} />,
 };
 
+// One accent hue per category — breaks up the all-purple monotone and makes
+// each group scannable at a glance.
+const categoryAccents: Record<string, string> = {
+  Languages: "#5C95FF",
+  Frontend: "#7C6CF4",
+  Backend: "#22C55E",
+  "AI & DevOps": "#F59E0B",
+};
+
 // A single "2D box" tile — flat face with a solid bottom edge (box thickness),
-// a top highlight, and a soft 3D tilt + purple glow on hover.
-function TechBox({ tech, index }: { tech: string; index: number }) {
+// a top highlight, and a soft 3D tilt + glow on hover.
+function TechBox({ tech, index, accent, className = "" }: { tech: string; index: number; accent: string; className?: string }) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const iconUrl = getIconUrl(tech);
 
@@ -60,9 +69,8 @@ function TechBox({ tech, index }: { tech: string; index: number }) {
               rotateX: 7,
               rotateY: -7,
               scale: 1.05,
-              borderColor: "rgba(124,108,244,0.5)",
-              boxShadow:
-                "inset 0 1px 0 rgba(255,255,255,0.1), 0 3px 0 rgba(124,108,244,0.45), 0 14px 30px rgba(124,108,244,0.2)",
+              borderColor: accent,
+              boxShadow: `inset 0 1px 0 rgba(255,255,255,0.1), 0 3px 0 ${accent}80, 0 14px 30px ${accent}33`,
             }
       }
       whileTap={prefersReducedMotion ? undefined : { scale: 0.96 }}
@@ -73,12 +81,12 @@ function TechBox({ tech, index }: { tech: string; index: number }) {
         boxShadow:
           "inset 0 1px 0 rgba(255,255,255,0.08), 0 3px 0 rgba(0,0,0,0.45), 0 8px 18px rgba(0,0,0,0.25)",
       }}
-      className="group relative flex flex-col items-center justify-center gap-2 h-[104px] rounded-2xl cursor-default overflow-hidden"
+      className={`group relative flex flex-col items-center justify-center gap-2 h-[104px] rounded-2xl cursor-default overflow-hidden ${className}`}
     >
       {/* Top highlight line that fades in on hover */}
       <span
         className="absolute inset-x-3 top-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-        style={{ background: "linear-gradient(90deg, transparent, var(--primary), transparent)" }}
+        style={{ background: `linear-gradient(90deg, transparent, ${accent}, transparent)` }}
         aria-hidden="true"
       />
 
@@ -87,7 +95,7 @@ function TechBox({ tech, index }: { tech: string; index: number }) {
         {iconUrl ? (
           <img src={iconUrl} alt={tech} className="w-full h-full object-contain" loading="lazy" />
         ) : (
-          <span className="text-sm font-bold" style={{ color: "var(--primary)" }}>
+          <span className="text-sm font-bold" style={{ color: accent }}>
             {tech.slice(0, 2)}
           </span>
         )}
@@ -106,6 +114,7 @@ function TechBox({ tech, index }: { tech: string; index: number }) {
 
 function CategoryPanel({ group, groupIndex }: { group: { label: string; skills: string[] }; groupIndex: number }) {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const accent = categoryAccents[group.label] ?? "var(--primary)";
 
   return (
     <motion.div
@@ -126,9 +135,9 @@ function CategoryPanel({ group, groupIndex }: { group: { label: string; skills: 
           <span
             className="w-8 h-8 rounded-lg flex items-center justify-center"
             style={{
-              background: "rgba(124,108,244,0.12)",
-              border: "1px solid rgba(124,108,244,0.25)",
-              color: "var(--primary)",
+              background: `${accent}1f`,
+              border: `1px solid ${accent}40`,
+              color: accent,
             }}
           >
             {categoryIcons[group.label]}
@@ -140,19 +149,25 @@ function CategoryPanel({ group, groupIndex }: { group: { label: string; skills: 
         <span
           className="text-[11px] px-2.5 py-1 rounded-full font-medium whitespace-nowrap"
           style={{
-            color: "var(--primary)",
-            background: "rgba(124,108,244,0.08)",
-            border: "1px solid rgba(124,108,244,0.2)",
+            color: accent,
+            background: `${accent}14`,
+            border: `1px solid ${accent}33`,
           }}
         >
           {group.skills.length} tools
         </span>
       </div>
 
-      {/* Tool boxes */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+      {/* Tool boxes — swipeable strip on mobile, grid from sm up */}
+      <div className="flex sm:grid sm:grid-cols-3 gap-3 overflow-x-auto overscroll-x-contain -mx-1 px-1 pb-1 snap-x snap-mandatory sm:snap-none sm:mx-0 sm:px-0 sm:overflow-visible sm:pb-0">
         {group.skills.map((tech, techIndex) => (
-          <TechBox key={tech} tech={tech} index={techIndex} />
+          <TechBox
+            key={tech}
+            tech={tech}
+            index={techIndex}
+            accent={accent}
+            className="flex-none w-[104px] snap-start sm:w-auto sm:flex-none sm:snap-none"
+          />
         ))}
       </div>
     </motion.div>
@@ -176,12 +191,11 @@ export function SkillsSection() {
       </div>
 
       <div className="max-w-5xl mx-auto relative z-10">
-        <div className="text-center mb-16">
+        <div className="mb-16 sm:mb-20">
           <SectionHeading
             eyebrow="Skills"
             title="Tech Stack"
             description="Technologies I work with to build modern applications."
-            className="mx-auto"
           />
         </div>
 

@@ -55,7 +55,7 @@ export function Footer() {
               href={href}
               target="_blank"
               rel="noreferrer"
-              className="w-10 h-10 p-0 rounded-md"
+              className="w-11 h-11 p-0 rounded-md"
             >
               <Icon size={16} />
             </Button>

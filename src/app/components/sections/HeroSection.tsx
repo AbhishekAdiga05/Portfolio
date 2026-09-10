@@ -15,6 +15,19 @@ export function HeroSection() {
   const firstNameRef = useRef<HTMLSpanElement>(null);
   const lastNameRef = useRef<HTMLSpanElement>(null);
 
+  // Pause the role switcher when the hero scrolls out of view — avoids constant
+  // re-renders and animation work on mobile where the hero leaves the viewport fast.
+  const [roleVisible, setRoleVisible] = useState(true);
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setRoleVisible(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   // Scroll-scrubbed exit: the hero content drifts up and fades as you scroll past.
   // Desktop only — on mobile the full hero block moving on every scroll frame adds jank.
   useEffect(() => {
@@ -62,12 +75,12 @@ export function HeroSection() {
   ];
 
   useEffect(() => {
-    if (prefersReducedMotion) return;
+    if (prefersReducedMotion || !roleVisible) return;
     const interval = setInterval(() => {
       setRoleIndex((prev) => (prev + 1) % roles.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, [prefersReducedMotion, roles.length]);
+  }, [prefersReducedMotion, roleVisible, roles.length]);
 
   // Refined char-by-char masked reveal for the hero name. Each name is split on
   // its own span (avoids per-char space collapse inside the masks) and the
@@ -210,8 +223,8 @@ export function HeroSection() {
               className="relative z-10 hero-name"
               style={{
                 fontFamily: "Space Grotesk",
-                fontSize: "clamp(3rem, 8vw, 6rem)",
-                lineHeight: 1.15,
+                fontSize: "clamp(2.5rem, 8vw, 6rem)",
+                lineHeight: 1.12,
                 letterSpacing: "-0.03em",
                 fontWeight: 700,
               }}
@@ -223,7 +236,7 @@ export function HeroSection() {
           </div>
 
           {/* 3. Animated Role Switcher */}
-          <motion.div variants={itemVariants} className="h-10 sm:h-12 overflow-hidden flex justify-center items-center mb-14">
+          <motion.div variants={itemVariants} className="h-10 sm:h-12 overflow-hidden flex justify-center items-center mb-10 sm:mb-14">
             <AnimatePresence mode="wait">
               <motion.p
                 key={roleIndex}

@@ -4,12 +4,14 @@ import { motion, useMotionValue, useTransform, useSpring } from "motion/react";
 import { Github, ExternalLink, ArrowRight } from "lucide-react";
 import { featuredProjects } from "../../../data/portfolio-data";
 import { SectionHeading } from "../ui/SectionHeading";
-import { usePrefersReducedMotion } from "../ui/ScrollReveal";
+import { usePrefersReducedMotion, useIsDesktop } from "../ui/ScrollReveal";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
 import { Button } from "../ui/Button";
 
 function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
   const navigate = useNavigate();
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const isDesktop = useIsDesktop();
 
   const x = useMotionValue(0.5);
   const y = useMotionValue(0.5);
@@ -36,7 +38,6 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
   ];
 
   const imageRef = useRef<HTMLDivElement>(null);
-  const prefersReducedMotion = usePrefersReducedMotion();
 
   // Cinematic zoom-out as the card image scrolls through the viewport.
   useEffect(() => {
@@ -69,17 +70,23 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
       className="h-full"
     >
       <motion.div
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
+        onMouseMove={isDesktop ? handleMouseMove : undefined}
+        onMouseLeave={isDesktop ? handleMouseLeave : undefined}
         onClick={() => navigate("/projects")}
-        style={{
-          rotateX,
-          rotateY,
-          perspective: 1000,
-          transformStyle: "preserve-3d",
-        }}
+        style={
+          isDesktop
+            ? { rotateX, rotateY, perspective: 1000, transformStyle: "preserve-3d" }
+            : undefined
+        }
         className="group relative flex flex-col h-full cursor-pointer rounded-2xl overflow-hidden bg-[#0A0C14] border border-white/[0.06] transition-all duration-300 hover:border-primary/25 hover:shadow-[0_12px_40px_rgba(0,0,0,0.5),0_0_0_1px_rgba(124,108,244,0.12)]"
       >
+        {/* Always-visible gradient hairline — keeps cards animated on touch devices,
+            where the mouse-driven tilt + hover wash never fire */}
+        <div className="absolute top-0 inset-x-0 h-px z-20"
+          style={{ background: "linear-gradient(90deg, transparent, rgba(124,108,244,0.5), transparent)" }}
+          aria-hidden="true"
+        />
+
         {/* Gradient hover wash */}
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"
           style={{
@@ -94,8 +101,8 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
         </div>
 
         {/* Image */}
-        <div ref={imageRef} className="relative overflow-hidden aspect-[16/10]">
-          <motion.div className="w-full h-full" style={{ x: imgX, y: imgY }}>
+        <div ref={imageRef} className="relative overflow-hidden aspect-[16/10] will-change-transform">
+          <motion.div className="w-full h-full" style={{ x: isDesktop ? imgX : 0, y: isDesktop ? imgY : 0 }}>
             <img
               src={p.image}
               alt={p.title}
@@ -109,6 +116,17 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
             <span className="text-[10px] font-bold px-2 py-1 rounded-md backdrop-blur-sm bg-black/40 border border-white/10"
               style={{ color: "var(--primary)" }}>
               {p.number}
+            </span>
+          </div>
+
+          {/* Desktop-only slides-up "View Project" overlay */}
+          <div className="hidden md:flex absolute inset-0 items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+            <span
+              className="inline-flex items-center gap-2 text-xs font-semibold px-4 py-2 rounded-full backdrop-blur-sm border border-white/15"
+              style={{ background: "rgba(3,4,7,0.72)", color: "var(--foreground)" }}
+            >
+              View Project
+              <ExternalLink size={13} style={{ color: "var(--primary)" }} />
             </span>
           </div>
         </div>
@@ -145,7 +163,7 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
               onClick={(e) => e.stopPropagation()}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
-              className="flex-1 flex items-center justify-center gap-2 h-9 rounded-lg text-xs font-medium transition-all duration-200 border border-white/[0.08] hover:border-white/[0.15]"
+              className="flex-1 flex items-center justify-center gap-2 min-h-[44px] rounded-lg text-xs font-medium transition-all duration-200 border border-white/[0.08] hover:border-white/[0.15]"
               style={{ background: "rgba(255,255,255,0.03)", color: "var(--foreground-secondary)" }}
             >
               <Github size={13} /> Code
@@ -155,7 +173,7 @@ function ProjectCard({ p, i }: { p: typeof featuredProjects[0]; i: number }) {
               onClick={(e) => e.stopPropagation()}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
-              className="flex-1 flex items-center justify-center gap-2 h-9 rounded-lg text-xs font-semibold transition-all duration-200"
+              className="flex-1 flex items-center justify-center gap-2 min-h-[44px] rounded-lg text-xs font-semibold transition-all duration-200"
               style={{ background: "var(--button-primary)", color: "var(--button-primary-text)" }}
             >
               <ExternalLink size={13} /> Demo
@@ -223,6 +241,7 @@ export function FeaturedProjectsSection() {
             title="Selected Works"
             description="Some of the projects I've built — from full-stack apps to developer tools."
             className="mb-0"
+            showRule
           />
           <Button 
             variant="secondary" 

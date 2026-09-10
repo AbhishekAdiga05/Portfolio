@@ -324,8 +324,8 @@ export const resumeLink = "/resume.pdf";
 // Real, verifiable numbers only — update these if your stats change.
 export const highlights = [
   { value: 3, suffix: "+", label: "Years Building" },
-  { value: 10, suffix: "+", label: "Projects Shipped" },
-  { value: 200, suffix: "+", label: "LeetCode Problems Solved" },
+  { value: 8, suffix: "", label: "Projects Shipped" },
+  { value: 200, suffix: "+", label: "LeetCode Problems" },
 ];
 
 // A blog post's body is a list of content blocks — paragraphs, headings, lists,

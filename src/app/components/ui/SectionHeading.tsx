@@ -8,6 +8,7 @@ type SectionHeadingProps = {
   title: string;
   description?: string;
   className?: string;
+  showRule?: boolean;
 };
 
 const container = {
@@ -22,7 +23,7 @@ const line = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
 };
 
-export function SectionHeading({ eyebrow, title, description, className = "" }: SectionHeadingProps) {
+export function SectionHeading({ eyebrow, title, description, className = "", showRule = false }: SectionHeadingProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const titleRef = useRef<HTMLHeadingElement>(null);
 
@@ -73,6 +74,13 @@ export function SectionHeading({ eyebrow, title, description, className = "" }: 
         >
           {title}
         </h2>
+        {showRule && (
+          <div
+            className="h-px w-16 mb-5"
+            style={{ background: "linear-gradient(90deg, var(--primary), transparent)" }}
+            aria-hidden="true"
+          />
+        )}
         {description ? (
           <p className="max-w-2xl text-foreground-secondary text-lg font-normal leading-[1.7]">
             {description}
@@ -102,6 +110,14 @@ export function SectionHeading({ eyebrow, title, description, className = "" }: 
       >
         {title}
       </h2>
+      {showRule && (
+        <motion.div
+          variants={line}
+          className="h-px w-16 mb-5"
+          style={{ background: "linear-gradient(90deg, var(--primary), transparent)" }}
+          aria-hidden="true"
+        />
+      )}
       {description ? (
         <motion.p variants={line} className="max-w-2xl text-foreground-secondary text-lg font-normal leading-[1.7]">
           {description}

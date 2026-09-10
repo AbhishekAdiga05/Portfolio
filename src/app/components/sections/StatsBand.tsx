@@ -1,8 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, animate, useInView } from "motion/react";
+import { Hammer, FolderGit2, Code2 } from "lucide-react";
 import { highlights } from "../../../data/portfolio-data";
 import { usePrefersReducedMotion } from "../ui/ScrollReveal";
 import { gsap } from "../../lib/gsap";
+
+const statIcons: Record<string, React.ReactNode> = {
+  "Years Building": <Hammer size={15} />,
+  "Projects Shipped": <FolderGit2 size={15} />,
+  "LeetCode Problems": <Code2 size={15} />,
+};
 
 const container = {
   hidden: {},
@@ -104,6 +111,12 @@ export function StatsBand() {
               className="relative flex flex-col items-center justify-center gap-1.5 py-8 sm:py-10 px-4 text-center"
               style={{ background: "rgba(3,4,7,0.4)" }}
             >
+              <div className="flex items-center gap-1.5 mb-1.5" style={{ color: "var(--primary)" }}>
+                {statIcons[stat.label]}
+                <p className="text-xs sm:text-sm font-medium" style={{ color: "var(--foreground-secondary)" }}>
+                  {stat.label}
+                </p>
+              </div>
               <p
                 className="font-bold"
                 style={{
@@ -118,9 +131,11 @@ export function StatsBand() {
               >
                 <StatCounter value={stat.value} suffix={stat.suffix} />
               </p>
-              <p className="text-xs sm:text-sm font-medium" style={{ color: "var(--foreground-secondary)" }}>
-                {stat.label}
-              </p>
+              {stat.label === "LeetCode Problems" && (
+                <p className="text-[10px]" style={{ color: "var(--foreground-muted)" }}>
+                  solved on LeetCode
+                </p>
+              )}
             </motion.div>
           ))}
         </motion.div>

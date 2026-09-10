@@ -36,7 +36,7 @@ function ProjectCard({ p, i }: { p: typeof otherProjects[0]; i: number }) {
                 target="_blank" 
                 rel="noreferrer" 
                 icon={<Github size={13} />}
-                className="w-full text-xs h-10"
+                className="w-full text-xs min-h-[44px]"
               >
                 Code
               </Button>
@@ -46,7 +46,7 @@ function ProjectCard({ p, i }: { p: typeof otherProjects[0]; i: number }) {
                 target="_blank" 
                 rel="noreferrer" 
                 icon={<ExternalLink size={13} />}
-                className="w-full text-xs h-10"
+                className="w-full text-xs min-h-[44px]"
               >
                 Demo
               </Button>

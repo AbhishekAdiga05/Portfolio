@@ -20,7 +20,7 @@ const SCROLL_OFFSET = 96;
 function scrollToSection(id: string): boolean {
   const el = document.getElementById(id);
   if (el) {
-    const y = el.getBoundingClientRect().top + window.scrollY - 80;
+    const y = el.getBoundingClientRect().top + window.scrollY - 96;
     window.scrollTo({ top: y, behavior: "smooth" });
     return true;
   }
@@ -119,6 +119,16 @@ export function Navbar() {
     return () => {
       document.body.style.overflow = previous;
     };
+  }, [menuOpen]);
+
+  // Close the mobile menu with the Escape key.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [menuOpen]);
 
   // Close the mobile menu when resizing up to desktop.
@@ -234,14 +244,28 @@ export function Navbar() {
 
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden px-4 pb-5 pt-2 flex flex-col gap-1"
-            style={{ background: "rgba(5,6,8,0.96)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
-          >
+          <>
+            {/* Dimmed backdrop behind the mobile menu */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-[-1] md:hidden"
+              style={{ background: "rgba(3,4,7,0.6)", backdropFilter: "blur(4px)" }}
+              onClick={() => setMenuOpen(false)}
+              aria-hidden="true"
+            />
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+              className="md:hidden px-4 pb-5 pt-2 flex flex-col gap-1"
+              style={{ background: "rgba(5,6,8,0.98)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+              role="dialog"
+              aria-label="Navigation menu"
+            >
             {navLinks.map((link) => {
               const isActive = activeSection === link.to;
               return (
@@ -264,7 +288,8 @@ export function Navbar() {
                 </button>
               );
             })}
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>

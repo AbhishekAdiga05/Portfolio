@@ -123,54 +123,64 @@ function useContributions(): [State, () => void] {
 
 function Heatmap({ weeks, months, total }: { weeks: Week[]; months: Month[]; total: number }) {
   return (
-    <div className="overflow-x-auto pb-1" aria-label={`GitHub contributions heatmap for ${GITHUB_USERNAME}, ${total} contributions in the last year`}>
-      <div className="relative" style={{ width: "max-content" }}>
-        {/* Month labels, aligned to the week columns */}
-        <div className="relative h-[18px] mb-1">
-          {months.map((m, i) => (
-            <span
-              key={i}
-              className="absolute text-[10px] leading-[18px] whitespace-nowrap"
-              style={{ left: m.index * (CELL + GAP) + GAP, color: "var(--foreground-muted)" }}
-            >
-              {m.label}
-            </span>
-          ))}
-        </div>
-
-        <div className="flex">
-          {/* Weekday gutter — Mon / Wed / Fri, hidden on small screens */}
-          <div className="hidden sm:flex flex-col shrink-0" style={{ gap: GAP, paddingRight: GAP }}>
-            {WEEKDAYS.map((day, i) => (
-              <div
-                key={day}
-                className="text-[10px]"
-                style={{ height: CELL, lineHeight: `${CELL}px`, color: "var(--foreground-muted)", visibility: i % 2 === 1 ? "visible" : "hidden" }}
+    <div className="relative">
+      <div className="overscroll-x-contain pb-1 relative" aria-label={`GitHub contributions heatmap for ${GITHUB_USERNAME}, ${total} contributions in the last year`}>
+        <div className="relative" style={{ width: "max-content" }}>
+          {/* Month labels, aligned to the week columns */}
+          <div className="relative h-[18px] mb-1">
+            {months.map((m, i) => (
+              <span
+                key={i}
+                className="absolute text-[10px] leading-[18px] whitespace-nowrap"
+                style={{ left: m.index * (CELL + GAP) + GAP, color: "var(--foreground-muted)" }}
               >
-                {day}
-              </div>
+                {m.label}
+              </span>
             ))}
           </div>
 
-          <div className="flex" style={{ gap: GAP }}>
-            {weeks.map((week, wi) => (
-              <div key={wi} className="flex flex-col" style={{ gap: GAP }}>
-                {week.map((day, di) => (
-                  <div
-                    key={di}
-                    title={day ? `${day.count} contribution${day.count === 1 ? "" : "s"} on ${day.date}` : "No contributions"}
-                    style={{
-                      width: CELL,
-                      height: CELL,
-                      borderRadius: 3,
-                      background: LEVEL_COLORS[day?.level ?? 0],
-                    }}
-                  />
-                ))}
-              </div>
-            ))}
+          <div className="flex">
+            {/* Weekday gutter — Mon / Wed / Fri, hidden on small screens */}
+            <div className="hidden sm:flex flex-col shrink-0" style={{ gap: GAP, paddingRight: GAP }}>
+              {WEEKDAYS.map((day, i) => (
+                <div
+                  key={day}
+                  className="text-[10px]"
+                  style={{ height: CELL, lineHeight: `${CELL}px`, color: "var(--foreground-muted)", visibility: i % 2 === 1 ? "visible" : "hidden" }}
+                >
+                  {day}
+                </div>
+              ))}
+            </div>
+
+            <div className="flex" style={{ gap: GAP }}>
+              {weeks.map((week, wi) => (
+                <div key={wi} className="flex flex-col" style={{ gap: GAP }}>
+                  {week.map((day, di) => (
+                    <div
+                      key={di}
+                      title={day ? `${day.count} contribution${day.count === 1 ? "" : "s"} on ${day.date}` : "No contributions"}
+                      style={{
+                        width: CELL,
+                        height: CELL,
+                        borderRadius: 3,
+                        background: LEVEL_COLORS[day?.level ?? 0],
+                      }}
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+
+        {/* Mobile-only hint that the heatmap scrolls horizontally */}
+        <span
+          className="sm:hidden block text-[11px] mt-3 select-none"
+          style={{ color: "var(--foreground-muted)" }}
+        >
+          ← Scroll horizontally to see the full year →
+        </span>
       </div>
     </div>
   );
