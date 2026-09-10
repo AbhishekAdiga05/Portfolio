@@ -228,6 +228,28 @@ export const otherProjects = [
   live: "https://tandoor-kitchen.vercel.app/",
   number: "08",
 },
+{
+  title: "Cogniva",
+  subtitle: "Companion Platform for Elderly Care",
+  description:
+    "An accessibility-focused companion app that helps elderly users manage daily reminders, brain activities, progress, and voice interactions, while giving caregivers a dedicated dashboard to monitor activity and alerts.",
+  image: "/images/cogniva.webp",
+  tags: [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "PostgreSQL",
+    "Prisma",
+    "Tailwind CSS",
+    "Zod",
+    "Web Speech API",
+    "PWA",
+    "Vercel",
+  ],
+  github: "https://github.com/AbhishekAdiga05/cogniva",
+  live: "https://cogniva-eight.vercel.app/",
+  number: "09",
+},
 ];
 
 export const certifications = [
