@@ -1,13 +1,20 @@
 import { Outlet, useLocation } from "react-router";
 import { Suspense, useEffect } from "react";
-import { motion, AnimatePresence, useScroll, useSpring } from "motion/react";
+import { motion, AnimatePresence, useScroll, useSpring, useTransform } from "motion/react";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
+import { usePrefersReducedMotion } from "./components/ui/ScrollReveal";
 
 export function Root() {
   const { pathname } = useLocation();
+  const prefersReducedMotion = usePrefersReducedMotion();
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 28, restDelta: 0.001 });
+
+  // Parallax drift on the signature monogram — it rides up gently as the page
+  // scrolls, as if painted on glass behind the content. Zero on reduced motion.
+  const monogramY = useTransform(scrollYProgress, [0, 1], ["0%", prefersReducedMotion ? "0%" : "-28%"]);
+  const monogramRotate = useTransform(scrollYProgress, [0, 1], [0, prefersReducedMotion ? 0 : -4]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -60,7 +67,7 @@ export function Root() {
         />
 
         {/* Giant serif monogram — its resolution appears only at the corner, like a print signature */}
-        <div
+        <motion.div
           className="absolute -right-[3vw] -bottom-[9vw]"
           style={{
             fontFamily: "var(--font-serif)",
@@ -68,12 +75,14 @@ export function Root() {
             fontSize: "min(38vw, 30rem)",
             lineHeight: 0.75,
             letterSpacing: "-0.04em",
-            color: "rgba(255,255,255,0.028)",
+            color: "rgba(255,255,255,0.1)",
             userSelect: "none",
+            y: monogramY,
+            rotate: monogramRotate,
           }}
         >
           A.
-        </div>
+        </motion.div>
 
         {/* Vignette — keeps the edges sinking into black */}
         <div

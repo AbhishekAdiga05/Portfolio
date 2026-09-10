@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Github, ExternalLink, ArrowRight } from "lucide-react";
+import { ExternalLink, ArrowRight } from "lucide-react";
 import { featuredProjects, otherProjects } from "../../../data/portfolio-data";
 import { SectionHeading } from "../ui/SectionHeading";
 import { Button } from "../ui/Button";
@@ -22,14 +22,14 @@ function EditorialRow({ p, i }: { p: (typeof featuredProjects)[0]; i: number }) 
     >
       {/* Image */}
       <div className={`relative group ${reversed ? "md:order-2" : ""}`}>
-        <span
-          className="absolute -top-7 -left-2 z-0 pointer-events-none select-none font-mono-label text-[64px] sm:text-[84px] font-semibold leading-none"
-          style={{ color: "var(--foreground)", opacity: 0.05 }}
-          aria-hidden="true"
-        >
-          {p.number}
-        </span>
         <div className="relative overflow-hidden rounded-2xl border border-white/[0.06] aspect-[16/10] bg-surface">
+          <span
+            className="absolute -top-7 -left-2 z-[1] pointer-events-none select-none font-mono-label text-[64px] sm:text-[84px] font-semibold leading-none"
+            style={{ color: "var(--foreground)", opacity: 0.05 }}
+            aria-hidden="true"
+          >
+            {p.number}
+          </span>
           <img
             src={p.image}
             alt={p.title}
@@ -82,9 +82,6 @@ function EditorialRow({ p, i }: { p: (typeof featuredProjects)[0]; i: number }) 
         </div>
 
         <div className="flex gap-3 mt-2">
-          <Button variant="secondary" href={p.github} target="_blank" rel="noreferrer" icon={<Github size={14} />} className="text-[13px] h-11 px-5">
-            Code
-          </Button>
           <Button variant="primary" href={p.live} target="_blank" rel="noreferrer" icon={<ExternalLink size={14} />} className="text-[13px] h-11 px-5">
             Live Demo
           </Button>

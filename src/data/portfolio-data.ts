@@ -17,11 +17,11 @@ export const aboutInfo = {
   CGPA: "8.0 / 10.0",
   location: "Udupi, Karnataka, India",
   locationDetail: "Open to internships & entry-level roles",
-  yearsExperience: "3+ Years Building",
+  yearsExperience: "2+ Years Building",
   experienceDetail: "Projects · DSA · AI Integration",
   interests: [
     "Full-Stack Development",
-    "Backend Engineering",
+    "Low level System Design",
     "AI Tools & Integration",
     "Data Structures & Algorithms",
     "Open Source",

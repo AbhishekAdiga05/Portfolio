@@ -1,5 +1,5 @@
-import { motion, HTMLMotionProps } from "motion/react";
-import React from "react";
+import { motion, HTMLMotionProps, useSpring, useMotionValue } from "motion/react";
+import React, { useRef } from "react";
 import { Link } from "react-router";
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "status";
@@ -15,6 +15,46 @@ export interface ButtonProps extends Omit<HTMLMotionProps<"button">, "ref"> {
   icon?: React.ReactNode;
   iconRight?: boolean;
   statusColor?: string;
+}
+
+// Subtle magnetic pull — the button leans toward the cursor on desktop (hover-capable)
+// pointers only. Springs are stiff enough to track the hand, light enough to never
+// feel sticky or fight a swipe on touch devices.
+function useMagnetic() {
+  const elRef = useRef<HTMLElement | null>(null);
+  const magnetX = useMotionValue(0);
+  const magnetY = useMotionValue(0);
+  const springX = useSpring(magnetX, { stiffness: 220, damping: 18, mass: 0.4 });
+  const springY = useSpring(magnetY, { stiffness: 220, damping: 18, mass: 0.4 });
+
+  // Hover-capable pointers only — touch scrolls must never chase the cursor.
+  const magneticEnabled =
+    typeof window === "undefined" || window.matchMedia("(pointer: fine)").matches;
+
+  const onMouseMove = (e: React.MouseEvent) => {
+    const el = elRef.current;
+    if (!el || !magneticEnabled) return;
+    const rect = el.getBoundingClientRect();
+    magnetX.set((e.clientX - (rect.left + rect.width / 2)) * 0.18);
+    magnetY.set((e.clientY - (rect.top + rect.height / 2)) * 0.24);
+  };
+
+  const onMouseLeave = () => {
+    magnetX.set(0);
+    magnetY.set(0);
+  };
+
+  return { elRef, springX, springY, onMouseMove, onMouseLeave };
+}
+
+function mergeRefs<T>(...refs: (React.Ref<T> | undefined)[]) {
+  return (node: T) => {
+    refs.forEach((r) => {
+      if (!r) return;
+      if (typeof r === "function") r(node);
+      else (r as React.MutableRefObject<T>).current = node;
+    });
+  };
 }
 
 export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
@@ -33,12 +73,21 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
     ref
   ) => {
     const baseStyles = "relative inline-flex items-center justify-center gap-2 font-medium transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary/50 whitespace-nowrap";
-    
+
     const isStatus = variant === "status";
+    const magnetic = useMagnetic();
+
+    const magneticProps = isStatus
+      ? {}
+      : {
+          ref: magnetic.elRef,
+          onMouseMove: magnetic.onMouseMove,
+          onMouseLeave: magnetic.onMouseLeave,
+        };
 
     const motionProps = {
-      whileHover: { y: isStatus ? -3 : -2, scale: 1.02 },
-      whileTap: { scale: 0.96, y: 0 },
+      whileHover: { y: isStatus ? -3 : 0, scale: 1.02 },
+      whileTap: { scale: 0.96 },
       transition: { type: "spring", stiffness: 400, damping: 15 },
       ...props,
     };
@@ -64,14 +113,18 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
     const sizeStyles = isStatus ? "" : "h-[44px] px-6";
     const combinedClassName = `${baseStyles} ${sizeStyles} ${variantStyles} ${className}`;
 
+    const style = isStatus
+      ? glowStyles
+      : ({ ...glowStyles, x: magnetic.springX, y: magnetic.springY } as any);
+
     const content = (
       <>
         {variant === "status" && statusColor && (
-          <motion.span 
-            className="w-1.5 h-1.5 rounded-full" 
-            style={{ 
-              backgroundColor: statusColor, 
-              boxShadow: `0 0 10px ${statusColor.replace('rgb', 'rgba').replace(')', ', 0.5)')}` 
+          <motion.span
+            className="w-1.5 h-1.5 rounded-full"
+            style={{
+              backgroundColor: statusColor,
+              boxShadow: `0 0 10px ${statusColor.replace('rgb', 'rgba').replace(')', ', 0.5)')}`,
             }}
             animate={{ opacity: [0.6, 1, 0.6] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -87,9 +140,11 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
       return (
         <Link to={to} tabIndex={-1} className="outline-none">
           <motion.button
-            ref={ref as any}
+            ref={mergeRefs(ref as any, magneticProps.ref as any)}
             className={combinedClassName}
-            style={glowStyles}
+            style={style}
+            onMouseMove={magneticProps.onMouseMove}
+            onMouseLeave={magneticProps.onMouseLeave}
             {...motionProps}
           >
             {content}
@@ -101,10 +156,12 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
     if (href) {
       return (
         <motion.a
-          ref={ref as any}
+          ref={mergeRefs(ref as any, magneticProps.ref as any)}
           href={href}
           className={combinedClassName}
-          style={glowStyles}
+          style={style}
+          onMouseMove={magneticProps.onMouseMove}
+          onMouseLeave={magneticProps.onMouseLeave}
           {...(motionProps as any)}
         >
           {content}
@@ -114,9 +171,11 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
 
     return (
       <motion.button
-        ref={ref as any}
+        ref={mergeRefs(ref as any, magneticProps.ref as any)}
         className={combinedClassName}
-        style={glowStyles}
+        style={style}
+        onMouseMove={magneticProps.onMouseMove}
+        onMouseLeave={magneticProps.onMouseLeave}
         {...motionProps}
       >
         {content}
