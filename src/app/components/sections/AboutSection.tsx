@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+﻿import { useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import { MapPin, Sparkles, Zap, Layers, Briefcase } from "lucide-react";
 import { personalInfo, aboutInfo } from "../../../data/portfolio-data";
@@ -78,24 +78,12 @@ export function AboutSection() {
 
   return (
     <section id="about" ref={sectionRef} className="py-24 sm:py-32 px-5 sm:px-6 relative overflow-hidden">
-      {/* Subtle background glow (desktop only — large blur + infinite pulse is costly on mobile) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full blur-[120px] opacity-[0.04]"
-          style={{ background: "var(--primary)" }}
-          animate={{ scale: [1, 1.1, 1], opacity: [0.03, 0.06, 0.03] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </div>
-
       <div className="max-w-6xl mx-auto relative">
         {/* Centered Heading */}
         <div className="text-center mb-16 sm:mb-20">
-          <SectionHeading
-            eyebrow="About"
-            title="Nice to Meet You"
-            description="A quick look at who I am, what I build, and what I'm into."
-            className="mx-auto"
+<SectionHeading 
+            title={<>About <span className="font-serif-accent">Me</span></>}
+            
           />
         </div>
 
@@ -119,18 +107,6 @@ export function AboutSection() {
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
             <div ref={photoWrapRef} className="relative w-full max-w-[280px] mx-auto will-change-transform">
-              {/* Soft pulsing glow behind photo (desktop only) */}
-              <motion.div
-                className="hidden md:block absolute inset-6 rounded-full blur-[60px]"
-                style={{
-                  background: "radial-gradient(circle, rgba(124,108,244,0.4), transparent 65%)",
-                }}
-                animate={
-                  prefersReducedMotion ? undefined : { scale: [1, 1.06, 1], opacity: [0.5, 0.8, 0.5] }
-                }
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              />
-
               {/* Gradient hairline frame + photo */}
               <motion.div
                 className="relative z-10 p-[1.5px] rounded-[24px]"
@@ -152,7 +128,7 @@ export function AboutSection() {
                   {/* Soft inner fade for depth */}
                   <div
                     className="absolute inset-0"
-                    style={{ background: "linear-gradient(180deg, transparent 55%, rgba(3,4,7,0.25))" }}
+                    style={{ background: "linear-gradient(180deg, transparent 55%, rgba(8,9,14,0.25))" }}
                   />
                 </div>
               </motion.div>
@@ -162,7 +138,7 @@ export function AboutSection() {
                 <div
                   className="relative z-20 -mt-6 mx-auto w-max flex flex-col gap-1.5 px-4 py-2.5 rounded-2xl border backdrop-blur-md"
                   style={{
-                    background: "rgba(10,12,20,0.82)",
+                    background: "rgba(15,17,25,0.82)",
                     borderColor: "rgba(255,255,255,0.1)",
                     boxShadow: "0 16px 40px rgba(0,0,0,0.35)",
                   }}

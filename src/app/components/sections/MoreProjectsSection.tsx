@@ -1,4 +1,4 @@
-import { Github, ExternalLink } from "lucide-react";
+﻿import { Github, ExternalLink } from "lucide-react";
 import { otherProjects } from "../../../data/portfolio-data";
 import { ScrollReveal } from "../ui/ScrollReveal";
 import { Button } from "../ui/Button";
@@ -13,7 +13,7 @@ function ProjectCard({ p, i }: { p: typeof otherProjects[0]; i: number }) {
         >
           <div className="relative overflow-hidden aspect-[16/10]">
             <img src={p.image} alt={p.title} loading="lazy" decoding="async" width="400" height="250" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
-            <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(5,6,8,0.72), transparent 55%)" }} />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(8,9,14,0.72), transparent 55%)" }} />
           </div>
 
           <div className="p-6 flex flex-col flex-1">

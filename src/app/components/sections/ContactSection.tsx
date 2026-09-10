@@ -3,11 +3,13 @@ import { Mail, Linkedin, Github, Send, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { contactInfo } from "../../../data/portfolio-data";
 import { ScrollReveal } from "../ui/ScrollReveal";
+import { SectionHeading } from "../ui/SectionHeading";
 import { Button } from "../ui/Button";
 
 export function ContactSection() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
+  const [failed, setFailed] = useState(false);
 
   const inputStyle: React.CSSProperties = {
     background: "rgba(255,255,255,0.02)",
@@ -30,15 +32,6 @@ export function ContactSection() {
 
   return (
     <section id="contact" className="py-24 sm:py-32 px-5 sm:px-6 relative overflow-hidden">
-      {/* Subtle ambient glow */}
-      <div
-        className="absolute pointer-events-none inset-0 z-0"
-        style={{
-          background: "radial-gradient(1000px circle at 50% 100%, rgba(124,108,246,0.03), transparent 70%)",
-        }}
-        aria-hidden="true"
-      />
-
       <div className="max-w-6xl mx-auto relative z-10">
         
         {/* Horizontal Layout Grid */}
@@ -46,22 +39,15 @@ export function ContactSection() {
           
           {/* Left Column: Heading and Info */}
           <div className="flex flex-col items-start text-left">
-            <ScrollReveal delay={0.05}>
-              <p className="text-[11px] font-semibold tracking-[0.2em] uppercase mb-4" style={{ color: "var(--primary)" }}>
-                What's Next?
-              </p>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight" style={{ color: "var(--foreground)" }}>
-                Get In Touch
-              </h2>
-              <p className="text-base sm:text-lg max-w-md mb-10 leading-[1.7]" style={{ color: "var(--foreground-secondary)" }}>
-                I'm currently looking for opportunities in full-stack development and AI integration. Whether you have a project idea, want to discuss AI tools, or just say hi, my inbox is always open!
-              </p>
-            </ScrollReveal>
+<SectionHeading
+              title="Contact"
+              description="I'm looking for opportunities where I can build, learn, and work with great people. Have something in mind? I'd love to hear from you."
+            />
 
             <ScrollReveal delay={0.15}>
               <motion.a
                 href={`mailto:${contactInfo.email}`}
-                className="group relative inline-flex items-center gap-3 mb-10 px-6 py-4 rounded-full overflow-hidden"
+                className="group relative inline-flex items-center gap-3 mb-10 px-6 py-4 rounded-full overflow-hidden max-w-full"
                 style={{
                   background: "rgba(255,255,255,0.03)",
                   border: "1px solid rgba(255,255,255,0.08)",
@@ -76,7 +62,7 @@ export function ContactSection() {
                 />
                 
                 <Mail className="relative z-10" size={24} style={{ color: "var(--primary)" }} />
-                <span className="relative z-10 text-lg sm:text-xl font-medium tracking-tight" style={{ color: "var(--foreground)" }}>
+                <span className="relative z-10 text-base sm:text-xl font-medium tracking-tight min-w-0 break-all" style={{ color: "var(--foreground)" }}>
                   {contactInfo.email}
                 </span>
                 <ArrowRight className="relative z-10 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300" size={20} style={{ color: "var(--primary)" }} />
@@ -140,19 +126,21 @@ export function ContactSection() {
               </motion.div>
             ) : (
               <form
-                action={`https://formspree.io/f/manqbrkp`}
+                action={`https://formspree.io/f/xrpgjeny`}
                 method="POST"
                 onSubmit={async (e) => {
                   e.preventDefault();
                   if (!form.name || !form.email || !form.message) return;
+                  setFailed(false);
                   try {
-                    const res = await fetch("https://formspree.io/f/manqbrkp", {
+                    const res = await fetch("https://formspree.io/f/xrpgjeny", {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({ name: form.name, email: form.email, message: form.message }),
                     });
                     if (res.ok) setSent(true);
-                  } catch { /* network error — silently ignore */ }
+                    else setFailed(true);
+                  } catch { /* network error — surface it below */ setFailed(true); }
                 }}
                 className="flex flex-col gap-5 text-left bg-white/[0.01] border border-white/5 p-6 sm:p-8 rounded-[24px]"
               >
@@ -225,6 +213,11 @@ export function ContactSection() {
                 >
                   Send Message
                 </Button>
+                {failed && (
+                  <p className="-mt-2 text-sm text-balance" style={{ color: "var(--destructive)" }}>
+                    Couldn't send your message — check your connection and try again.
+                  </p>
+                )}
               </form>
             )}
           </ScrollReveal>

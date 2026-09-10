@@ -1,4 +1,5 @@
 import { HeroSection } from "../components/sections/HeroSection";
+import { TechMarquee } from "../components/sections/TechMarquee";
 import { StatsBand } from "../components/sections/StatsBand";
 import { GitHubContributionsSection } from "../components/sections/GitHubContributionsSection";
 import { AboutSection } from "../components/sections/AboutSection";
@@ -16,6 +17,7 @@ export function HomePage() {
     <>
       <Seo />
       <HeroSection />
+      <TechMarquee />
       <StatsBand />
       <GitHubContributionsSection />
       <AboutSection />

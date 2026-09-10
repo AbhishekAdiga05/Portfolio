@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Github, ExternalLink, X } from "lucide-react";
 import { featuredProjects, otherProjects } from "../../data/portfolio-data";
@@ -11,8 +11,8 @@ function ProjectModal({ project, onClose }: { project: typeof featuredProjects[0
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto py-8 px-4"
-      style={{ background: "rgba(5,6,8,0.95)" }}
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto overscroll-contain py-8 px-4"
+      style={{ background: "rgba(8,9,14,0.95)" }}
       onClick={onClose}
     >
       <motion.div
@@ -21,19 +21,19 @@ function ProjectModal({ project, onClose }: { project: typeof featuredProjects[0
         exit={{ opacity: 0, y: 12, scale: 0.98 }}
         transition={{ duration: 0.2 }}
         className="w-full max-w-3xl rounded-[24px] overflow-hidden"
-        style={{ background: "rgba(10,12,20,0.96)", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 32px 90px rgba(0,0,0,0.65)" }}
+        style={{ background: "rgba(15,17,25,0.96)", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 32px 90px rgba(0,0,0,0.65)" }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="relative h-56 overflow-hidden">
           <img src={project.image} alt={project.title} loading="lazy" decoding="async" width="800" height="224" className="w-full h-full object-cover" />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(5,6,8,0.85), transparent 65%)" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(8,9,14,0.85), transparent 65%)" }} />
           <button
             onClick={onClose}
             type="button"
             className="absolute top-4 right-4 w-11 h-11 rounded-xl flex items-center justify-center transition-colors duration-200"
-            style={{ background: "rgba(5,6,8,0.72)", color: "var(--foreground)", border: "1px solid rgba(255,255,255,0.1)", backdropFilter: "blur(12px)" }}
+            style={{ background: "rgba(8,9,14,0.72)", color: "var(--foreground)", border: "1px solid rgba(255,255,255,0.1)", backdropFilter: "blur(12px)" }}
             onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.08)")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "rgba(5,6,8,0.72)")}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "rgba(8,9,14,0.72)")}
             aria-label="Close project details"
           >
             <X size={16} />
@@ -91,12 +91,15 @@ function ProjectCard({ p, i, onClick }: { p: typeof featuredProjects[0]; i: numb
       >
         <div className="relative overflow-hidden aspect-[16/10]">
           <img src={p.image} alt={p.title} loading="lazy" decoding="async" width="400" height="210" className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-[1.015]" />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(5,6,8,0.78), transparent 60%)" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(8,9,14,0.78), transparent 60%)" }} />
           {p.number && (
-            <span className="absolute top-4 left-4 text-xs font-semibold px-2.5 py-1 rounded-full" style={{ background: "rgba(5,6,8,0.62)", color: "var(--foreground-secondary)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}>
+            <span className="absolute top-4 left-4 text-xs font-semibold px-2.5 py-1 rounded-full" style={{ background: "rgba(8,9,14,0.62)", color: "var(--foreground-secondary)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)" }}>
               {p.number}
             </span>
           )}
+          <span className="absolute top-4 right-4 font-mono-label text-[10px] uppercase tracking-[0.14em] px-2.5 py-1 rounded-full" style={{ background: "rgba(8,9,14,0.62)", color: "var(--primary)", border: "1px solid rgba(124,108,244,0.28)", backdropFilter: "blur(12px)" }}>
+            {p.category}
+          </span>
         </div>
 
         <div className="p-5 flex flex-col flex-1">
@@ -145,38 +148,75 @@ function ProjectCard({ p, i, onClick }: { p: typeof featuredProjects[0]; i: numb
 
 export function ProjectsPage() {
   const [selectedProject, setSelectedProject] = useState<typeof featuredProjects[0] | null>(null);
+  const [active, setActive] = useState<"Full-Stack" | "AI">("Full-Stack");
+
+  // Lock background scroll + close on Escape while the modal is open (mobile:
+  // prevents the page scrolling behind the full-screen overlay).
+  useEffect(() => {
+    if (!selectedProject) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedProject(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [selectedProject]);
+
+  const allProjects = [...featuredProjects, ...otherProjects];
+  const byNumber = (a: typeof featuredProjects[0], b: typeof featuredProjects[0]) => Number(a.number) - Number(b.number);
+  const visible = allProjects.filter((p) => p.category === active).sort(byNumber);
 
   return (
     <div className="min-h-screen pt-20 pb-24 px-5 sm:px-6">
       <Seo
         title="Projects"
-        description="A selection of full-stack projects I've built — product trackers, AI chat platforms, DSA tools, and more."
+        description="A selection of full-stack and AI projects I've built — product trackers, AI chat platforms, DSA tools, and more."
       />
       <div className="relative max-w-7xl mx-auto">
         <ScrollReveal>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-5 h-[2px]" style={{ background: "rgba(124,108,244,0.45)" }} />
-            <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)" }}>Portfolio</span>
-          </div>
           <h1 className="mb-4" style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)" }}>Projects</h1>
           <p className="text-base sm:text-lg mb-10 max-w-2xl" style={{ color: "var(--foreground-secondary)", lineHeight: 1.7 }}>
-            A closer look at the projects I've built. Click any card to see details.
+            Some of the projects I've built while learning, experimenting, and trying out new technologies.
           </p>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {featuredProjects.map((p, i) => (
-            <ProjectCard key={p.title} p={p} i={i} onClick={() => setSelectedProject(p)} />
+        <div
+          role="tablist"
+          aria-label="Project category"
+          className="inline-flex items-center gap-1 p-1 rounded-full mb-10"
+          style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+        >
+          {[
+            { key: "Full-Stack", label: "Full Stack" },
+            { key: "AI", label: "AI Projects" },
+          ].map((c) => (
+            <button
+              key={c.key}
+              type="button"
+              role="tab"
+              aria-selected={active === c.key}
+              onClick={() => setActive(c.key as "Full-Stack" | "AI")}
+              className="h-10 px-5 rounded-full text-sm font-medium whitespace-nowrap transition-colors duration-200"
+              style={
+                active === c.key
+                  ? { background: "rgba(124,108,244,0.16)", color: "var(--primary)", border: "1px solid rgba(124,108,244,0.35)" }
+                  : { color: "var(--foreground-muted)", border: "1px solid transparent" }
+              }
+            >
+              {c.label}
+            </button>
           ))}
         </div>
 
-        {otherProjects.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-16">
-            {otherProjects.map((p, i) => (
-              <ProjectCard key={p.title} p={p} i={i} onClick={() => setSelectedProject(p)} />
-            ))}
-          </div>
-        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {visible.map((p, i) => (
+            <ProjectCard key={p.title} p={p} i={i} onClick={() => setSelectedProject(p)} />
+          ))}
+        </div>
       </div>
 
       <AnimatePresence>

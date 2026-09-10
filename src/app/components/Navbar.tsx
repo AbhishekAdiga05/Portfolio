@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+﻿import { useState, useEffect, useMemo, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useSpring } from "motion/react";
@@ -145,6 +145,9 @@ export function Navbar() {
   }, [location]);
 
   function handleSectionClick(id: string) {
+    // Unlock body scroll synchronously before navigating — otherwise the menu's
+    // overflow:hidden effect (flushed after this handler) blocks window.scrollTo.
+    document.body.style.overflow = "";
     setMenuOpen(false);
     // Blog lives on its own page — the nav link goes there instead of a section.
     if (id === "blog") {
@@ -168,7 +171,7 @@ export function Navbar() {
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled ? "rgba(3, 4, 7, 0.75)" : "transparent",
+        background: scrolled ? "rgba(8, 9, 14, 0.75)" : "transparent",
         // backdrop-filter re-composites everything behind the header every scroll frame —
         // on mobile the 75% bg already guarantees readability, so skip it there.
         backdropFilter: scrolled && isDesktop ? "blur(16px)" : "none",
@@ -252,7 +255,7 @@ export function Navbar() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               className="fixed inset-0 z-[-1] md:hidden"
-              style={{ background: "rgba(3,4,7,0.6)", backdropFilter: "blur(4px)" }}
+              style={{ background: "rgba(8,9,14,0.6)", backdropFilter: "blur(4px)" }}
               onClick={() => setMenuOpen(false)}
               aria-hidden="true"
             />
@@ -261,28 +264,31 @@ export function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden px-4 pb-5 pt-2 flex flex-col gap-1"
-              style={{ background: "rgba(5,6,8,0.98)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+              className="md:hidden px-4 pb-5 pt-2 flex flex-col gap-1 max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain"
+              style={{ background: "rgba(8,9,14,0.98)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
               role="dialog"
               aria-label="Navigation menu"
             >
-            {navLinks.map((link) => {
+            {navLinks.map((link, i) => {
               const isActive = activeSection === link.to;
               return (
                 <button
                   key={link.to}
                   onClick={() => handleSectionClick(link.to)}
-                  className="block w-full py-3 px-3 text-sm font-medium text-left focus:outline-none transition-colors rounded-lg"
+                  className="block w-full py-3.5 px-3.5 text-sm font-medium text-left focus:outline-none transition-colors rounded-xl"
                   style={{
                     color: isActive ? "var(--foreground)" : "var(--foreground-secondary)",
                     background: isActive ? "rgba(124,108,244,0.12)" : "transparent",
                     border: isActive ? "1px solid rgba(124,108,244,0.25)" : "1px solid transparent",
                   }}
                 >
-                  <span className="flex items-center gap-2">
-                    {isActive && (
-                      <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--primary)" }} />
-                    )}
+                  <span className="flex items-center gap-3">
+                    <span
+                      className="font-mono-label text-[10px] w-5 shrink-0 tracking-widest"
+                      style={{ color: isActive ? "var(--primary)" : "var(--foreground-muted)" }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
                     {link.label}
                   </span>
                 </button>

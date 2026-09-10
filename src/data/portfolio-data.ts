@@ -1,15 +1,15 @@
-export const personalInfo = {
+﻿export const personalInfo = {
   firstName: "Abhishek",
   lastName: "Adiga",
   role: "Full-Stack Developer & AI Tools Enthusiast",
-  profilePhoto: "/images/profile.webp",
+  profilePhoto: "/images/profile.png",
   openToWork: true,
   availabilityDate: "2027",
 };
 
 export const aboutInfo = {
   intro:
-    "I'm Abhishek Adiga - an Information Science engineering student and Full-Stack Developer who enjoys building modern web applications with React, Next.js, TypeScript, and Node.js. I integrate AI tools into my workflow to boost productivity and explore how LLMs can enhance developer experience.",
+    "I'm Abhishek Adiga, an Information Science engineering student and developer who enjoys building full-stack applications and experimenting with new technology. My main stack is React, Next.js, TypeScript, and Node.js. I also spend a lot of time exploring AI and LLMs, especially how they can make the way we build software a little better.",
   secondary: "",
   degree: "B.Tech in Information Science & Engineering",
   university: "Sahyadri College of Engineering and Management",
@@ -34,22 +34,25 @@ export const experiences = [
     role: "Full Stack Developer",
     org: "Innovex Student Developer Community",
     duration: "Aug 2025 - Present",
-    bullets: [
-  "Built and maintained web applications for community initiatives and client projects using React, Next.js, and TypeScript.",
-  "Leveraged AI tools for code generation, debugging, and documentation to accelerate development cycles and maintain code quality.",
-  "Worked closely with developers to implement assigned features, review code, and integrate changes through Git workflows.",
-    ],
+   bullets: [
+  "Built and worked on real world web applications for community and client projects using React, Next.js, TypeScript, and Firebase.",
+  "Contributed to the Tandoor Hotel website by developing key sections and helping with performance improvements and production deployment.",
+  "Worked on the Sahyadri College Placement Portal, including the Placement Coordinator module, authentication, and branch-based access control.",
+  "Collaborated with a 10+ member development team, using Git for code reviews, feature updates, and team development.",
+],
   },
-  {
-    role: "Open Source Contributor",
-    org: "FitMart",
-    duration: "2025 - Present",
-    bullets: [
-      "Contributed UI refinements to product and cart pages, improving responsiveness and overall user experience.",
-      "Resolved styling inconsistencies, form validation issues, and minor functional bugs reported by the community.",
-      "Worked with project maintainers through pull requests and code reviews while adhering to the project's architecture and coding standards.",
-    ],
-  },
+ {
+  role: "Open Source Contributor & Google Cloud Arcade",
+  org: "FitMart · Google Cloud",
+  duration: "OCT 2025 - MAR 2026",
+  bullets: [
+    "Contributed to FitMart by improving product and cart pages, fixing UI issues, and making the experience more responsive.",
+    "Fixed small bugs related to styling, form validation, and page functionality based on issues raised by the community.",
+    "Worked with maintainers through pull requests and code reviews while following the project's existing code structure.",
+    "Completed hands on Google Cloud Arcade labs covering cloud, AI, and data technologies.",
+    "Earned multiple skill badges and milestones, along with Google Cloud Arcade swags through the program.",
+  ],
+},
 ];
 
 export const skillCategories = [
@@ -78,6 +81,7 @@ export const featuredProjects = [
   description:
   "Tracks product prices across multiple stores and shows price history, deal alerts, and market trends.",
   image: "/images/nexprice.webp",
+  category: "Full-Stack",
   tags: [
     "Next.js",
     "Supabase",
@@ -96,6 +100,7 @@ export const featuredProjects = [
     description:
       "A chat interface that connects to over 100 language models with real-time streaming, GitHub login, and conversation history.",
     image: "/images/neonchat.webp",
+    category: "AI",
     tags: [
       "Next.js",
       "TypeScript",
@@ -114,6 +119,7 @@ export const featuredProjects = [
     description:
       "A coding practice platform where you can solve problems, run code online, and track your progress over time.",
     image: "/images/codeforge.webp",
+    category: "Full-Stack",
     tags: [
       "Next.js",
       "React",
@@ -136,6 +142,7 @@ export const otherProjects = [
     description:
       "An encrypted e-voting system with threat detection, DDoS protection, and real-time monitoring.",
     image: "/images/safecast.webp",
+    category: "Full-Stack",
     tags: [
       "MERN",
       "Cybersecurity",
@@ -145,7 +152,7 @@ export const otherProjects = [
     ],
     github: "https://github.com/AbhishekAdiga05/SafeCast",
     live: "https://safecasts.netlify.app",
-    number: "",
+    number: "04",
   },
   {
   title: "ChatVerse",
@@ -153,6 +160,7 @@ export const otherProjects = [
   description:
     "Real-time messaging app with authentication, online status indicators, media sharing, and Socket.io-based architecture.",
   image: "/images/chatapp.webp",
+  category: "Full-Stack",
   tags: [
     "React",
     "Node.js",
@@ -173,6 +181,7 @@ export const otherProjects = [
   description:
     "A collaborative code editor with real-time sync, AI-assisted code review, whiteboarding, multi-language execution, and built-in chat.",
   image: "/images/syncverse.webp",
+  category: "AI",
   tags: [
     "React",
     "Node.js",
@@ -195,6 +204,7 @@ export const otherProjects = [
   description:
     "Analyzes source code and generates README files, API docs, docstrings, and code walkthroughs across multiple languages.",
   image: "/images/docpilot.webp",
+  category: "AI",
   tags: [
     "Python",
     "Streamlit",
@@ -214,6 +224,7 @@ export const otherProjects = [
   description:
     "A restaurant website with categorized menus, photo galleries, customer reviews, and a reservation system.",
   image: "/images/tandoor-kitchen.webp",
+  category: "Full-Stack",
   tags: [
     "Next.js",
     "React",
@@ -234,6 +245,7 @@ export const otherProjects = [
   description:
     "An accessibility-focused companion app that helps elderly users manage daily reminders, brain activities, progress, and voice interactions, while giving caregivers a dedicated dashboard to monitor activity and alerts.",
   image: "/images/cogniva.webp",
+  category: "Full-Stack",
   tags: [
     "Next.js",
     "React",
@@ -254,37 +266,37 @@ export const otherProjects = [
 
 export const certifications = [
   {
-    icon: "⚛️",
+    logo: "https://cdn.simpleicons.org/udemy/ffffff",
     name: "React & Next.js with AI Integration",
     issuer: "Udemy",
     date: "Apr 2026",
   },
   {
-    icon: "🤖",
+    logo: "https://cdn.simpleicons.org/kaggle/ffffff",
     name: "AI Agents: Intensive Vibe Coding Workshop",
     issuer: "Google × Kaggle",
     date: "2026",
   },
   {
-    icon: "💻",
+    logo: "https://cdn.simpleicons.org/hackerrank/ffffff",
     name: "Problem Solving (Intermediate)",
     issuer: "HackerRank",
     date: "2026",
   },
   {
-    icon: "📡",
+    logo: "https://cdn.simpleicons.org/postman/ffffff",
     name: "Postman API Fundamentals Student Expert",
     issuer: "Postman",
     date: "Sep 2025",
   },
   {
-    icon: "📜",
+    logo: "/images/logos/scaler.svg",
     name: "JavaScript Certification",
     issuer: "Scaler",
     date: "Aug 2025",
   },
   {
-    icon: "🏆",
+    logo: "https://cdn.simpleicons.org/codingninjas/ffffff",
     name: "Vibe2Ship Hackathon",
     issuer: "Coding Ninjas",
     date: "2026",
@@ -293,12 +305,14 @@ export const certifications = [
 
 export const education = [
   {
+    logo: "/images/logos/SCEM.jpg",
     degree: "B.Tech in Information Science & Engineering",
     institution: "Sahyadri College of Engineering and Management",
     duration: "2023 - 2027",
     score: "8.0 / 10.0 CGPA",
   },
   {
+    logo: "/images/logos/viveka.jpg",
     degree: "Pre-University Course (PCMC)",
     institution: "Viveka Pre-University College, Kota, Udupi",
     duration: "2021-2023",
@@ -307,7 +321,7 @@ export const education = [
 ];
 
 export const contactInfo = {
-  email: "abhishekadiga2345@gmail.com",
+  email: "abhivion.dev@gmail.com",
   github: "https://github.com/AbhishekAdiga05",
   linkedin: "https://www.linkedin.com/in/abhishek-adiga-1a37b232a/",
   linkedinHandle: "/in/abhishek-adiga-1a37b232a",
@@ -318,14 +332,15 @@ export const contactInfo = {
   responseTime: "Usually within 24 hours.",
 };
 
-export const resumeLink = "/resume.pdf";
+export const resumeLink = "/Resume.pdf";
 
 // Stats shown in the Highlights band under the hero.
 // Real, verifiable numbers only — update these if your stats change.
 export const highlights = [
-  { value: 3, suffix: "+", label: "Years Building" },
-  { value: 8, suffix: "", label: "Projects Shipped" },
+  { value: 2, suffix: "+", label: "Years Building" },
+  { value: 10, suffix: "+", label: "Projects Shipped" },
   { value: 200, suffix: "+", label: "LeetCode Problems" },
+  { value: 6, suffix: "+", label: "Certifications" },
 ];
 
 // A blog post's body is a list of content blocks — paragraphs, headings, lists,
@@ -350,61 +365,77 @@ export type BlogPost = {
 // Posts render on the dedicated /blog page; the home page only teases the latest one.
 export const blogPosts: BlogPost[] = [
   {
-    slug: "learning-to-use-ai-better",
-    title: "How I Use AI Tools to Learn Better",
+    slug: "i-use-ai-a-lot",
+    title: "I Use AI a Lot. Here’s What I’ve Learned.",
     excerpt:
-      "In college, we learn many subjects and technologies. But one thing I slowly learned from working on my projects is how to find the right tool when I don't know how to do something.",
+      "I use AI almost every day for coding, learning, projects, and debugging. Here are a few things I've learned from using it so often.",
     date: "Aug 10, 2026",
-    readTime: "4 min read",
-    tags: ["AI Tools", "Learning", "Productivity"],
+    readTime: "3 min read",
+    tags: ["AI", "Learning", "Development"],
     content: [
       {
         type: "paragraph",
-        text: "In college, we learn many subjects and technologies. But one thing I slowly learned from working on my projects and college work is **how to find the right tool when I don't know how to do something**.",
+        text: "I use AI almost every day.",
       },
       {
         type: "paragraph",
-        text: "Earlier, when I got stuck, I would spend a lot of time searching tutorials and trying different things. Later, I started exploring AI tools, websites, libraries, APIs and documentation. I realised that I don't always have to do everything from zero.",
+        text: "I use it while coding, learning new technologies, working on college projects, fixing bugs, or sometimes when I have no idea where to start.",
       },
       {
         type: "paragraph",
-        text: "Now, when I face a problem, I first check if there is already a tool or a simpler way to solve it. This has helped me save time, learn new things and try ideas that I may have avoided before.",
+        text: "When I first started using AI, I mostly used it for answers. If my code didn't work, I would paste it into ChatGPT and ask for a fix.",
       },
       {
         type: "paragraph",
-        text: "I also made a mistake. I started trying too many tools just because they looked interesting. Sometimes I spent more time testing tools than doing my actual work. Now I first ask myself, **\"Do I really need this?\"** and try it with a small task.",
-      },
-      {
-        type: "heading",
-        text: "How I find and use AI tools",
+        text: "It was quick, but I noticed something.",
       },
       {
         type: "paragraph",
-        text: "One thing I started doing is searching for the right AI tool instead of using the same tool for everything. When I have a task, I search for tools made for that type of work, compare a few options and try one with a small task. This helped me find tools that I would not have found otherwise.",
+        text: "**Getting the answer doesn't mean I learned anything.**",
       },
       {
         type: "paragraph",
-        text: "I also learned that **good research is not just searching and taking the first answer**. I check different sources, look at official websites or documentation and compare the information. AI can help me find things faster, but I still check important information myself.",
+        text: "So now I usually try things myself first. When I get stuck, I ask AI what went wrong or why my approach is not working.",
       },
       {
         type: "paragraph",
-        text: "A simple process that helps me is:",
+        text: "I find questions like **\"Why doesn't my approach work?\"** more useful than **\"Give me the correct code.\"**",
       },
       {
         type: "paragraph",
-        text: "**Define the problem → Search for options → Compare → Try → Check the result → Learn more**",
+        text: "I also check the documentation instead of trusting every answer. This is especially important when working with libraries or frameworks because things can change.",
       },
       {
         type: "paragraph",
-        text: "This is useful not only for coding, but also for studying, projects, assignments, research and other college work.",
+        text: "Another thing I use AI for is finding tools.",
       },
       {
         type: "paragraph",
-        text: "I am still learning this myself, but I think we don't need to know every new tool. We just need to get better at **searching, comparing and choosing what actually helps us**.",
+        text: "Before building something from scratch, I check if there is already an API, library, or tool that can save me some work.",
       },
       {
-        type: "quote",
-        text: "Don't just search for an answer. Learn how to find the right source and the right tool.",
+        type: "paragraph",
+        text: "Sometimes I try new tools just because they look useful, and later realise I didn't need them.",
+      },
+      {
+        type: "paragraph",
+        text: "So now I ask myself:",
+      },
+      {
+        type: "paragraph",
+        text: "**\"Do I really need this?\"**",
+      },
+      {
+        type: "paragraph",
+        text: "If it helps, I use it. Otherwise, I move on.",
+      },
+      {
+        type: "paragraph",
+        text: "I don't want AI to do the learning for me. I still write the code, read the docs, make mistakes, and fix them.",
+      },
+      {
+        type: "paragraph",
+        text: "AI just helps me get started when I don't know where to start.",
       },
     ],
   },

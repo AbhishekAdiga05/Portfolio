@@ -14,11 +14,10 @@ const listContainer = {
 };
 
 const listItem = {
-  hidden: { opacity: 0, y: 18, filter: "blur(6px)" },
+  hidden: { opacity: 0, y: 18 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
   },
 };
@@ -64,7 +63,6 @@ export function EducationSection() {
     <section id="education" ref={sectionRef} className="py-24 sm:py-32 px-5 sm:px-6">
       <div className="max-w-4xl mx-auto">
         <SectionHeading
-          eyebrow="Education"
           title="Education"
           description="My academic background and studies."
         />
@@ -127,22 +125,37 @@ export function EducationSection() {
                   }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
-                  <h3 className="font-bold leading-snug" style={{ fontSize: "1.15rem" }}>
-                    {edu.degree}
-                  </h3>
-                  <p className="text-sm mt-1 mb-4" style={{ color: "var(--foreground-secondary)" }}>
-                    {edu.institution}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex items-center gap-3">
                     <span
-                      className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full border"
+                      className="rounded-xl bg-white flex items-center justify-center p-1.5 flex-shrink-0"
+                      style={{ border: "1px solid rgba(255,255,255,0.14)", boxShadow: "0 4px 12px rgba(0,0,0,0.25)" }}
+                    >
+                      <img
+                        src={edu.logo}
+                        alt={edu.institution}
+                        loading="lazy"
+                        style={{ height: "2rem", width: "auto" }}
+                      />
+                    </span>
+                    <div className="min-w-0">
+                      <h3 className="font-bold leading-snug" style={{ fontSize: "1.15rem" }}>
+                        {edu.degree}
+                      </h3>
+                      <p className="text-sm mt-0.5" style={{ color: "var(--foreground-secondary)" }}>
+                        {edu.institution}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    <span
+                      className="font-mono-label flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full border"
                       style={{ background: "rgba(255,255,255,0.03)", borderColor: "rgba(255,255,255,0.08)", color: "var(--foreground-secondary)" }}
                     >
                       <CalendarRange size={12} style={{ color: "var(--primary)" }} />
                       {edu.duration}
                     </span>
                     <span
-                      className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full border"
+                      className="font-mono-label flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full border"
                       style={{ background: "rgba(255,255,255,0.03)", borderColor: "rgba(255,255,255,0.08)", color: "var(--foreground-secondary)" }}
                     >
                       <Award size={12} style={{ color: "var(--primary)" }} />

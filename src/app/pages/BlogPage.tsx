@@ -21,14 +21,8 @@ export function BlogPage() {
       <Seo title="Blog & Write-ups" description="Notes on full-stack development, AI tooling, and what I'm building and learning." />
       <div className="relative max-w-4xl mx-auto">
         <ScrollReveal>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-5 h-[2px]" style={{ background: "rgba(124,108,244,0.45)" }} />
-            <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)" }}>
-              Blog
-            </span>
-          </div>
           <h1 className="mb-4" style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)" }}>
-            Blog &amp; Write-ups
+            Blog
           </h1>
           <p className="text-base sm:text-lg mb-10 max-w-2xl" style={{ color: "var(--foreground-secondary)", lineHeight: 1.7 }}>
             Notes on full-stack development, AI tooling, and what I'm building and learning.

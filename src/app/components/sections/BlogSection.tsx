@@ -18,8 +18,7 @@ export function BlogSection() {
     <section id="blog" className="py-24 sm:py-32 px-5 sm:px-6 relative">
       <div className="max-w-6xl mx-auto">
         <SectionHeading
-          eyebrow="Blog"
-          title="From the Blog"
+          title="Blog"
           description="I write about what I'm building and learning. More posts coming soon."
         />
 

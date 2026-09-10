@@ -1,13 +1,13 @@
 import { Outlet, useLocation } from "react-router";
 import { Suspense, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useScroll, useSpring } from "motion/react";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
-import { useIsDesktop } from "./components/ui/ScrollReveal";
 
 export function Root() {
   const { pathname } = useLocation();
-  const isDesktop = useIsDesktop();
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 28, restDelta: 0.001 });
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -15,54 +15,99 @@ export function Root() {
 
   return (
     <div className="min-h-screen relative" style={{ background: "var(--background)" }}>
+      {/* Scroll progress hairline */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[2px] z-[60] origin-left"
+        style={{
+          scaleX: progress,
+          background: "linear-gradient(90deg, var(--primary), var(--accent-secondary))",
+        }}
+        aria-hidden="true"
+      />
       <div className="fixed inset-0 pointer-events-none z-0" aria-hidden="true" style={{ background: "var(--background)" }}>
-        {/* Ambient purple glow */}
+        {/* Pure black base — blue only ever arrives as a faint hint */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(1200px circle at 50% -10%, rgba(124,108,244,0.12), transparent 60%)",
+              "linear-gradient(165deg, #050609 0%, #04050A 42%, #020307 100%)",
           }}
         />
 
-        {/* Purple Matrix grid */}
+        {/* Single key light — a soft window-shaped source, like studio light */}
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage:
-              "linear-gradient(rgba(124,108,244,0.10) 1px, transparent 1px), linear-gradient(90deg, rgba(124,108,244,0.10) 1px, transparent 1px)",
-            backgroundSize: "44px 44px",
-            WebkitMaskImage: "radial-gradient(ellipse at 50% 0%, black 40%, transparent 80%)",
-            maskImage: "radial-gradient(ellipse at 50% 0%, black 40%, transparent 80%)",
+            background:
+              "radial-gradient(820px 460px ellipse at 16% -8%, rgba(88,118,206,0.14), transparent 62%)",
           }}
         />
 
-        {/* Desktop-only ambient mesh gradient (replaces the old particle network — 
-            same calm atmosphere without the "template portfolio" dot field) */}
-        {isDesktop && (
-          <div className="absolute inset-0">
-            <div
-              className="absolute inset-0 animate-mesh-drift"
-              style={{
-                background:
-                  "radial-gradient(42% 52% at 18% 28%, rgba(124,108,244,0.10), transparent 68%)," +
-                  "radial-gradient(48% 58% at 82% 72%, rgba(92,149,255,0.09), transparent 68%)," +
-                  "radial-gradient(32% 42% at 62% 18%, rgba(124,108,244,0.07), transparent 70%)",
-              }}
-            />
-          </div>
-        )}
+        {/* Architectural hairline — vertical rules, quiet and precise */}
+        <div
+          className="absolute right-[9%] inset-y-[7%] w-px"
+          style={{
+            background:
+              "linear-gradient(180deg, transparent, rgba(255,255,255,0.05) 50%, transparent)",
+          }}
+        />
+        <div
+          className="absolute right-[17%] inset-y-[15%] w-px"
+          style={{
+            background:
+              "linear-gradient(180deg, transparent, rgba(255,255,255,0.03) 50%, transparent)",
+          }}
+        />
+
+        {/* Giant serif monogram — its resolution appears only at the corner, like a print signature */}
+        <div
+          className="absolute -right-[3vw] -bottom-[9vw]"
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontStyle: "italic",
+            fontSize: "min(38vw, 30rem)",
+            lineHeight: 0.75,
+            letterSpacing: "-0.04em",
+            color: "rgba(255,255,255,0.028)",
+            userSelect: "none",
+          }}
+        >
+          A.
+        </div>
+
+        {/* Vignette — keeps the edges sinking into black */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 130% 110% at 50% 36%, transparent 46%, rgba(0,0,0,0.55) 100%)",
+          }}
+        />
       </div>
+
+      {/* Film grain — a 160px fractal-noise tile at low opacity. One static
+          texture (pure GPU raster, no animation or scroll cost) that strips the
+          flat "web page" look and reads as a printed / photographed finish. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-40"
+        style={{
+          opacity: 0.05,
+          mixBlendMode: "overlay",
+          backgroundImage:
+            'url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27160%27 height=%27160%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%272%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27160%27 height=%27160%27 filter=%27url(%23n)%27/%3E%3C/svg%3E")',
+        }}
+      />
 
       <div className="relative z-10">
         <Navbar />
         <AnimatePresence mode="wait">
           <motion.main
             key={pathname}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 1, clipPath: "inset(0 0 100% 0)" }}
+            animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: [0.65, 0, 0.35, 1] }}
           >
             <Suspense fallback={<div className="flex items-center justify-center min-h-[60vh]"><div className="w-5 h-5 rounded-full" style={{ background: "var(--primary)" }} /></div>}>
               <Outlet />

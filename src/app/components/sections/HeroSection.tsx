@@ -159,7 +159,7 @@ export function HeroSection() {
       id="hero"
       ref={sectionRef}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: "transparent" }}
+      style={{ background: "transparent", minHeight: "100svh" }}
       onMouseMove={handleMouseMove}
     >
       {/* Dynamic Mouse Spotlight */}
@@ -169,26 +169,6 @@ export function HeroSection() {
           style={{ background: spotlightBackground }}
         />
       )}
-
-      {/* Subtle Purple Aurora Glow (desktop only for performance) */}
-      <div className="hidden md:block absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden">
-        <motion.div 
-          className="w-[60vw] h-[40vh] rounded-full blur-[120px]"
-          style={{ background: "var(--primary)", filter: "blur(120px)" }}
-          animate={{ opacity: [0.08, 0.14, 0.08], scale: [0.95, 1.05, 0.95] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </div>
-
-      {/* Grid Pattern Overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.05] z-0"
-        style={{
-          backgroundImage: "linear-gradient(rgba(124,108,244,0.55) 1px, transparent 1px), linear-gradient(90deg, rgba(124,108,244,0.55) 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-        }}
-        aria-hidden="true"
-      />
 
       {/* Main Content */}
       <div ref={contentRef} className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 w-full flex flex-col items-center justify-center flex-1 mt-16">
@@ -216,22 +196,27 @@ export function HeroSection() {
           <div className="relative mb-6">
             <motion.div
               className="absolute inset-0 z-0 blur-[40px] rounded-full"
-              style={{ background: "radial-gradient(circle, var(--primary) 0%, transparent 60%)", opacity: 0.16 }}
+              style={{ background: "radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 60%)" }}
             />
             <h1
               ref={nameRef}
               className="relative z-10 hero-name"
               style={{
                 fontFamily: "Space Grotesk",
-                fontSize: "clamp(2.5rem, 8vw, 6rem)",
-                lineHeight: 1.12,
-                letterSpacing: "-0.03em",
+                fontSize: "clamp(2.75rem, 9vw, 6rem)",
+                lineHeight: 1.08,
+                letterSpacing: "-0.035em",
                 fontWeight: 700,
               }}
             >
               <span ref={firstNameRef}>Abhishek</span>
               <span aria-hidden="true">&nbsp;</span>
-              <span ref={lastNameRef}>Adiga</span>
+              <span
+                ref={lastNameRef}
+                style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontWeight: 400, letterSpacing: "-0.02em" }}
+              >
+                Adiga
+              </span>
             </h1>
           </div>
 

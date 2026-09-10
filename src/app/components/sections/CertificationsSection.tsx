@@ -10,11 +10,10 @@ const listContainer = {
 };
 
 const listItem = {
-  hidden: { opacity: 0, y: 16, filter: "blur(6px)" },
+  hidden: { opacity: 0, y: 16 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
   },
 };
@@ -36,7 +35,13 @@ function CertRow({ cert }: { cert: typeof certifications[0] }) {
           whileHover={{ scale: 1.1, rotate: 5 }}
           transition={{ type: "spring", stiffness: 400, damping: 15 }}
         >
-          <span className="text-xl leading-none">{cert.icon || "🎓"}</span>
+          <span className="text-xl leading-none">
+            {cert.logo ? (
+              <img src={cert.logo} alt={cert.issuer} className="h-6 w-6 object-contain max-w-full" loading="lazy" />
+            ) : (
+              "🎓"
+            )}
+          </span>
         </motion.div>
         <div className="min-w-0 flex-1">
           <p className="text-sm font-semibold leading-snug truncate" style={{ color: "var(--foreground)", fontFamily: "Archivo" }}>
@@ -47,7 +52,7 @@ function CertRow({ cert }: { cert: typeof certifications[0] }) {
           </p>
         </div>
         <span
-          className="text-[11px] font-medium px-2.5 py-1 rounded-full border border-white/[0.08] bg-white/[0.03] whitespace-nowrap"
+          className="font-mono-label text-[11px] px-2.5 py-1 rounded-full border border-white/[0.08] bg-white/[0.03] whitespace-nowrap"
           style={{ color: "var(--foreground-secondary)" }}
         >
           {cert.date}
@@ -62,7 +67,6 @@ export function CertificationsSection() {
     <section id="certifications" className="py-24 sm:py-32 px-5 sm:px-6 relative">
       <div className="max-w-5xl mx-auto">
         <SectionHeading
-          eyebrow="Credentials"
           title="Certifications"
           description="Courses and certifications I've picked up along the way."
         />

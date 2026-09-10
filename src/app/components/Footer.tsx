@@ -6,7 +6,11 @@ export function Footer() {
   return (
     <footer
       className="py-10 px-6 mt-0"
-      style={{ borderTop: "1px solid rgba(255,255,255,0.06)", background: "var(--background)" }}
+      style={{
+        borderTop: "1px solid rgba(255,255,255,0.06)",
+        background: "var(--background)",
+        paddingBottom: "max(2.5rem, env(safe-area-inset-bottom))",
+      }}
     >
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <motion.div
@@ -47,7 +51,7 @@ export function Footer() {
           {[
             { icon: Github, href: "https://github.com/AbhishekAdiga05" },
             { icon: Linkedin, href: "https://www.linkedin.com/in/abhishek-adiga-1a37b232a/" },
-            { icon: Mail, href: "mailto:abhishekadiga2345@gmail.com" },
+            { icon: Mail, href: "mailto:abhivion.dev@gmail.com" },
           ].map(({ icon: Icon, href }, i) => (
             <Button
               key={i}

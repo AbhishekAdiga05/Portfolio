@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Command, ExternalLink, Github, Home, Layers3, Mail, MapPin, Moon, Search, User, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router";
@@ -156,7 +156,7 @@ export function CommandPalette() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[85] flex items-start justify-center pt-28 px-4"
-            style={{ background: "rgba(3,4,7,0.72)", backdropFilter: "blur(14px)" }}
+            style={{ background: "rgba(8,9,14,0.72)", backdropFilter: "blur(14px)" }}
             onMouseDown={(event) => {
               if (event.target === event.currentTarget) setOpen(false);
             }}
@@ -167,7 +167,7 @@ export function CommandPalette() {
               exit={{ opacity: 0, y: 8, scale: 0.98 }}
               transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
               className="w-full max-w-2xl overflow-hidden rounded-[24px]"
-              style={{ background: "rgba(10,12,20,0.96)", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "0 30px 100px rgba(0,0,0,0.62)", backdropFilter: "blur(20px)" }}
+              style={{ background: "rgba(15,17,25,0.96)", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "0 30px 100px rgba(0,0,0,0.62)", backdropFilter: "blur(20px)" }}
               role="dialog"
               aria-modal="true"
               aria-label="Command palette"

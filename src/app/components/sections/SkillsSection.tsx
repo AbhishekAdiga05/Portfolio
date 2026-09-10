@@ -1,5 +1,4 @@
 import { motion } from "motion/react";
-import { Code2, Layout, Server, Bot } from "lucide-react";
 import { skillCategories } from "../../../data/portfolio-data";
 import { SectionHeading } from "../ui/SectionHeading";
 import { usePrefersReducedMotion } from "../ui/ScrollReveal";
@@ -24,20 +23,12 @@ const getIconUrl = (tech: string) => {
     "LangChain": "https://cdn.simpleicons.org/langchain/ffffff",
     "OpenRouter": "https://cdn.simpleicons.org/openrouter/ffffff",
     "Docker": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg",
-    "AWS": "https://cdn.simpleicons.org/amazonaws/ffffff",
+    "AWS": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
     "Git": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg",
     "GitHub": "https://cdn.simpleicons.org/github/ffffff",
     "Postman": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg",
   };
   return map[tech] || null;
-};
-
-// Small lucide glyphs for each category header.
-const categoryIcons: Record<string, React.ReactNode> = {
-  Languages: <Code2 size={16} />,
-  Frontend: <Layout size={16} />,
-  Backend: <Server size={16} />,
-  "AI & DevOps": <Bot size={16} />,
 };
 
 // One accent hue per category — breaks up the all-purple monotone and makes
@@ -131,23 +122,16 @@ function CategoryPanel({ group, groupIndex }: { group: { label: string; skills: 
     >
       {/* Category header */}
       <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-2.5">
-          <span
-            className="w-8 h-8 rounded-lg flex items-center justify-center"
-            style={{
-              background: `${accent}1f`,
-              border: `1px solid ${accent}40`,
-              color: accent,
-            }}
-          >
-            {categoryIcons[group.label]}
+        <div className="flex items-center gap-4">
+          <span className="font-mono-label text-[11px] font-semibold" style={{ color: accent }}>
+            {String(groupIndex + 1).padStart(2, "0")}
           </span>
-          <h3 className="text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--foreground)", fontFamily: "Instrument Sans" }}>
+          <h3 className="text-sm font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--foreground)", fontFamily: "Instrument Sans" }}>
             {group.label}
           </h3>
         </div>
         <span
-          className="text-[11px] px-2.5 py-1 rounded-full font-medium whitespace-nowrap"
+          className="font-mono-label text-[10px] px-2.5 py-1 rounded-full whitespace-nowrap uppercase tracking-wider"
           style={{
             color: accent,
             background: `${accent}14`,
@@ -177,25 +161,11 @@ function CategoryPanel({ group, groupIndex }: { group: { label: string; skills: 
 export function SkillsSection() {
   return (
     <section id="skills" className="relative py-24 sm:py-32 px-5 sm:px-6 overflow-hidden">
-      {/* Animated background gradient (desktop only — large blur + infinite pulse on mobile) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{
-            opacity: [0.02, 0.05, 0.02],
-            scale: [1, 1.1, 1]
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full blur-[150px]"
-          style={{ background: "radial-gradient(circle, var(--primary), transparent 70%)" }}
-        />
-      </div>
-
       <div className="max-w-5xl mx-auto relative z-10">
         <div className="mb-16 sm:mb-20">
-          <SectionHeading
-            eyebrow="Skills"
-            title="Tech Stack"
-            description="Technologies I work with to build modern applications."
+<SectionHeading
+          title={<>Tech <span className="font-serif-accent">Stack</span></>}
+          description="Technologies I work with to build modern applications."
           />
         </div>
 

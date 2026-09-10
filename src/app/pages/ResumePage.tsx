@@ -1,4 +1,4 @@
-import { Download, Eye } from "lucide-react";
+﻿import { Download, Eye } from "lucide-react";
 import { personalInfo, aboutInfo, education, certifications, experiences, skillCategories, contactInfo } from "../../data/portfolio-data";
 import { ScrollReveal } from "../components/ui/ScrollReveal";
 import { Seo } from "../components/Seo";
@@ -19,7 +19,7 @@ export function ResumePage() {
             <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "var(--foreground-muted)" }}>Resume</span>
             <div className="w-5 h-[2px]" style={{ background: "rgba(124,108,244,0.45)" }} />
           </div>
-          <h1 className="mb-3" style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)" }}>My Resume</h1>
+          <h1 className="mb-3" style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)" }}>My <span className="font-serif-accent">Resume</span></h1>
           <p className="text-sm" style={{ color: "var(--foreground-secondary)" }}>Download or preview my resume below</p>
         </ScrollReveal>
 
@@ -53,7 +53,7 @@ export function ResumePage() {
         </ScrollReveal>
 
         <ScrollReveal delay={0.14} className="rounded-[24px] overflow-hidden">
-          <div className="rounded-[24px] overflow-hidden" style={{ background: "rgba(10,12,20,0.82)", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 32px 90px rgba(0,0,0,0.45)" }}>
+          <div className="rounded-[24px] overflow-hidden" style={{ background: "rgba(15,17,25,0.82)", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 32px 90px rgba(0,0,0,0.45)" }}>
             <div className="p-6 sm:p-8">
               <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 pb-6 mb-6" style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
                 <div>

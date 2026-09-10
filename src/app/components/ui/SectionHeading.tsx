@@ -4,8 +4,8 @@ import { usePrefersReducedMotion } from "./ScrollReveal";
 import { gsap, SplitText } from "../../lib/gsap";
 
 type SectionHeadingProps = {
-  eyebrow: string;
-  title: string;
+  eyebrow?: string;
+  title: React.ReactNode;
   description?: string;
   className?: string;
   showRule?: boolean;
@@ -63,14 +63,16 @@ export function SectionHeading({ eyebrow, title, description, className = "", sh
   if (prefersReducedMotion) {
     return (
       <div className={`mb-14 max-w-3xl ${className}`}>
-        <div className="mb-5">
-          <p className="text-[11px] font-semibold tracking-[0.2em] uppercase whitespace-nowrap" style={{ color: "var(--primary)" }}>
-            {eyebrow}
-          </p>
-        </div>
+        {eyebrow ? (
+          <div className="mb-5">
+            <p className="font-mono-label text-[11px] font-semibold uppercase tracking-[0.18em] whitespace-nowrap" style={{ color: "var(--primary)" }}>
+              {eyebrow}
+            </p>
+          </div>
+        ) : null}
         <h2
           className="mb-4 text-foreground"
-          style={{ fontSize: "clamp(2.25rem, 4.5vw, 3rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.1 }}
+          style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", fontWeight: 800, letterSpacing: "-0.035em", lineHeight: 1.05 }}
         >
           {title}
         </h2>
@@ -82,7 +84,7 @@ export function SectionHeading({ eyebrow, title, description, className = "", sh
           />
         )}
         {description ? (
-          <p className="max-w-2xl text-foreground-secondary text-lg font-normal leading-[1.7]">
+          <p className="max-w-2xl text-foreground-secondary text-base sm:text-lg font-normal leading-[1.7] text-balance">
             {description}
           </p>
         ) : null}
@@ -98,15 +100,17 @@ export function SectionHeading({ eyebrow, title, description, className = "", sh
       whileInView="visible"
       viewport={{ once: true, amount: 0.3, margin: "-60px" }}
     >
-      <motion.div variants={line} className="mb-5">
-        <p className="text-[11px] font-semibold tracking-[0.2em] uppercase whitespace-nowrap" style={{ color: "var(--primary)" }}>
-          {eyebrow}
-        </p>
-      </motion.div>
+      {eyebrow ? (
+        <motion.div variants={line} className="mb-5">
+          <p className="font-mono-label text-[11px] font-semibold uppercase tracking-[0.18em] whitespace-nowrap" style={{ color: "var(--primary)" }}>
+            {eyebrow}
+          </p>
+        </motion.div>
+      ) : null}
       <h2
         ref={titleRef}
         className="mb-4 text-foreground"
-        style={{ fontSize: "clamp(2.25rem, 4.5vw, 3rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.1 }}
+        style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", fontWeight: 800, letterSpacing: "-0.035em", lineHeight: 1.05 }}
       >
         {title}
       </h2>
@@ -119,7 +123,7 @@ export function SectionHeading({ eyebrow, title, description, className = "", sh
         />
       )}
       {description ? (
-        <motion.p variants={line} className="max-w-2xl text-foreground-secondary text-lg font-normal leading-[1.7]">
+        <motion.p variants={line} className="max-w-2xl text-foreground-secondary text-base sm:text-lg font-normal leading-[1.7] text-balance">
           {description}
         </motion.p>
       ) : null}

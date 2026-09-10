@@ -219,8 +219,7 @@ export function GitHubContributionsSection() {
     <section className="py-24 sm:py-32 px-5 sm:px-6 relative" aria-label="GitHub contributions">
       <div className="max-w-6xl mx-auto">
         <SectionHeading
-          eyebrow="Open Source"
-          title="GitHub Contributions"
+          title="Contributions"
           description="Real activity from the last 12 months — pulled live from GitHub, nothing hardcoded."
         />
 

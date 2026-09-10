@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import { motion, animate, useInView } from "motion/react";
-import { Hammer, FolderGit2, Code2 } from "lucide-react";
+import { Hammer, FolderGit2, Code2, Award } from "lucide-react";
 import { highlights } from "../../../data/portfolio-data";
 import { usePrefersReducedMotion } from "../ui/ScrollReveal";
 import { gsap } from "../../lib/gsap";
@@ -9,6 +9,7 @@ const statIcons: Record<string, React.ReactNode> = {
   "Years Building": <Hammer size={15} />,
   "Projects Shipped": <FolderGit2 size={15} />,
   "LeetCode Problems": <Code2 size={15} />,
+  Certifications: <Award size={15} />,
 };
 
 const container = {
@@ -85,7 +86,7 @@ export function StatsBand() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3, margin: "-40px" }}
-          className="relative grid grid-cols-2 md:grid-cols-3 gap-px overflow-hidden rounded-3xl"
+          className="relative grid grid-cols-2 md:grid-cols-4 gap-px overflow-hidden rounded-3xl"
           style={{
             background: "rgba(255,255,255,0.04)",
             border: "1px solid rgba(255,255,255,0.08)",
@@ -109,7 +110,7 @@ export function StatsBand() {
               key={stat.label}
               variants={item}
               className="relative flex flex-col items-center justify-center gap-1.5 py-8 sm:py-10 px-4 text-center"
-              style={{ background: "rgba(3,4,7,0.4)" }}
+              style={{ background: "rgba(8,9,14,0.4)" }}
             >
               <div className="flex items-center gap-1.5 mb-1.5" style={{ color: "var(--primary)" }}>
                 {statIcons[stat.label]}
@@ -120,9 +121,9 @@ export function StatsBand() {
               <p
                 className="font-bold"
                 style={{
-                  fontFamily: "Archivo",
+                  fontFamily: "var(--font-mono)",
                   fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
-                  letterSpacing: "-0.03em",
+                  letterSpacing: "-0.02em",
                   background: "linear-gradient(120deg, var(--primary), var(--accent-secondary))",
                   WebkitBackgroundClip: "text",
                   backgroundClip: "text",
