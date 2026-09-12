@@ -57,7 +57,7 @@ function EditorialRow({ p, i }: { p: (typeof featuredProjects)[0]; i: number }) 
           {p.title}
         </h3>
 
-        <p className="text-base font-medium" style={{ color: "var(--accent-secondary)" }}>
+        <p className="text-base font-medium" style={{ color: "var(--primary)" }}>
           {p.subtitle}
         </p>
 
@@ -110,7 +110,7 @@ export function FeaturedProjectsSection() {
             to="/projects"
             iconRight
             icon={<ArrowRight size={16} />}
-            className="hidden sm:flex"
+            className="self-start sm:self-auto"
           >
             View All Projects
           </Button>
@@ -120,17 +120,6 @@ export function FeaturedProjectsSection() {
           {showcase.map((p, i) => (
             <EditorialRow key={p.title} p={p} i={i} />
           ))}
-        </div>
-
-        <div className="mt-12 flex justify-center sm:hidden">
-          <Button
-            variant="secondary"
-            to="/projects"
-            iconRight
-            icon={<ArrowRight size={16} />}
-          >
-            View All Projects
-          </Button>
         </div>
       </div>
     </section>

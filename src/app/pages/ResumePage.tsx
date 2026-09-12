@@ -58,7 +58,7 @@ export function ResumePage() {
               <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 pb-6 mb-6" style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
                 <div>
                   <h2 className="mb-2" style={{ fontSize: "2rem" }}>{personalInfo.firstName} {personalInfo.lastName}</h2>
-                  <p className="text-sm" style={{ color: "var(--accent-secondary)", fontWeight: 600 }}>{personalInfo.role}</p>
+                  <p className="text-sm" style={{ color: "var(--primary)", fontWeight: 600 }}>{personalInfo.role}</p>
                   <div className="flex flex-wrap gap-x-4 gap-y-2 mt-4 text-xs" style={{ color: "var(--foreground-muted)" }}>
                     <span>{contactInfo.email}</span>
                     <span>{contactInfo.github.replace("https://", "")}</span>

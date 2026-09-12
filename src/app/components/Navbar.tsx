@@ -20,7 +20,7 @@ const SCROLL_OFFSET = 96;
 function scrollToSection(id: string): boolean {
   const el = document.getElementById(id);
   if (el) {
-    const y = el.getBoundingClientRect().top + window.scrollY - 96;
+    const y = el.getBoundingClientRect().top + window.scrollY - SCROLL_OFFSET;
     window.scrollTo({ top: y, behavior: "smooth" });
     return true;
   }
@@ -46,7 +46,7 @@ function scrollToSectionAfterNav(id: string) {
 
 // One rAF-throttled scroll listener powers both the scrolled state and the active
 // section, so the navbar only pays a single (cheap, throttled) pass per scroll event.
-function useScrollSpy(ids: string[], enabled: boolean, onScroll: (scrollY: number) => void) {
+export function useScrollSpy(ids: string[], enabled: boolean, onScroll: (scrollY: number) => void) {
   const [activeId, setActiveId] = useState(ids[0]);
 
   useEffect(() => {

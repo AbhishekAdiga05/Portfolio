@@ -1,5 +1,7 @@
-import { motion } from "motion/react";
-import { skillCategories } from "../../../data/portfolio-data";
+import { motion, AnimatePresence } from "motion/react";
+import { useMemo, useState } from "react";
+import { ExternalLink, X } from "lucide-react";
+import { skillCategories, featuredProjects, otherProjects } from "../../../data/portfolio-data";
 import { SectionHeading } from "../ui/SectionHeading";
 import { usePrefersReducedMotion } from "../ui/ScrollReveal";
 
@@ -41,13 +43,31 @@ const categoryAccents: Record<string, string> = {
 };
 
 // A single "2D box" tile — flat face with a solid bottom edge (box thickness),
-// a top highlight, and a soft 3D tilt + glow on hover.
-function TechBox({ tech, index, accent, className = "" }: { tech: string; index: number; accent: string; className?: string }) {
+// a top highlight, and a soft 3D tilt + glow on hover. Clickable: tapping a tile
+// selects it and reveals which projects actually use that technology.
+function TechBox({
+  tech,
+  index,
+  accent,
+  className = "",
+  selected,
+  onSelect,
+}: {
+  tech: string;
+  index: number;
+  accent: string;
+  className?: string;
+  selected: boolean;
+  onSelect: (tech: string) => void;
+}) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const iconUrl = getIconUrl(tech);
 
   return (
-    <motion.div
+    <motion.button
+      type="button"
+      aria-pressed={selected}
+      onClick={() => onSelect(tech)}
       initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
       whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
@@ -69,14 +89,18 @@ function TechBox({ tech, index, accent, className = "" }: { tech: string; index:
         transformPerspective: 700,
         background: "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015))",
         border: "1px solid rgba(255,255,255,0.09)",
-        boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.08), 0 3px 0 rgba(0,0,0,0.45), 0 8px 18px rgba(0,0,0,0.25)",
+        boxShadow: selected
+          ? `inset 0 1px 0 rgba(255,255,255,0.1), 0 3px 0 ${accent}80, 0 10px 26px ${accent}40`
+          : "inset 0 1px 0 rgba(255,255,255,0.08), 0 3px 0 rgba(0,0,0,0.45), 0 8px 18px rgba(0,0,0,0.25)",
+        cursor: "pointer",
       }}
-      className={`group relative flex flex-col items-center justify-center gap-2 h-[104px] rounded-2xl cursor-default overflow-hidden ${className}`}
+      className={`group relative flex flex-col items-center justify-center gap-2 h-[104px] rounded-2xl overflow-hidden text-left ${className}`}
     >
-      {/* Top highlight line that fades in on hover */}
+      {/* Top highlight line that shows on hover or when selected */}
       <span
-        className="absolute inset-x-3 top-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+        className={`absolute inset-x-3 top-0 h-px transition-opacity duration-300 pointer-events-none ${
+          selected ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+        }`}
         style={{ background: `linear-gradient(90deg, transparent, ${accent}, transparent)` }}
         aria-hidden="true"
       />
@@ -94,16 +118,36 @@ function TechBox({ tech, index, accent, className = "" }: { tech: string; index:
 
       {/* Label */}
       <span
-        className="relative z-10 text-[11px] sm:text-xs font-medium leading-tight text-center px-1"
-        style={{ color: "var(--foreground-secondary)" }}
+        className={`relative z-10 text-[11px] sm:text-xs font-medium leading-tight text-center px-1 transition-colors`}
+        style={{ color: selected ? "var(--foreground)" : "var(--foreground-secondary)" }}
       >
         {tech}
       </span>
-    </motion.div>
+
+      {/* Selection affordance — a small corner tick */}
+      <span
+        className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full transition-all duration-300"
+        style={{
+          background: selected ? accent : "transparent",
+          boxShadow: selected ? `0 0 8px ${accent}` : "none",
+        }}
+        aria-hidden="true"
+      />
+    </motion.button>
   );
 }
 
-function CategoryPanel({ group, groupIndex }: { group: { label: string; skills: string[] }; groupIndex: number }) {
+function CategoryPanel({
+  group,
+  groupIndex,
+  selected,
+  onSelect,
+}: {
+  group: { label: string; skills: string[] };
+  groupIndex: number;
+  selected: string | null;
+  onSelect: (tech: string) => void;
+}) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const accent = categoryAccents[group.label] ?? "var(--primary)";
 
@@ -150,6 +194,8 @@ function CategoryPanel({ group, groupIndex }: { group: { label: string; skills: 
             tech={tech}
             index={techIndex}
             accent={accent}
+            selected={selected === tech}
+            onSelect={onSelect}
             className="flex-none w-[104px] snap-start sm:w-auto sm:flex-none sm:snap-none"
           />
         ))}
@@ -159,6 +205,24 @@ function CategoryPanel({ group, groupIndex }: { group: { label: string; skills: 
 }
 
 export function SkillsSection() {
+  const [selected, setSelected] = useState<string | null>(null);
+
+  // Build a lookup from a technology → the projects that actually use it, so a
+  // selected tile can show proof ("NexPrice & NeonChat" etc.) instead of a bare claim.
+  const techProjects = useMemo(() => {
+    const map = new Map<string, { title: string; live: string }[]>();
+    const add = (p: (typeof featuredProjects)[0]) =>
+      p.tags.forEach((t) => {
+        const entry = { title: p.title, live: p.live };
+        map.set(t, [...(map.get(t) ?? []), entry]);
+      });
+    featuredProjects.forEach(add);
+    otherProjects.forEach(add);
+    return map;
+  }, []);
+
+  const selectedProjects = selected ? techProjects.get(selected) ?? [] : [];
+
   return (
     <section id="skills" className="relative py-24 sm:py-32 px-5 sm:px-6 overflow-hidden">
       <div className="max-w-5xl mx-auto relative z-10">
@@ -171,9 +235,87 @@ export function SkillsSection() {
 
         <div className="grid md:grid-cols-2 gap-5 sm:gap-6">
           {skillCategories.map((group, groupIndex) => (
-            <CategoryPanel key={group.label} group={group} groupIndex={groupIndex} />
+            <CategoryPanel
+              key={group.label}
+              group={group}
+              groupIndex={groupIndex}
+              selected={selected}
+              onSelect={(tech) => setSelected((prev) => (prev === tech ? null : tech))}
+            />
           ))}
         </div>
+
+        {/* Provenance strip — appears under the grid when a tile is selected */}
+        <AnimatePresence mode="wait">
+          {selected && (
+            <motion.div
+              key={selected}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-6 rounded-3xl border p-6 sm:p-7"
+              style={{
+                background: "linear-gradient(160deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008))",
+                borderColor: "rgba(255,255,255,0.08)",
+              }}
+            >
+              <div className="flex items-center justify-between gap-4 mb-4">
+                <p className="font-mono-label text-[11px] uppercase tracking-[0.18em]" style={{ color: "var(--primary)" }}>
+                  {selected}
+                  <span className="ml-3 text-[10px] tracking-[0.14em]" style={{ color: "var(--foreground-muted)" }}>
+                    {selectedProjects.length > 0
+                      ? `used in ${selectedProjects.length} project${selectedProjects.length === 1 ? "" : "s"}`
+                      : "used everywhere across projects"}
+                  </span>
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setSelected(null)}
+                  className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-200"
+                  style={{ color: "var(--foreground-muted)", border: "1px solid rgba(255,255,255,0.08)" }}
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--foreground)")}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--foreground-muted)")}
+                  aria-label={`Clear ${selected} selection`}
+                >
+                  <X size={14} />
+                </button>
+              </div>
+
+              {selectedProjects.length > 0 ? (
+                <div className="flex flex-wrap gap-2">
+                  {selectedProjects.map((p) => (
+                    <a
+                      key={p.title}
+                      href={p.live}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="group inline-flex items-center gap-2 px-3.5 h-9 rounded-full text-[13px] font-medium transition-colors duration-200"
+                      style={{ background: "rgba(255,255,255,0.035)", color: "var(--foreground-secondary)", border: "1px solid rgba(255,255,255,0.09)" }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.color = "var(--foreground)";
+                        (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,108,244,0.5)";
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.color = "var(--foreground-secondary)";
+                        (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.09)";
+                      }}
+                    >
+                      {p.title}
+                      <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200" style={{ color: "var(--primary)" }}>
+                        <ExternalLink size={12} />
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm leading-[1.7]" style={{ color: "var(--foreground-secondary)" }}>
+                  A foundational tool in my workflow — used across coursework, open source, and production projects.
+                </p>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );

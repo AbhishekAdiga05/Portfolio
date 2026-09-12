@@ -124,10 +124,7 @@ export function StatsBand() {
                   fontFamily: "var(--font-mono)",
                   fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
                   letterSpacing: "-0.02em",
-                  background: "linear-gradient(120deg, var(--primary), var(--accent-secondary))",
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                  color: "transparent",
+                  color: "var(--foreground)",
                 }}
               >
                 <StatCounter value={stat.value} suffix={stat.suffix} />

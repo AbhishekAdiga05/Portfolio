@@ -41,7 +41,7 @@ function ProjectModal({ project, onClose }: { project: typeof featuredProjects[0
         </div>
 
         <div className="p-6">
-          <p className="text-xs font-medium mb-2" style={{ color: "var(--accent-secondary)" }}>{project.subtitle}</p>
+          <p className="text-xs font-medium mb-2" style={{ color: "var(--primary)" }}>{project.subtitle}</p>
           <h2 className="mb-4" style={{ fontSize: "2rem" }}>{project.title}</h2>
           <p className="text-[15px] mb-6" style={{ color: "var(--foreground-secondary)", lineHeight: 1.7 }}>{project.description}</p>
 
@@ -103,7 +103,7 @@ function ProjectCard({ p, i, onClick }: { p: typeof featuredProjects[0]; i: numb
         </div>
 
         <div className="p-5 flex flex-col flex-1">
-          <p className="text-xs font-medium mb-2" style={{ color: "var(--accent-secondary)" }}>{p.subtitle}</p>
+          <p className="text-xs font-medium mb-2" style={{ color: "var(--primary)" }}>{p.subtitle}</p>
           <h3 className="mb-3" style={{ fontSize: "1.375rem" }}>{p.title}</h3>
           <p className="text-[15px] mb-4 flex-1" style={{ color: "var(--foreground-secondary)", lineHeight: 1.7 }}>{p.description}</p>
 

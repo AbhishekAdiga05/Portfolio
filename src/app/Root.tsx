@@ -1,8 +1,9 @@
 import { Outlet, useLocation } from "react-router";
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useSpring, useTransform } from "motion/react";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
+import { CustomCursor } from "./components/CustomCursor";
 import { usePrefersReducedMotion } from "./components/ui/ScrollReveal";
 
 export function Root() {
@@ -11,10 +12,33 @@ export function Root() {
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 28, restDelta: 0.001 });
 
-  // Parallax drift on the signature monogram — it rides up gently as the page
-  // scrolls, as if painted on glass behind the content. Zero on reduced motion.
-  const monogramY = useTransform(scrollYProgress, [0, 1], ["0%", prefersReducedMotion ? "0%" : "-28%"]);
-  const monogramRotate = useTransform(scrollYProgress, [0, 1], [0, prefersReducedMotion ? 0 : -4]);
+  // The monogram parallax descends and rotates with the scroll position, but that
+  // re-writes a huge composited layer every scroll frame. Fine on a mouse; on mobile
+  // the fixed background + film grain already tax the GPU, so the monogram stays put.
+  const [desktopMotion, setDesktopMotion] = useState(false);
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setDesktopMotion(false);
+      return;
+    }
+    const mq = window.matchMedia("(min-width: 768px) and (pointer: fine)");
+    const update = () => setDesktopMotion(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, [prefersReducedMotion]);
+
+  // The monogram double-click stamp — a little ink-pulse easter egg. Each press
+  // re-triggers the keyframed pulse via a counter key; harmless, low-cost, off by default.
+  const [stampCount, setStampCount] = useState(0);
+  const stampRuns = stampCount > 0;
+
+  // Scroll-linked drift on the signature monogram — it rides up as the page
+  // scrolls, like paint on glass. Parallax only on desktop: on mobile this layer
+  // (fixed background + film grain) is already the heaviest composite, so the
+  // monogram stays static there instead of forcing a re-composite each frame.
+  const monogramY = useTransform(scrollYProgress, [0, 1], ["0%", desktopMotion ? "-28%" : "0%"]);
+  const monogramRotate = useTransform(scrollYProgress, [0, 1], [0, desktopMotion ? -4 : 0]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -66,7 +90,9 @@ export function Root() {
           }}
         />
 
-        {/* Giant serif monogram — its resolution appears only at the corner, like a print signature */}
+        {/* Giant serif monogram — its resolution appears only at the corner, like a print signature.
+            Outer layer: scroll parallax (desktop only). Inner layer: the ink-stamp pulse
+            that fires on click — a tiny signature easter egg. */}
         <motion.div
           className="absolute -right-[3vw] -bottom-[9vw]"
           style={{
@@ -81,7 +107,23 @@ export function Root() {
             rotate: monogramRotate,
           }}
         >
-          A.
+          <motion.div
+            key={stampCount}
+            initial={false}
+            animate={
+              stampRuns
+                ? { scale: [1, 1.18, 0.96, 1.04, 1], rotate: prefersReducedMotion ? 0 : [0, -2, 1.5, -1, 0] }
+                : { scale: 1, rotate: 0 }
+            }
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            style={{ cursor: "pointer", transformOrigin: "50% 70%" }}
+            onClick={() => setStampCount((c) => c + 1)}
+            role="button"
+            tabIndex={-1}
+            aria-hidden="true"
+          >
+            A.
+          </motion.div>
         </motion.div>
 
         {/* Vignette — keeps the edges sinking into black */}
@@ -125,6 +167,8 @@ export function Root() {
         </AnimatePresence>
         <Footer />
       </div>
+
+      <CustomCursor />
     </div>
   );
 }

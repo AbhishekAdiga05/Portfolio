@@ -230,7 +230,7 @@ export function HeroSection() {
                 exit={{ y: -20, opacity: 0 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 className="text-2xl sm:text-3xl font-medium"
-                style={{ color: "var(--accent-secondary)", letterSpacing: "-0.01em" }}
+                style={{ color: "var(--primary)", letterSpacing: "-0.01em" }}
               >
                 {roles[roleIndex]}
               </motion.p>
