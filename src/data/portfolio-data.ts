@@ -203,7 +203,7 @@ export const otherProjects = [
   subtitle: "AI-Powered Documentation Agent",
   description:
     "Analyzes source code and generates README files, API docs, docstrings, and code walkthroughs across multiple languages.",
-  image: "/images/docpilot.webp",
+  image: "/images/docpilot.png",
   category: "AI",
   tags: [
     "Python",
@@ -223,7 +223,7 @@ export const otherProjects = [
   subtitle: "Premium Restaurant Web Experience",
   description:
     "A restaurant website with categorized menus, photo galleries, customer reviews, and a reservation system.",
-  image: "/images/tandoor-kitchen.webp",
+  image: "/images/tandoor-kitchen.png",
   category: "Full-Stack",
   tags: [
     "Next.js",

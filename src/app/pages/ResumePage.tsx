@@ -25,7 +25,7 @@ export function ResumePage() {
 
         <ScrollReveal delay={0.08} className="flex justify-center gap-3 mb-8">
           <a
-            href="/resume.pdf"
+            href="/Resume.pdf"
             download
             className="h-11 px-6 rounded-full flex items-center gap-2 text-sm font-semibold transition-colors duration-200"
             style={{ background: "var(--button-primary)", color: "var(--button-primary-text)" }}
@@ -35,7 +35,7 @@ export function ResumePage() {
             <Download size={15} strokeWidth={2.5} /> Download PDF
           </a>
           <a
-            href="/resume.pdf"
+            href="/Resume.pdf"
             target="_blank"
             className="h-11 px-6 rounded-full flex items-center gap-2 text-sm font-medium transition-colors duration-200"
             style={{ background: "transparent", color: "var(--foreground-secondary)", border: "1px solid rgba(255,255,255,0.12)" }}
@@ -161,7 +161,7 @@ export function ResumePage() {
             </div>
 
             <div className="flex items-center justify-center py-4" style={{ background: "rgba(255,255,255,0.02)", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-              <p className="text-xs" style={{ color: "var(--foreground-muted)" }}>Place your resume PDF at <code className="px-1.5 py-0.5 rounded" style={{ background: "rgba(255,255,255,0.04)" }}>/public/resume.pdf</code> to enable downloads</p>
+              <p className="text-xs" style={{ color: "var(--foreground-muted)" }}>Place your resume PDF at <code className="px-1.5 py-0.5 rounded" style={{ background: "rgba(255,255,255,0.04)" }}>/public/Resume.pdf</code> to enable downloads</p>
             </div>
           </div>
         </ScrollReveal>
