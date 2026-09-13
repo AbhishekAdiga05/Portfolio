@@ -140,7 +140,7 @@ export function ResumePage() {
                   <section>
                     <h3 className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--foreground-muted)", fontFamily: "Instrument Sans" }}>Projects</h3>
                     {[
-                      { name: "NeonChat", tech: "Next.js · TypeScript · Prisma · PostgreSQL · OpenRouter", desc: "Chat interface connecting to 100+ language models with real-time streaming and GitHub authentication." },
+                      { name: "Aither", tech: "Next.js · TypeScript · Prisma · PostgreSQL · OpenRouter", desc: "Chat interface connecting to 100+ language models with real-time streaming and GitHub authentication." },
                       { name: "CodeForge", tech: "Next.js · React · Prisma · PostgreSQL · Judge0 API · Clerk", desc: "Coding practice platform with online code execution, progress tracking, and analytics." },
                       { name: "SafeCast", tech: "MERN · Cybersecurity · Docker · IoT", desc: "Encrypted e-voting system with threat detection, DDoS protection, and real-time monitoring." },
                     ].map((p) => (

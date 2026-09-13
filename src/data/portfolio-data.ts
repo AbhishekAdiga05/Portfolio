@@ -95,11 +95,11 @@ export const featuredProjects = [
   number: "03",
 },
   {
-    title: "NeonChat",
+    title: "Aither",
     subtitle: "AI-Powered Multi-Model Chat Platform",
     description:
       "A chat interface that connects to over 100 language models with real-time streaming, GitHub login, and conversation history.",
-    image: "/images/neonchat.webp",
+    image: "/images/Aither.png",
     category: "AI",
     tags: [
       "Next.js",

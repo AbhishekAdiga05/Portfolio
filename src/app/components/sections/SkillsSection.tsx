@@ -208,7 +208,7 @@ export function SkillsSection() {
   const [selected, setSelected] = useState<string | null>(null);
 
   // Build a lookup from a technology → the projects that actually use it, so a
-  // selected tile can show proof ("NexPrice & NeonChat" etc.) instead of a bare claim.
+  // selected tile can show proof ("NexPrice & Aither" etc.) instead of a bare claim.
   const techProjects = useMemo(() => {
     const map = new Map<string, { title: string; live: string }[]>();
     const add = (p: (typeof featuredProjects)[0]) =>

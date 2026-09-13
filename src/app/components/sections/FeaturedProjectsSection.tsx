@@ -5,9 +5,9 @@ import { SectionHeading } from "../ui/SectionHeading";
 import { Button } from "../ui/Button";
 
 // Showcase picks — the three strongest, most representative projects.
-// Syncverse (AI collab), NeonChat (AI chat) and NexPrice (full-stack) show
+// Syncverse (AI collab), Aither (AI chat) and NexPrice (full-stack) show
 // the range without repeating similar builds.
-const SHOWCASE = ["Syncverse", "NeonChat", "NexPrice"] as const;
+const SHOWCASE = ["Syncverse", "Aither", "NexPrice"] as const;
 
 function EditorialRow({ p, i }: { p: (typeof featuredProjects)[0]; i: number }) {
   const reversed = i % 2 === 1;
