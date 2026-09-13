@@ -365,78 +365,83 @@ export type BlogPost = {
 // Posts render on the dedicated /blog page; the home page only teases the latest one.
 export const blogPosts: BlogPost[] = [
   {
-    slug: "i-use-ai-a-lot",
-    title: "I Use AI a Lot. Here’s What I’ve Learned.",
+    slug: "4-ways-i-use-ai-every-day",
+    title: "4 Ways I Use AI Every Day as a Student Developer",
     excerpt:
-      "I use AI almost every day for coding, learning, projects, and debugging. Here are a few things I've learned from using it so often.",
+      "AI has become part of my daily workflow. Here are four simple ways I use it for learning, coding, and building projects without depending on it for everything.",
     date: "Aug 10, 2026",
     readTime: "3 min read",
     tags: ["AI", "Learning", "Development"],
     content: [
       {
         type: "paragraph",
-        text: "I use AI almost every day.",
+        text: "I use AI almost every day. Sometimes for coding, sometimes for learning, and sometimes when I'm completely stuck on a project.",
       },
       {
         type: "paragraph",
-        text: "I use it while coding, learning new technologies, working on college projects, fixing bugs, or sometimes when I have no idea where to start.",
+        text: "Over time, I've figured out a few ways of using it that actually help me. These are the four things I follow most often.",
       },
       {
         type: "paragraph",
-        text: "When I first started using AI, I mostly used it for answers. If my code didn't work, I would paste it into ChatGPT and ask for a fix.",
+        text: "**1. I try first, then ask AI**",
       },
       {
         type: "paragraph",
-        text: "It was quick, but I noticed something.",
+        text: "I don't immediately ask AI for the solution. I try solving the problem myself first. If I get stuck, I ask AI to help me understand where my approach is going wrong.",
       },
       {
         type: "paragraph",
-        text: "**Getting the answer doesn't mean I learned anything.**",
+        text: "For me, **\"Why doesn't my approach work?\"** is much more useful than **\"Give me the code.\"**",
       },
       {
         type: "paragraph",
-        text: "So now I usually try things myself first. When I get stuck, I ask AI what went wrong or why my approach is not working.",
+        text: "**2. I ask AI to explain, not just generate**",
       },
       {
         type: "paragraph",
-        text: "I find questions like **\"Why doesn't my approach work?\"** more useful than **\"Give me the correct code.\"**",
+        text: "When I'm learning something new, I ask AI to explain concepts in simple terms, give me examples, or compare two things I don't understand.",
       },
       {
         type: "paragraph",
-        text: "I also check the documentation instead of trusting every answer. This is especially important when working with libraries or frameworks because things can change.",
+        text: "It helps me get a starting point without spending hours feeling lost.",
       },
       {
         type: "paragraph",
-        text: "Another thing I use AI for is finding tools.",
+        text: "**3. I use AI to learn faster**",
       },
       {
         type: "paragraph",
-        text: "Before building something from scratch, I check if there is already an API, library, or tool that can save me some work.",
+        text: "I use AI to break down documentation, create practice questions, explain error messages, and help me understand unfamiliar code.",
       },
       {
         type: "paragraph",
-        text: "Sometimes I try new tools just because they look useful, and later realise I didn't need them.",
+        text: "But I don't blindly trust the answer. If something is important, especially with a library or framework, I check the official documentation too.",
       },
       {
         type: "paragraph",
-        text: "So now I ask myself:",
+        text: "**4. I use AI before building from scratch**",
       },
       {
         type: "paragraph",
-        text: "**\"Do I really need this?\"**",
+        text: "Before building a feature, I check if there is already an API, library, or tool that can save me time.",
       },
       {
         type: "paragraph",
-        text: "If it helps, I use it. Otherwise, I move on.",
+        text: "But I don't use every tool AI recommends. I first ask myself, **\"Do I actually need this?\"** Sometimes the simplest solution is the better one.",
       },
       {
         type: "paragraph",
-        text: "I don't want AI to do the learning for me. I still write the code, read the docs, make mistakes, and fix them.",
+        text: "AI has become a useful part of my daily workflow, but I don't want it to replace my thinking.",
       },
       {
         type: "paragraph",
-        text: "AI just helps me get started when I don't know where to start.",
+        text: "I still want to make mistakes, read the docs, write the code, and understand what I'm building.",
+      },
+      {
+        type: "paragraph",
+        text: "**Use AI to learn faster, not to stop learning.**",
       },
     ],
   },
 ];
+
