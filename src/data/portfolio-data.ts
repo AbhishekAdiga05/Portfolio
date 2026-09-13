@@ -365,83 +365,103 @@ export type BlogPost = {
 // Posts render on the dedicated /blog page; the home page only teases the latest one.
 export const blogPosts: BlogPost[] = [
   {
-    slug: "4-ways-i-use-ai-every-day",
-    title: "4 Ways I Use AI Every Day as a Student Developer",
+    slug: "how-ai-changed-the-way-i-learn-and-build",
+    title: "How AI Changed the Way I Learn and Build",
     excerpt:
-      "AI has become part of my daily workflow. Here are four simple ways I use it for learning, coding, and building projects without depending on it for everything.",
+      "Some of the most useful things I’ve learned as a student didn’t come from a classroom. AI has helped me explore those things, experiment more, and learn by actually building.",
     date: "Aug 10, 2026",
     readTime: "3 min read",
     tags: ["AI", "Learning", "Development"],
     content: [
       {
         type: "paragraph",
-        text: "I use AI almost every day. Sometimes for coding, sometimes for learning, and sometimes when I'm completely stuck on a project.",
+        text: "As a college student, I've realized that there is a lot more to learn than what we get taught in class.",
       },
       {
         type: "paragraph",
-        text: "Over time, I've figured out a few ways of using it that actually help me. These are the four things I follow most often.",
+        text: "New frameworks, tools, technologies, projects, interviews, and even basic things like how to actually build something. Most of the time, we have to explore these things ourselves.",
       },
       {
         type: "paragraph",
-        text: "**1. I try first, then ask AI**",
+        text: "That's where AI has become a big part of my daily workflow.",
       },
       {
         type: "paragraph",
-        text: "I don't immediately ask AI for the solution. I try solving the problem myself first. If I get stuck, I ask AI to help me understand where my approach is going wrong.",
+        text: "I use it almost every day while coding, learning something new, debugging projects, exploring ideas, or simply when I don't know where to start.",
       },
       {
         type: "paragraph",
-        text: "For me, **\"Why doesn't my approach work?\"** is much more useful than **\"Give me the code.\"**",
+        text: "When I first started using AI, I mostly used it to get answers. If my code didn't work, I would paste it into ChatGPT and ask for a fix.",
       },
       {
         type: "paragraph",
-        text: "**2. I ask AI to explain, not just generate**",
+        text: "It was fast, but I slowly realized that getting the answer doesn't always mean I learned something.",
       },
       {
         type: "paragraph",
-        text: "When I'm learning something new, I ask AI to explain concepts in simple terms, give me examples, or compare two things I don't understand.",
+        text: "So I changed how I use it.",
       },
       {
         type: "paragraph",
-        text: "It helps me get a starting point without spending hours feeling lost.",
+        text: "**1. I use AI when I don't know where to start**",
       },
       {
         type: "paragraph",
-        text: "**3. I use AI to learn faster**",
+        text: "Sometimes I want to learn a new technology or build something I've never built before. Instead of spending hours feeling lost, I use AI to understand the basics and figure out what I should explore first.",
       },
       {
         type: "paragraph",
-        text: "I use AI to break down documentation, create practice questions, explain error messages, and help me understand unfamiliar code.",
+        text: "**2. I use AI to understand things college doesn't cover**",
       },
       {
         type: "paragraph",
-        text: "But I don't blindly trust the answer. If something is important, especially with a library or framework, I check the official documentation too.",
+        text: "There are many things I have learned outside my college syllabus — new tools, frameworks, APIs, deployment, AI, and different ways of building projects.",
       },
       {
         type: "paragraph",
-        text: "**4. I use AI before building from scratch**",
+        text: "AI makes it easier to ask questions whenever I'm curious and keep learning beyond what is taught in class.",
       },
       {
         type: "paragraph",
-        text: "Before building a feature, I check if there is already an API, library, or tool that can save me time.",
+        text: "**3. I try things myself, then use AI when I'm stuck**",
       },
       {
         type: "paragraph",
-        text: "But I don't use every tool AI recommends. I first ask myself, **\"Do I actually need this?\"** Sometimes the simplest solution is the better one.",
+        text: "I don't want AI to do everything for me. I usually try first, make mistakes, and then ask AI to explain what went wrong or why my approach isn't working.",
       },
       {
         type: "paragraph",
-        text: "AI has become a useful part of my daily workflow, but I don't want it to replace my thinking.",
+        text: "For me, **\"Why doesn't my approach work?\"** is much more useful than **\"Give me the correct code.\"**",
       },
       {
         type: "paragraph",
-        text: "I still want to make mistakes, read the docs, write the code, and understand what I'm building.",
+        text: "**4. I use AI to explore and experiment**",
       },
       {
         type: "paragraph",
-        text: "**Use AI to learn faster, not to stop learning.**",
+        text: "One of my favorite things about AI is that I can ask almost anything. I can explore a new tool, compare technologies, brainstorm a project, understand an error, or try an idea just because I'm curious.",
       },
-    ],
-  },
+      {
+        type: "paragraph",
+        text: "Not everything I try works. Sometimes I spend time on a tool and later realize I didn't need it. But that experimentation is also part of learning.",
+      },
+      {
+        type: "paragraph",
+        text: "I still check documentation, write my own code, test things, make mistakes, and figure things out myself. AI is just another tool in that process.",
+      },
+      {
+        type: "paragraph",
+        text: "For me, that's the biggest change.",
+      },
+      {
+        type: "paragraph",
+        text: "College gives me the foundation, but learning doesn't stop in the classroom. AI makes it much easier to explore things on my own and turn curiosity into something I can actually build.",
+      },
+      {
+        type: "paragraph",
+        text: "**I don't use AI to learn less. I use it to explore more.**",
+      }
+    ]
+  }
 ];
 
