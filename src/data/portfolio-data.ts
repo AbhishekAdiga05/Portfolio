@@ -110,7 +110,7 @@ export const featuredProjects = [
       "Tailwind CSS",
     ],
     github: "https://github.com/AbhishekAdiga05/NeonChat",
-    live: "https://aitherchat.netlify.app",
+    live: "https://aither-chat.vercel.app/",
     number: "01",
   },
   {
