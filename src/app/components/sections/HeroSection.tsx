@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useMotionTemplate } from "motion/react";
-import { ArrowRight, Download, ChevronDown } from "lucide-react";
-import { resumeLink } from "../../../data/portfolio-data";
+import { ArrowRight, User, ChevronDown } from "lucide-react";
 import { usePrefersReducedMotion } from "../ui/ScrollReveal";
 import { gsap, SplitText } from "../../lib/gsap";
 import { Button } from "../ui/Button";
@@ -239,8 +238,8 @@ export function HeroSection() {
 
           {/* 5. CTA Buttons */}
           <motion.div variants={itemVariants} className="flex flex-wrap justify-center items-center gap-4">
-            <Button variant="primary" href={resumeLink} target="_blank" rel="noreferrer" icon={<Download size={16} strokeWidth={2.5} />}>
-              Get Resume
+            <Button variant="primary" href="#about" icon={<User size={16} strokeWidth={2.5} />}>
+              About Me
             </Button>
             <Button variant="secondary" to="/projects" iconRight icon={<ArrowRight size={15} />}>
               View Projects

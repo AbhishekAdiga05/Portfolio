@@ -1,10 +1,11 @@
 ﻿import { useEffect, useRef } from "react";
 import { motion } from "motion/react";
-import { MapPin, Sparkles, Zap, Layers, Briefcase } from "lucide-react";
-import { personalInfo, aboutInfo } from "../../../data/portfolio-data";
+import { MapPin, Sparkles, Zap, Layers, Briefcase, Download } from "lucide-react";
+import { personalInfo, aboutInfo, resumeLink } from "../../../data/portfolio-data";
 import { usePrefersReducedMotion, useIsDesktop } from "../ui/ScrollReveal";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
 import { SectionHeading } from "../ui/SectionHeading";
+import { Button } from "../ui/Button";
 
 const container = {
   hidden: {},
@@ -192,6 +193,11 @@ export function AboutSection() {
                   </span>
                 </div>
               ))}
+            </div>
+            <div className="mt-6">
+              <Button variant="primary" href={resumeLink} target="_blank" rel="noreferrer" icon={<Download size={16} strokeWidth={2.5} />}>
+                View Resume
+              </Button>
             </div>
           </motion.div>
 

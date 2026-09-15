@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "./ui/Button";
+import { LeetCodeIcon } from "./ui/LeetCodeIcon";
 
 export function Footer() {
   return (
@@ -51,6 +52,7 @@ export function Footer() {
           {[
             { icon: Github, href: "https://github.com/AbhishekAdiga05" },
             { icon: Linkedin, href: "https://www.linkedin.com/in/abhishek-adiga-1a37b232a/" },
+            { icon: LeetCodeIcon, href: "https://leetcode.com/u/Abhishekadiga05/" },
             { icon: Mail, href: "mailto:abhivion.dev@gmail.com" },
           ].map(({ icon: Icon, href }, i) => (
             <Button
